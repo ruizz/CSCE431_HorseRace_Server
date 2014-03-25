@@ -44,7 +44,7 @@ var App = {
         },
 
         onCreateClick: function () {
-                // console.log('Clicked "Create A Game"');
+                // console.log('Clicked "Create a game"');
                 IO.socket.emit('hostCreateNewGame');
         },
     },

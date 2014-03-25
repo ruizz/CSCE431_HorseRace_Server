@@ -15,7 +15,9 @@ app.configure(function() {
 var server = http.createServer(app).listen(8080);
 var io = socketio.listen(server);
 
+// To not show trivial logs such as keepalives
 io.set('log level' ,1);
+
 io.sockets.on('connection', function (socket) {
 	console.log('server.js - io.sockets.on(), client connected');
 	game.initGame(io, socket);
