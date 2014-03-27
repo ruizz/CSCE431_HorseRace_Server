@@ -1,7 +1,6 @@
 var io;
 var gameSocket;
 var games = {};
-var gid = 0;
 
 exports.initGame = function(sio, socket){
     console.log('game.js - initGame Called');
@@ -20,24 +19,24 @@ exports.initGame = function(sio, socket){
 
 function createNewGame(gameName) {
     // TODO: Generating unique Game ID...
-    // Create a unique Socket.IO Room
-    // var _gid = ( Math.random() * 100000 ) | 0;
-    
-    var game = new Game(gid, gameName);
-    games[gid] = game;
+    if(gameName in games) { // gameName already exist
+        this.emit('showError', 'the same game name already exist..');
+    } else {
+        var game = new Game(gameName);
+        games[gameName] = game;
 
-    console.log('   Game ID:' + gid);
-    console.log('   Socket ID:' + this.id);
-    console.log('   Game Name: ' + gameName);
+        // console.log('   Game ID:' + gid);
+        console.log('   Socket ID:' + this.id);
+        console.log('   Game Name: ' + gameName);
 
-    console.log('   Num Games:' + Object.keys(games).length);
-    // this.emit('newGameCreated', {game: game, sid: this.id});
-    this.emit('updateGameList', games);
-    gid++;
+        console.log('   Num Games:' + Object.keys(games).length);
+        // this.emit('newGameCreated', {game: game, sid: this.id});
+        this.emit('updateGameList', games);
+        gid++;    
+    }
 }
 
-function Game(gid, gName) {
-    this.gid = gid;
+function Game(gName) {
     this.gameName = gName;
     this.turn = 0;
     this.timer = 0;
@@ -45,8 +44,8 @@ function Game(gid, gName) {
     // console.log(moves.length);
     // console.log(moves[0].length);
 
-    var row = moves.length;
-    var col = moves[0].length;
+    var row = this.moves.length;
+    var col = this.moves[0].length;
 
     // TODO: Generating rands moves for each turn
     for (var i = 0; i < row; i++){

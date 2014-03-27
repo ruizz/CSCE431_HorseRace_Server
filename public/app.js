@@ -9,13 +9,14 @@ var IO = {
         IO.socket.on('connected', App.onConnected);
         IO.socket.on('newGameCreated', IO.onNewGameCreated );
         IO.socket.on('updateGameList', IO.updateGameList );
+        IO.socket.on('showError', IO.showError );
     },
 
     // Set socket ID (session)
     onConnected : function() {
         // Cache a copy of the client's socket.IO session ID on the App
         App.sid = IO.socket.socket.sessionid;
-        console.log(data.message);
+        // console.log(data.message);
     },
 
     onNewGameCreated : function(data) { // data = {game: game, sid: this.id});
@@ -24,6 +25,11 @@ var IO = {
 
     updateGameList : function(data){ // data = games
         App.Game.updateGameList(data);
+    },
+
+    showError : function(data) {
+        Console.log('err: ' + data);
+        alert(data);
     }
 };
 
