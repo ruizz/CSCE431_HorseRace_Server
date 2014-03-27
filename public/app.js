@@ -7,13 +7,23 @@ var IO = {
 
     bindEvents : function() {
         IO.socket.on('connected', App.onConnected);
+        IO.socket.on('newGameCreated', IO.onNewGameCreated );
+        IO.socket.on('updateGameList', IO.updateGameList );
     },
 
-    // Get socket ID (session)
+    // Set socket ID (session)
     onConnected : function() {
         // Cache a copy of the client's socket.IO session ID on the App
         App.sid = IO.socket.socket.sessionid;
         console.log(data.message);
+    },
+
+    onNewGameCreated : function(data) { // data = {game: game, sid: this.id});
+        App.Game.gameInit(data);
+    },
+
+    updateGameList : function(data){ // data = games
+        App.Game.updateGameList(data);
     }
 };
 
@@ -24,28 +34,45 @@ var App = {
     round: 0,
 
     init : function() {
+        App.cacheElements();
         App.bindEvents();
     },
 
-    bindEvents: function() {
-        // App.$doc.on('click', '#btnCreateGame', App.Host.onCreateClick);
+    cacheElements : function() {
+        App.$doc = $(document);
     },
 
-    Host : {
+    bindEvents: function() {
+        App.$doc.on('click', '#btnCreateGame', App.Game.onCreateClick);
+    },
+
+    Game : {
         players: {},
         isNewGame : false,
         numPlayers : 0,
 
+        //
         gameInit: function (data){
             App.gid = data.gid;
             App.sid = data.sid;
-            App.role = 'Host';
-            App.numPlayers = 0;
         },
 
-        onCreateClick: function () {
-                // console.log('Clicked "Create a game"');
-                IO.socket.emit('hostCreateNewGame');
+        updateGameList: function(games) {
+            console.log('Num Games:' + Object.keys(games).length);
+            for (var key in games){
+                console.log('ccc: ' + games[key]['gameName']);
+            }
+            
+        },
+
+        onCreateClick: function() {
+                var gameName = $(txtCreateGame).val()
+                //TODO: check gameName is undefined
+
+                console.log('Game name: ' + gameName);
+                console.log('Clicked "Create a game"');
+
+                IO.socket.emit('createNewGame', gameName);
         },
     },
 
@@ -57,52 +84,3 @@ var App = {
 
 IO.init();
 App.init();
-
-// function Game() {
-// 	// this.id; coupon-code
-// 	this.turn = 0;
-// 	this.timer = 0;
-// 	this.moves = createArray(8,10);
-//     // console.log(this.moves.length);
-//     // console.log(this.moves[0].length);
-//     generateRandomNumbers();
-// }
-
-// Game.prototype.generateRandomNumbers = function() {
-//     var row = this.moves.length;
-//     var col = this.moves[0].length;
-
-//     for (var i = 0; i < row; i++){
-//         for (var j= 0; j < col; j++){
-//             this.moves[i][j] = 1;
-//         }
-//     }
-// };
-
-// How can I create a two dimensional array in JavaScript?
-// http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript
-// Usage: createArray(8, 10);
-// Game.prototype.createArray = function createArray(length) {
-function createArray(length) {
-    var arr = new Array(length || 0),
-        i = length;
-
-    if (arguments.length > 1) {
-        var args = Array.prototype.slice.call(arguments, 1);
-        while(i--) arr[length-1 - i] = createArray.apply(this, args);
-    }
-
-    return arr;
-}
-
-
-/*
-TODO:
-- int id
-- int turn
-- double multipliers[]
-- User users[]
-- int bats[]
-- double timer
-- moves[][][] // pre-generated moves of horses (by turn)
-*/
