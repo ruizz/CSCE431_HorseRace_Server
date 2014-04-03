@@ -9,6 +9,9 @@ var IO = {
         IO.socket.on('connected', App.onConnected);
         IO.socket.on('newGameCreated', IO.onNewGameCreated );
         IO.socket.on('updateGameList', IO.updateGameList );
+
+        //TODO
+        // IO.socket.on('gameJoined', IO.onGameJoined );
         IO.socket.on('showError', IO.showError );
     },
 
@@ -19,16 +22,16 @@ var IO = {
         // console.log(data.message);
     },
 
-    onNewGameCreated : function(data) { // data = {game: game, sid: this.id});
-        App.Game.gameInit(data);
+    onNewGameCreated : function(game) {
+        // App.Game.gameInit(data);
     },
 
-    updateGameList : function(data){ // data = games
-        App.Game.updateGameList(data);
+    updateGameList : function(games){ // data = games
+        App.Game.updateGameList(games);
     },
 
     showError : function(data) {
-        Console.log('err: ' + data);
+        console.log('err: ' + data);
         alert(data);
     }
 };
@@ -50,6 +53,7 @@ var App = {
 
     bindEvents: function() {
         App.$doc.on('click', '#btnCreateGame', App.Game.onCreateClick);
+        App.$doc.on('click', '#btnJoinGame', App.Game.onJoinClick);
     },
 
     Game : {
@@ -58,9 +62,13 @@ var App = {
         numPlayers : 0,
 
         //
-        gameInit: function (data){
+        gameInit: function (game){
             App.gid = data.gid;
-            App.sid = data.sid;
+        },
+
+        //TODO
+        gameJoin: function (data){
+
         },
 
         updateGameList: function(games) {
@@ -79,6 +87,16 @@ var App = {
                 console.log('Clicked "Create a game"');
 
                 IO.socket.emit('createNewGame', gameName);
+        },
+
+        onJoinClick: function() {
+                var gameName = $(txtJoinGame).val()
+                //TODO: check gameName is undefined
+
+                console.log('Game name: ' + gameName);
+                console.log('Clicked "Join a game"');
+
+                IO.socket.emit('joinGame', gameName);
         },
     },
 

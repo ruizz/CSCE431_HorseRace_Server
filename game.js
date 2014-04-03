@@ -2,6 +2,8 @@ var io;
 var gameSocket;
 var games = {};
 
+var globalVar = 0;
+
 exports.initGame = function(sio, socket){
     console.log('game.js - initGame Called');
     io = sio;
@@ -11,7 +13,7 @@ exports.initGame = function(sio, socket){
     // Host Events
     // TODO: Timer, round func
     gameSocket.on('createNewGame', createNewGame);
-    // gameSocket.on('hostRoomFull', hostPrepareGame);
+    gameSocket.on('joinGame', joinGame);
 
     // Player Events
     // TODO:
@@ -20,37 +22,54 @@ exports.initGame = function(sio, socket){
 function createNewGame(gameName) {
     // TODO: Generating unique Game ID...
     if(gameName in games) { // gameName already exist
-        this.emit('showError', 'the same game name already exist..');
+        gameSocket.emit('showError', 'the same game name already exist..');
     } else {
         var game = new Game(gameName);
         games[gameName] = game;
-
+        games[gameName][gameSocket.id] = gameSocket;
         // console.log('   Game ID:' + gid);
-        console.log('   Socket ID:' + this.id);
+        console.log('   Socket ID:' + gameSocket.id); // client
         console.log('   Game Name: ' + gameName);
-
         console.log('   Num Games:' + Object.keys(games).length);
-        // this.emit('newGameCreated', {game: game, sid: this.id});
-        this.emit('updateGameList', games);
-        gid++;    
+        
+        // For testing
+        console.log('   GlobalVar: ' + globalVar++);
+        gameSocket.emit('newGameCreated', JSON.stringify(game));
+        // this.emit('updateGameList', Object.keys(games));   
+    }
+}
+
+function joinGame(ganeName){
+    if(!(gameName in games)) { // gameName already exist
+        gameSocket.emit('showError', 'the game does not exist');
+    } else {
+        games[gameName][gameSocket.id] = gameSocket;
+        // console.log('   Game ID:' + gid);
+        console.log('   Socket ID:' + gameSocket.id);
+        console.log('   Game Name: ' + gameName);
+        console.log('   Users:');
+        for (var sid in games[gameName]){
+            console.log('        - ' + sid);
+        }
     }
 }
 
 function Game(gName) {
-    this.gameName = gName;
-    this.turn = 0;
-    this.timer = 0;
-    this.moves = createArray(8,10);
+    var gameName = gName;
+    var turn = 0;
+    var timer = 0;
+    var moves = createArray(8,10);
+    // this.players = [];
     // console.log(moves.length);
     // console.log(moves[0].length);
 
-    var row = this.moves.length;
-    var col = this.moves[0].length;
+    var row = moves.length;
+    var col = moves[0].length;
 
     // TODO: Generating rands moves for each turn
     for (var i = 0; i < row; i++){
         for (var j= 0; j < col; j++){
-            this.moves[i][j] = 1;
+            moves[i][j] = 1;
         }
     }
 }
