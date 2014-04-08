@@ -1,15 +1,25 @@
-// Variables
+// Socket variables
+var communicator;
+
+// Three.js variables
 var renderer, scene, loader, camera;
 var backgroundColor, ambientLight, pointLight;
 var board;
 var horseTween;
 var tileGeometry, horseGeometry;
 var container = document.getElementById('boardContainer');
+
 // ACTION!
-init();
+initSocket();
+initThree();
 render();
 
-function init() {
+function initSocket() {
+	communicator = new Communicator();
+	
+}
+
+function initThree() {
 	// Define renderer, scene, loader, and camera, and the board.
 	renderer = new THREE.WebGLRenderer({ antialias: true });
 	scene = new THREE.Scene();
