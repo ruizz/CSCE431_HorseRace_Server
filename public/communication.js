@@ -1,4 +1,3 @@
-
 // Client variables
 var gameId = 0;
 var socketId = "";

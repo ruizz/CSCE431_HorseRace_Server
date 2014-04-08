@@ -1,0 +1,127 @@
+/*Font Imports*/
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+@import url(http://fonts.googleapis.com/css?family=Raleway:300);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+/* All Elements */
+* {
+	/*Helps rid of some fullscreen issue.*/
+	/*http://stackoverflow.com/questions/10425310/three-js-full-screen-issue*/
+    overflow:hidden;
+    margin: 0px; padding: 0px; border: 0px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #555;
+    
+}
+
+/* Board Elements */
+canvas { 
+	width: 100%;
+	height: 100%;
+    
+}
+
+#boardContainer{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    
+} 
+
+/* Player Hud */
+#playerHud{
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    /*box-shadow: inset 0 0 100px rgba(6, 6, 6,0.5);*/
+    
+}
+
+h2{
+   font-family: 'Open Sans', sans-serif;
+   font-size: 2em;
+}
+
+#playerInfoList:not(#playerName){
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* opponentList */
+#opponentList{
+    position: absolute;
+    list-style: none;  
+    width: 100%;
+    height: 30%;
+    top: 1.5%;
+}
+
+#opponentList li{   
+    display:inline-block; 
+    padding:1.5%; 
+    padding-right: 0;
+}
+
+/* ::before pseudo element for the icons.*/
+#opponentList li::before {
+    display: inline-block;
+    width: 40px; height: 40px;
+    text-align: center;
+    vertical-align: middle;
+
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 1;
+
+    background-color: #5F9EA0;
+    color: #f2f2f2;
+
+    -webkit-font-smoothing: antialiased;
+    content:"P";
+}
+
+/* horseList */
+#horseList{
+    position: absolute;
+    top:auto; bottom: 0; left: 1%;
+    height: 27.5%;
+    width: 80%;
+    font-size:1.1em;    
+}
+    #horseList li{
+        display:inline-block;
+        padding-left: 1%;
+    }
+    #horseList li li{
+       padding:0;
+        display:block; 
+    }
+
+/* playerInfoList */
+
+#playerInfoList {
+    position: absolute;
+    top:auto; bottom: 5%; right: 2.5%;
+
+    width: 20%;
+    padding: 1.5%;
+    text-align: right;
+    list-style: none;
+    font-size: 1.5em; 
+}   
+#playerName{
+    font-size: 1.5em;
+}
+
+#playerMoney{
+    
+}
+
+/* colors */
+.gold{
+   color: #f1c40f;
+}
