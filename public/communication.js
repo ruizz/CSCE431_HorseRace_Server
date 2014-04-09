@@ -7,6 +7,9 @@ var players = {};
 var isNewGame = false;
 var numberOfPlayers = 0;
 
+// See game.js
+var game = new Game();
+
 // What is this?
 var Player = {
     hostId : '',
@@ -21,26 +24,35 @@ htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 // Binding events
 var ioSocket = io.connect();
 ioSocket.on('connected', onConnected);
-ioSocket.on('newGameCreated', onNewGameCreated );
-ioSocket.on('updateGameList', updateGameList );
-ioSocket.on('showError', showError );
+ioSocket.on('newGameCreated', onNewGameCreated);
+ioSocket.on('gameJoined', IO.onGameJoined);
+ioSocket.on('updateGameList', updateGameList);
+ioSocket.on('showError', showError);
 
-//TODO
-// ioSocket.on('gameJoined', IO.onGameJoined );
-
-// TODO: Consider moving all of these functions somewhere else.
-
-//TODO
-function onConnected() {
+function onConnected(data) {
     // Cache a copy of the client's socket.IO session ID on the socketId = ioSocket.socket.sessionid;
     // console.log(data.message);
+    socketId = IO.socket.socket.sessionid;
+    console.log("socketId: " + socketId);
+    console.log("msg: " + data.message);
     
 }
 
-//TODO
-function onNewGameCreated(game) {
-        // Game.gameInit(data);
+function onNewGameCreated(data) {
+    game.initializeGame(data);
         
+}
+
+function updateGameList(games) {
+    console.log('Num Games:' + Object.keys(games).length);
+    console.log('games: ' + games);
+    
+}
+
+function onGameJoined(data){
+    // Merge from 'Scratch' note:
+    // This function wasn't defined.
+    // App.joinGame(data);
 }
 
 function showError(data) {
@@ -49,34 +61,17 @@ function showError(data) {
     
 }
 
-function gameInit(game){
-    gameId = data.gameId;
-    
-}
-
-//TODO
-function gameJoin(data){
-
-}
-
-function updateGameList(games) {
-    console.log('Num Games:' + Object.keys(games).length);
-    for (var key in games) {
-        console.log('ccc: ' + games[key]['gameName']);
-    
-    }
-    
-}
-
 function onCreateClick() {
         var gameName = $(txtCreateGame).val()
-        //TODO: check gameName is undefined
-
-        console.log('Game name: ' + gameName);
-        console.log('Clicked "Create a game"');
-
-        ioSocket.emit('createNewGame', gameName);
-        
+        // Checks if gameName is undefined
+        if(gameName != "") {
+            console.log('Game name: ' + gameName);
+            console.log('Clicked "Create a game"');
+            IO.socket.emit('createNewGame', gameName);
+            
+        } else
+            IO.showError("err: No gamename");
+            
 }
 
 function onJoinClick() {
