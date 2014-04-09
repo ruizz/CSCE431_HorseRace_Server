@@ -25,14 +25,14 @@ htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 var ioSocket = io.connect();
 ioSocket.on('connected', onConnected);
 ioSocket.on('newGameCreated', onNewGameCreated);
-ioSocket.on('gameJoined', IO.onGameJoined);
+ioSocket.on('gameJoined', onGameJoined);
 ioSocket.on('updateGameList', updateGameList);
 ioSocket.on('showError', showError);
 
 function onConnected(data) {
     // Cache a copy of the client's socket.IO session ID on the socketId = ioSocket.socket.sessionid;
     // console.log(data.message);
-    socketId = IO.socket.socket.sessionid;
+    socketId = ioSocket.sessionid;
     console.log("socketId: " + socketId);
     console.log("msg: " + data.message);
     
@@ -67,7 +67,7 @@ function onCreateClick() {
         if(gameName != "") {
             console.log('Game name: ' + gameName);
             console.log('Clicked "Create a game"');
-            IO.socket.emit('createNewGame', gameName);
+            ioSocket.emit('createNewGame', gameName);
             
         } else
             IO.showError("err: No gamename");
