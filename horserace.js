@@ -30,20 +30,20 @@ function createNewGame(gameName) {
         // console.log(games[gameName].players);
         if ( !(socket.id in (games[gameName].players) )) {
             games[gameName].players[socket.id] = 1; // User Identifier
-            
+
             // For debug
             console.log('   Socket ID:' + socket.id);
             console.log('   Game Name: ' + gameName);
             console.log('   players:' + Object.keys(games[gameName].players));
             console.log('   Num Games:' + Object.keys(games).length);
-            
+
             socket.emit('newGameCreated', {
                 gameName: gameName,
                 players: Object.keys(games[gameName].players)
                 // players: Object.keys(games[gameName].players)
             });
 
-            this.emit('updateGameList', Object.keys(games));       
+            this.emit('updateGameList', Object.keys(games));
         } else {
             socket.emit('showError', 'User already joined the game');
         }
@@ -58,12 +58,12 @@ function joinGame(gameName){
     if (gameName in games)  {
         if ( !(socket.id in (games[gameName].players) )) {
             games[gameName].players[socket.id] = 1; // User Identifier
-            
+
             socket.emit('gameJoined', {
                 gameName: gameName,
                 players: Object.keys(games[gameName].players)
             });
-        
+
             //TODO: notify other users that this user joined the game.
             for (sid in Object.keys(games[gameName].players) ) {
                 console.log(sid);
@@ -115,6 +115,85 @@ function createArray(length) {
     return arr;
 }
 
+// START GAME BOARD GENERATION CODE
+// generate moves function returns an 8x10 2D array with all the moves for the horses
+function generateMoves() {
+    var _ = require('underscore');
+
+    // Generate the first second and third place horses
+    var shuffle = shuffleArray(_.range(8));
+    var first = shuffle[0];
+    var second = shuffle[1];
+    var third = shuffle[2];
+
+    var firstPlaceMoves = createPlaceMoves(1);
+    var secondPlaceMoves = createPlaceMoves(2);
+    var thirdPlaceMoves = createPlaceMoves(3);
+
+    // Create moves array
+    var moves = Array()
+    for (i in _.range(8)) {
+        moves.push(createNonPlaceMoves(3))
+    }
+
+    // Swap in winning horse moves
+    moves[first] = firstPlaceMoves;
+    moves[second] = secondPlaceMoves;
+    moves[third] = thirdPlaceMoves;
+
+    // console.log(moves);
+    return moves;
+}
+
+// Create round move arrays for place positions 1st, 2nd, 3rd
+function createPlaceMoves(place) {
+    var placeOffset = 7+place;
+    var moves = Array.apply(null, new Array(placeOffset)).map(Number.prototype.valueOf,0);
+    while (arraySum(moves) != 20) {
+        for (i in moves) {
+            moves[i] = Math.floor((Math.random()*4));
+        }
+        // I can add more rules here
+        // i.e. at least 2 zero move rounds
+    }
+    while(moves.length != 10) {
+        moves.push(0);
+    }
+    return moves;
+}
+
+// Create round move array for the rest, should not be at end on 10th round
+function createNonPlaceMoves(place) {
+    var moves = Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
+    while (arraySum(moves) != 19) {
+        for (i in moves) {
+            moves[i] = Math.floor((Math.random()*4));
+        }
+    }
+    return moves;
+}
+
+// Returns the sum of values in the array
+function arraySum(arr) {
+    var total = 0;
+    for (i in arr) {
+        total += arr[i]
+    }
+    return total;
+}
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+// END GAME BOARD GENERATION CODE
+
 
 // TODO: Routing - Lobby, Game
 // app.get('/', function (req, res) {
@@ -134,7 +213,7 @@ function createArray(length) {
 //      users[user_count] = {};
 //      users[user_count].name = username;
 //      // send client a list of users.
-//      io.socket.emit('update_users', users); 
+//      io.socket.emit('update_users', users);
 //      user_count++;
 //  });
 
@@ -175,7 +254,7 @@ function createArray(length) {
 //      // socket.broadcast.to('room1').emit('updatechat', 'SERVER', username + ' has connected to this room');
 //      socket.emit('updaterooms', rooms, 0);
 //  });
-    
+
 //  socket.on('createRoom', function(roomname) {
 //      socket.roomname = roomname;
 //      rooms.push(roomname);
@@ -187,7 +266,7 @@ function createArray(length) {
 //      // we tell the client to execute 'updatechat' with 2 parameters
 //      io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 //  });
-    
+
 //  socket.on('switchRoom', function(newroom){
 //      socket.leave(socket.room);
 //      socket.join(newroom);
@@ -199,7 +278,7 @@ function createArray(length) {
 //      socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
 //      socket.emit('updaterooms', rooms, newroom);
 //  });
-    
+
 
 //  // when the user disconnects.. perform this
 //  socket.on('disconnect', function(){
