@@ -7,9 +7,11 @@ var express = require('express'),
     horserace = require('./horserace');
 
 // Default path configuration
-app.configure(function() {
+// app.configure was removed from express as of version 4.0.0. Just use app.use directly now.
+// https://github.com/visionmedia/express/blob/master/History.md
+//app.configure(function() {
     app.use(express.static(path.join(__dirname,'public')));
-});
+//});
 
 // Create server    
 var server = http.createServer(app).listen(8080);
