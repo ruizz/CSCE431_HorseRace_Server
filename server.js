@@ -2,7 +2,7 @@
 var express = require('express'),
     app = express(),
     http = require('http'),
-    socketio = require('socket.io')
+    socketio = require('socket.io'),
     path = require('path'),
     horserace = require('./horserace');
 
