@@ -19,7 +19,9 @@ exports.init = function(sio, client_socket){
     // TODO:
 };
 
-function createNewGame(gameName) {
+function createNewGame(data) {
+    var gameName = data.gameName;
+    var userID = data.userID;
     // TODO: Generating unique Game ID...
     if(gameName in games) { // gameName already exist
         socket.emit('showError', 'the same game name already exist..');
@@ -28,13 +30,14 @@ function createNewGame(gameName) {
         games[gameName] = game;
 
         // console.log(games[gameName].players);
-        if ( !(socket.id in (games[gameName].players) )) {
-            games[gameName].players[socket.id] = 1; // User Identifier
+        if ( !(userID in (games[gameName].players) )) {
+            games[gameName].players[userID] = socket.id; // User Identifier
 
             // For debug
+            console.log('   User ID:' + userID);
             console.log('   Socket ID:' + socket.id);
             console.log('   Game Name: ' + gameName);
-            console.log('   players:' + Object.keys(games[gameName].players));
+            console.log('   Players:' + Object.keys(games[gameName].players));
             console.log('   Num Games:' + Object.keys(games).length);
 
             socket.emit('newGameCreated', {
@@ -50,24 +53,31 @@ function createNewGame(gameName) {
     }
 }
 
-function joinGame(gameName){
+function joinGame(data){
+    var gameName = data.gameName;
+    var userID = data.userID;
+
     console.log("joinGame - horserace.js");
-    console.log("gname: " + Object.keys(games));
-    console.log("namelist: " + Object.keys(games));
+    // console.log("   Game name: " + gameName);
+    // console.log("   Player: " + userID);
 
     if (gameName in games)  {
-        if ( !(socket.id in (games[gameName].players) )) {
-            games[gameName].players[socket.id] = 1; // User Identifier
+        if ( !(userID in (games[gameName].players) )) {
+            games[gameName].players[userID] = socket.id;
 
             socket.emit('gameJoined', {
                 gameName: gameName,
                 players: Object.keys(games[gameName].players)
             });
 
-            //TODO: notify other users that this user joined the game.
-            for (sid in Object.keys(games[gameName].players) ) {
-                console.log(sid);
+            // console.log(Object.keys(games[gameName].players));
+            // TODO: notify other users that this user joined the game.
+            for (uid in games[gameName].players ) {
+                console.log(uid);
+                console.log(games[gameName].players[uid]);
+                socket.socket(games[gameName].players[uid]).emit('updateUserList', Object.keys(games[gameName].players));
             }
+            
         } else {
             socket.emit('showError', 'User already joined the game');
         }
@@ -75,29 +85,16 @@ function joinGame(gameName){
     } else {
         socket.emit('showError', 'Game does not exist');
     }
-
-    console.log(Object.keys(games[gameName].players));
 }
 
 function Game(gName) {
     this.gameName = gName;
     this.round = 0;
     this.timer = 0;
-    this.moves = createArray(8,10);
     this.started = false;
     this.players = {};
-    // console.log(moves.length);
-    // console.log(moves[0].length);
+    this.moves = generateMoves();
 
-    var row = this.moves.length;
-    var col = this.moves[0].length;
-
-    // TODO: Generating rands moves for each turn
-    for (var i = 0; i < row; i++){
-        for (var j= 0; j < col; j++){
-            this.moves[i][j] = 1;
-        }
-    }
 }
 
 // How can I create a two dimensional array in JavaScript?

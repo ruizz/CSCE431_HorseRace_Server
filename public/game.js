@@ -10,3 +10,8 @@ Game.prototype.initializeGame = function(data) {
     console.log("players: " + data.players);
     
 }
+
+Game.prototype.updatePlayerList = function(data) {
+    players = data;
+    
+}
