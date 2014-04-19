@@ -10,6 +10,7 @@ var Game = function(gName) {
     this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = this.generateMoves();
     this.enactRound();
+    this.gameOver();
 }
 
 module.exports = Game;
@@ -33,6 +34,14 @@ Game.prototype.enactRound = function() {
 
     //emit positions
     //
+
+}
+
+//Called once all rounds have finished
+Game.prototype.gameOver = function() {
+    //Clean up anything that needs it
+
+    //Disperse Winnings to players
 
 }
 
