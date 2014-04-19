@@ -1,5 +1,6 @@
 // Game class object
-var Game = function(gName) {
+var Game = function(gName, sio) {
+    this.io = sio;
     this.gameName = gName;
     this.players = {};
     this.round = 0;
@@ -15,13 +16,13 @@ var Game = function(gName) {
 
 module.exports = Game;
 
-
 Game.prototype.enactRound = function() {
     //start timer
     // console.log(this.gameTime);
     this.setTimer(this.getNewTime(),10000);
     this.intervalID = setInterval(this.checkTimer.bind(this),2000);
 
+    
     //get Bet
     //getBet()
 
@@ -70,6 +71,7 @@ Game.prototype.setTimer = function(currentTime, duration) {
 Game.prototype.checkTimer = function() {
     //console.log("Check");
     if ((new Date).getTime() >= this.targetTime) {
+        //this.io.sockets.in(this.gameName).emit('showError', 'damn it!');
         // console.log("Timer went off!");
         clearInterval(this.intervalID);
         this.moveHorses();

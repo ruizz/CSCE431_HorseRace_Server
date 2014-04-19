@@ -35,7 +35,7 @@ function onCreateClick() {
         ioSocket.emit('createNewGame', { gameName: gameName, userID: userID });
         
     } else
-        IO.showError("err: No gamename");
+        showError("err: No gamename");
             
 }
 
@@ -45,7 +45,7 @@ function onJoinClick(nameOfGame) {
     if(gameName != "") {
         ioSocket.emit('joinGame', { gameName: gameName, userID: userID });
     } else {
-        IO.showError("err: No gamename");
+        showError("err: No gamename");
     }
         
 }
