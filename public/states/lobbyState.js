@@ -11,6 +11,10 @@ LobbyState.prototype.enter = function(stateMachine) {
  
     // Show HUD
     hudDivs.show({lobby: ""});
+
+
+    console.log("aaa");
+    ioSocket.emit('requestGameList');
 }
 
 // Any update logic would go here. You can also switch
