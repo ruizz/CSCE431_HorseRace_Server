@@ -3,10 +3,8 @@ var Board = function() {
 		ambient: THEME_CLAIREDELUNE[2],
 		color: THEME_CLAIREDELUNE[2],
 		specular: THEME_NEUTRAL[2],
-		shininess: 8,
+		shininess: 10,
 		shading: THREE.SmoothShading,
-		transparent: true,
-		opacity: 1 // Should be 1. Lower for debugging purposes.
 		
 	});
 	
@@ -14,10 +12,8 @@ var Board = function() {
 		ambient: THEME_WINTER_RASPBERRY[1],
 		color: THEME_WINTER_RASPBERRY[1],
 		specular: THEME_NEUTRAL[2],
-		shininess: 5,
+		shininess: 10,
 		shading: THREE.SmoothShading,
-		transparent: true,
-		opacity: 1 // Should be 1. Lower for debugging purposes.
 		
 	});
 	
@@ -57,19 +53,21 @@ Board.prototype.createTileMeshes = function() {
 }
 
 Board.prototype.createHorseMeshes = function() {
-        var colorIndex = 0;
 	for (var z = -SETTINGS_BOARD_MIN_MAX_Z; z <= SETTINGS_BOARD_MIN_MAX_Z; z += SETTINGS_BOARD_TILE_SPACING) {
                 
-		var horse = new THREE.Mesh(horseGeometry, new THREE.MeshPhongMaterial({
-                                                                    ambient: THEME_INFLUENZA[1],
-                                                                    color: SETTINGS_HORSE_COLOR[colorIndex++],
-                                                                    specular: THEME_NEUTRAL[2],
-                                                                    shininess: 5,
-                                                                    shading: THREE.SmoothShading,
-                                                                    transparent: true,
-                                                                    opacity: 1 // Should be 1. Lower for debugging purposes.
+		var horse = new THREE.Mesh(
+			horseGeometry, 
+			new THREE.MeshPhongMaterial({
+                ambient: SETTINGS_HORSE_COLOR[this.horseMeshes.length],
+                color: SETTINGS_HORSE_COLOR[this.horseMeshes.length],
+                specular: THEME_NEUTRAL[2],
+                shininess: 10,
+                shading: THREE.SmoothShading,
+                transparent: true,
+                opacity: 1 // Should be 1. Lower for debugging purposes.
 
-                                                            }));
+        	})
+		);
                 
 		horse.scale.set(1, 1, 1);
 		horse.rotation.y = 90 * SETTINGS_DEG_TO_RAD;

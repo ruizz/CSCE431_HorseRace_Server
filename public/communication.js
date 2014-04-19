@@ -19,7 +19,8 @@ ioSocket.on('showError', showError);
 
 function onSignInClick() {
     userID = $(txtUserID).val();
-
+    gameStateMachine.changeState(new LobbyState());
+    
 }
 
 function onCreateClick() {
