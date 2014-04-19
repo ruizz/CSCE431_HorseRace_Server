@@ -68,7 +68,9 @@ exports.init = function(sio, socket){
                 });
 
                 socket.broadcast.to(gameName).emit('updatePlayerList', games[gameName].players);
-
+                
+                sendGameList();
+                
             } else {
                 socket.emit('showError', 'User already joined the game');
             }
@@ -80,10 +82,9 @@ exports.init = function(sio, socket){
 
     // Exit the current game
     socket.on('exitGame', function (data) {
-        if (Object.keys(games[gameName].players).length <= 0) {
+        delete games[data.gameName].players[data.userID];
+        if (Object.keys(games[data.gameName].players).length <= 0) {
             delete games[data.gameName];
-        } else {
-            delete games[data.gameName].players[data.userID];
-        }  
+        }
     });
 };

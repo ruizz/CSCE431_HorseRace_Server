@@ -20,5 +20,4 @@ GameJoinedState.prototype.update = function(stateMachine) {
 GameJoinedState.prototype.exit = function() {
     // Probably free resources or something before you leave.
     hudDivs.hideAll();
-    
 }
