@@ -1,86 +1,87 @@
-// Client variables
-var gameId = 0;
-var socketId = "";
-var role = "";
-var round = 0;
-var players = {};
-var isNewGame = false;
-var numberOfPlayers = 0;
-
 // See game.js
 var game = new Game();
-
-// What is this?
-var Player = {
-    hostId : '',
-    userId : '',
-}
+var userID = "";
 
 // Assigning functions to html buttons
 var htmlDocument = $(document);
+htmlDocument.on('click', '#btnCreateGame', onSignInClick);
 htmlDocument.on('click', '#btnCreateGame', onCreateClick);
 htmlDocument.on('click', '#btnJoinGame', onJoinClick);
+htmlDocument.on('click', '#btnExitGame', onExitClick);
 
 // Binding events
 var ioSocket = io.connect();
 ioSocket.on('connected', onConnected);
-ioSocket.on('newGameCreated', onNewGameCreated);
 ioSocket.on('gameJoined', onGameJoined);
 ioSocket.on('updateGameList', updateGameList);
+ioSocket.on('updatePlayerList', updatePlayerList);
 ioSocket.on('showError', showError);
 
-function onConnected(data) {
-    // Cache a copy of the client's socket.IO session ID on the socketId = ioSocket.socket.sessionid;
-    // console.log(data.message);
-    socketId = ioSocket.sessionid;
-    console.log("socketId: " + socketId);
-    console.log("msg: " + data.message);
-    
+function onSignInClick() {
+    userID = $(txtUserID).val();
+
 }
 
-function onNewGameCreated(data) {
-    game.initializeGame(data);
+function onCreateClick() {
+    var gameName = $(txtCreateGame).val();    
+
+    // Checks if gameName is undefined
+    if(gameName != "") {
+        console.log('Game name: ' + gameName);
+        console.log('User ID: ' + userID);
+        console.log('Clicked "Create a game"');
+        ioSocket.emit('createNewGame', { gameName: gameName, userID: userID });
+        
+    } else
+        IO.showError("err: No gamename");
+            
+}
+
+function onJoinClick() {
+    var gameName = $(txtJoinGame).val()
+    
+    if(gameName != "") {
+        console.log('Game name: ' + gameName);
+        console.log('Clicked "Join a game"');
+        ioSocket.emit('joinGame', { gameName: gameName, userID: userID });
+    } else {
+        IO.showError("err: No gamename");
+    }
         
 }
 
-function updateGameList(games) {
-    console.log('Num Games:' + Object.keys(games).length);
-    console.log('games: ' + games);
+function onExitClick() {
+    ioSocket.emit('exitGame', {gameName: game.name, userID: userID});
+
+}
+
+function onConnected(data) {
+    console.log("   msg: " + data.message);
     
 }
 
 function onGameJoined(data){
-    // Merge from 'Scratch' note:
-    // This function wasn't defined.
-    // App.joinGame(data);
+    game.initializeGame(data);
+
 }
+
+// This function is called after creating a new game
+// data has two variables gameName & users(number of users in the game)
+function updateGameList(data) {
+    for (i in data){
+        console.log(data[i].gameName + ", " + data[i].users); 
+    }
+    
+}
+
+function updatePlayerList(players) {
+    game.updatePlayerList(players);
+    
+}
+
 
 function showError(data) {
     console.log('err: ' + data);
     alert(data);
     
-}
-
-function onCreateClick() {
-        var gameName = $(txtCreateGame).val()
-        // Checks if gameName is undefined
-        if(gameName != "") {
-            console.log('Game name: ' + gameName);
-            console.log('Clicked "Create a game"');
-            ioSocket.emit('createNewGame', gameName);
-            
-        } else
-            IO.showError("err: No gamename");
-            
-}
-
-function onJoinClick() {
-        var gameName = $(txtJoinGame).val()
-        //TODO: check gameName is undefined
-
-        console.log('Game name: ' + gameName);
-        console.log('Clicked "Join a game"');
-
-        ioSocket.emit('joinGame', gameName);
-        
 }
