@@ -19,7 +19,7 @@ ioSocket.on('updateGameList', updateGameList);
 ioSocket.on('updatePlayerList', updatePlayerList);
 ioSocket.on('animateBoard', onAnimateBoard);
 ioSocket.on('updateHorsePositions', updateHorsePositions);
-ioSocket.on('startGameNotify', startGameNotify);
+ioSocket.on('startGame', startGameNotify);
 ioSocket.on('showError', showError);
 
 function onSignInClick() {
@@ -75,6 +75,7 @@ function onAnimateBoard() {
 }
 
 function startGameNotify() {
+    console.log("Start Game");
     gameStateMachine.changeState(new BetState());
 }
 

@@ -10,8 +10,6 @@ var Game = function(gName, sio) {
     this.started = false;
     this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = this.generateMoves();
-    this.io.sockets.in(this.gameName).emit('startGameNotify');
-    this.enactRound();
 }
 
 module.exports = Game;
@@ -36,6 +34,8 @@ Game.prototype.enactRound = function() {
     //
 
 }
+
+//exports.enactRound = Game.prototype.enactRound;
 
 //Called once all rounds have finished
 Game.prototype.gameOver = function() {

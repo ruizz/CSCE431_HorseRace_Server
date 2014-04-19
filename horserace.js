@@ -30,7 +30,7 @@ exports.init = function(sio, socket){
                     gameName: gameName,
                     players: games[gameName].players
                 });
-
+                // var numPlayers = 
                 sendGameList();
                 
             } else {
@@ -48,6 +48,8 @@ exports.init = function(sio, socket){
             gameList.push({gameName: gameName, users: Object.keys(games[gameName].players).length})
         }
         io.sockets.emit('updateGameList', gameList);
+        // console.log("Users in gameList.users: " + gameList[0].users);
+        // return gameList[0].users;
     };
 
     // Join a game
@@ -69,7 +71,16 @@ exports.init = function(sio, socket){
 
                 socket.broadcast.to(gameName).emit('updatePlayerList', games[gameName].players);
                 
+                //var numPlayers = 
                 sendGameList();
+                //console.log('Number of players: ' + numPlayers);
+                if (Object.keys(games[gameName].players).length > 1)//numPlayers > 1)
+                {
+                    console.log("starting the Game");
+                    io.sockets.in(gameName).emit('startGame');
+                    //game.enactRound();
+                    games[gameName].enactRound();
+                }
                 
             } else {
                 socket.emit('showError', 'User already joined the game');
