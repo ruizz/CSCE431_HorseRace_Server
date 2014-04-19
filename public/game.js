@@ -1,17 +1,21 @@
 // Game class object
 var Game = function() {
     this.name = "";
-    this.round = 0;   
     this.players = new Array();
 }
 
 Game.prototype.initializeGame = function(data) {
-    console.log("gameName: " + data.gameName);
-    console.log("players: " + data.players);
+	name = data.gameName;
+	players = data.players;
+
+}
+
+Game.prototype.updatePlayerList = function(_players) {
+    players = _players;
     
 }
 
-Game.prototype.updatePlayerList = function(data) {
-    players = data;
+Game.prototype.removePlayer = function(player) {
+    players = _players;
     
 }
