@@ -1,8 +1,3 @@
-/*Font Imports*/
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
-@import url(http://fonts.googleapis.com/css?family=Raleway:300);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
-
 /* All Elements */
 * {
 	/*Helps rid of some fullscreen issue.*/
@@ -19,6 +14,18 @@
 canvas { 
 	width: 100%;
 	height: 100%;
+    
+}
+
+.hudOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.textAlignCenter {
+    text-align: center;
     
 }
 
@@ -41,13 +48,12 @@ canvas {
     
 }
 
-h2{
-   font-family: 'Open Sans', sans-serif;
+h2 {
    font-size: 2em;
 }
 
 #playerInfoList:not(#playerName){
-    font-family: 'Open Sans', sans-serif;
+    
 }
 
 /* opponentList */
@@ -72,7 +78,6 @@ h2{
     text-align: center;
     vertical-align: middle;
 
-    font-family: 'Raleway', sans-serif;
     font-weight: 300;
     font-size: 40px;
     line-height: 1;

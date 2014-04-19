@@ -1,17 +1,28 @@
 // Variables
+// Three.js essential items.
 var renderer, scene, loader, camera;
-var backgroundColor, ambientLight, pointLight;
-var board;
-var horseTween;
+var ambientLight, pointLight;
 var tileGeometry, horseGeometry;
+
+// Three is drawn in this div
 var container = document.getElementById('boardContainer');
+
+// Game board, complete with tiles and horses
+var board;
+
+// All of the different HTML-based HUD divs.
+var hudDivs;
+
+// Game state machine. Used to switch between different game states.
+var gameStateMachine;
+
 // ACTION!
 init();
 render();
 
 function init() {
 	// Define renderer, scene, loader, and camera, and the board.
-	renderer = new THREE.WebGLRenderer({ antialias: true });
+	renderer = new THREE.WebGLRenderer({antialias: true});
 	scene = new THREE.Scene();
 	loader = new THREE.JSONLoader();
 	camera = new THREE.PerspectiveCamera(
@@ -26,12 +37,8 @@ function init() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	container.appendChild(renderer.domElement);
 	
+	// Create a new board.
 	board = new Board();
-	
-	// Adjust the camera a bit. 
-	camera.position.y = SETTINGS_CAMERA_START_Y;
-	camera.position.z = SETTINGS_CAMERA_START_Z;
-	camera.lookAt(SETTINGS_CAMERA_START_LOOKAT);
 	
 	// Load the tile geometry and call the board to make tile meshes from the geometry.
 	loader.load(
@@ -39,7 +46,6 @@ function init() {
 		function(geometry) {
 			tileGeometry = geometry;
 			board.createTileMeshes();
-			
 		}
 		
 	);
@@ -50,61 +56,35 @@ function init() {
 		function(geometry) {
 			horseGeometry = geometry;
 			board.createHorseMeshes();
-			
 		}
-		
+			
 	);
-	
-	// Set up background color
-	renderer.setClearColor(SETTINGS_LIGHT_THEME[4], 1);
 	
 	// Set up ambient light
 	ambientLight = new THREE.AmbientLight(SETTINGS_LIGHT_THEME[3]);
 	scene.add(ambientLight);
 	
 	// Set up point light
-	scene.remove(pointLight);
-	pointLight = new THREE.PointLight(SETTINGS_LIGHT_THEME[1], 1, 0);
-	pointLight.position.x = -25;
+	pointLight = new THREE.DirectionalLight(SETTINGS_LIGHT_THEME[1], 0.75);
+	pointLight.position.x = 0;
 	pointLight.position.y = 20;
-	pointLight.position.z = -10;
+	pointLight.position.z = 0;
 	scene.add(pointLight);
-	
-	// Camera tween chain
-	tweenBoardRight = new TWEEN.Tween(board.parentObject.rotation)
-		.to({y: SETTINGS_BOARD_TWEEN_MAX_ANGLE}, SETTINGS_CAMERA_TWEEN_TIME)
-		.easing(TWEEN.Easing.Quadratic.InOut);
-		
-	tweenBoardLeft = new TWEEN.Tween(board.parentObject.rotation)
-		.to({y: SETTINGS_BOARD_TWEEN_MIN_ANGLE}, SETTINGS_CAMERA_TWEEN_TIME)
-		.easing(TWEEN.Easing.Quadratic.InOut);
-	
-	tweenBoardRight.chain(tweenBoardLeft);
-	tweenBoardLeft.chain(tweenBoardRight);
-	
-	// Point light tween chain
-	tweenLightLeft = new TWEEN.Tween(pointLight.position)
-		.to({x: -SETTINGS_BOARD_MIN_MAX_X}, SETTINGS_CAMERA_TWEEN_TIME)
-		.easing(TWEEN.Easing.Quadratic.InOut);
-	
-	tweenLightRight = new TWEEN.Tween(pointLight.position)
-		.to({x: SETTINGS_BOARD_MIN_MAX_Z * SETTINGS_BOARD_TILE_SPACING}, SETTINGS_CAMERA_TWEEN_TIME)
-		.easing(TWEEN.Easing.Quadratic.InOut);
-	
-	tweenLightLeft.chain(tweenLightRight);
-	tweenLightRight.chain(tweenLightLeft);
-	
-	// Start both tweens
-	tweenBoardRight.start();
-	tweenLightRight.start();
 	
 	// Listener for window resize
 	window.addEventListener('resize', onWindowResize, false);
 	
+	// Instantiate a collection of all of the HUD divs.
+	hudDivs = new HudDivs();
+	hudDivs.hideAll();
+		
+	// Start the game state machine, beginning with the title state
+	gameStateMachine = new StateMachine(new TitleState());
+	
 }
 
 function render() {
-	TWEEN.update();
+	gameStateMachine.update();
 	requestAnimationFrame(render);
 	renderer.render(scene, camera);
 	
