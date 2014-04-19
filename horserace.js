@@ -85,11 +85,55 @@ exports.init = function(sio, socket){
 function Game(gName) {
     this.gameName = gName;
     this.round = 0;
-    this.gameTime = 0;
+    this.gameTime = getTime();
     this.started = false;
     this.players = {};
     this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = generateMoves();
+    //enactRound() * 10
+
+}
+
+function enactRound() {
+    //start timer
+    //
+
+    //get Bet
+    //getBet()
+
+    //end timer
+    //
+
+    //move horses
+    //
+
+    //emit positions
+    //
+
+}
+
+function getBet() {
+
+}
+
+function getTime() {
+    var time = (new Date).getTime()
+    return time;
+}
+
+
+function timer() {
+    var elapsed;
+    
+
+}
+
+function moveHorses() {
+    
+}
+
+function sendPositions() {
+
 
 }
 
@@ -173,12 +217,4 @@ function arraySum(arr) {
         total += arr[i]
     }
     return total;
-}
-
-function timer() {
-
-}
-
-function update() {
-    
 }
