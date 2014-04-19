@@ -16,7 +16,7 @@ exports.init = function(sio, socket){
         if(gameName in games) { // gameName already exist
             socket.emit('showError', 'the same game name already exist..');
         } else {
-            var game = new Game(gameName);
+            var game = new Game(gameName, io);
             games[gameName] = game;
 
             // console.log(games[gameName].players);
