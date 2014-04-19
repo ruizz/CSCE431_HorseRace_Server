@@ -5,6 +5,7 @@ exports.init = function(sio, socket){
     console.log('horserace.js - initGame Called');
     io = sio;
     socket.emit('connected', { message: 'You are connected!' });
+    sendGameList();
 
     // Creating a game
     socket.on('createNewGame', function (data) {
@@ -31,18 +32,24 @@ exports.init = function(sio, socket){
                     // players: Object.keys(games[gameName].players)
                 });
 
-                // Update a list on the game server
-                var gameList = new Array();
-                for (gameName in games){
-                    gameList.push({gameName: gameName, users: Object.keys(games[gameName].players).length})
-                }
-                socket.emit('updateGameList', gameList);
-
+                sendGameList();
+                
             } else {
                 socket.emit('showError', 'User already joined the game');
             }
         }
     });
+    
+    // Sending a client a list of games
+    socket.on('requestGameList', sendGameList);
+    function sendGameList() {
+        // Update a list on the game server
+        var gameList = new Array();
+        for (gameName in games){
+            gameList.push({gameName: gameName, users: Object.keys(games[gameName].players).length})
+        }
+        socket.emit('updateGameList', gameList);
+    };
 
     // Join a game
     socket.on('joinGame', function (data) {
