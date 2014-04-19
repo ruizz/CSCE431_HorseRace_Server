@@ -74,10 +74,11 @@ exports.init = function(sio, socket){
 
     // Exit the current game
     socket.on('exitGame', function (data) {
-        console.log(games[data.gameName]); 
+        if (Object.keys(games[gameName].players).length <= 0) {
+            delete games[data.gameName];
+        } else {
         delete games[data.gameName].players[data.userID];
-        socket.leave(data.gameName);
-        console.log(games[data.gameName]);
+        
     });
 };
 
