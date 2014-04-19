@@ -11,7 +11,6 @@ var Game = function(gName, sio) {
     this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = this.generateMoves();
     this.enactRound();
-    this.gameOver();
 }
 
 module.exports = Game;
@@ -25,10 +24,10 @@ Game.prototype.enactRound = function() {
     //get Bet
     //getBet()
 
-    //end timer
-    //
+    //Timer will run out on it's own.
     
     //console.log(this.moves);
+
     //move horses
     //
 
@@ -89,7 +88,13 @@ Game.prototype.sendPositions = function() {
     //Pass array to client of update horse positions
     this.io.sockets.in(this.gameName).emit('updateHorsePositions', this.horses);
     // Increment Round count
-    this.round++;
+    if (this.round == 9) {
+        this.gameOver();
+    }
+    else {
+        this.round++;
+        this.enactRound();
+    }
 
 }
 
