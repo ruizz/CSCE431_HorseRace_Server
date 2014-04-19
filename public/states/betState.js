@@ -1,5 +1,6 @@
 var BetState = function() {
     // Set up any variables you need here.
+    this.timer = new Timer(SETTINGS_BET_TIME_LIMIT);
     
 }
 
@@ -8,13 +9,21 @@ BetState.prototype.enter = function(stateMachine) {
     // Show HUD
     hudDivs.show({bet: ""});
     
+    game.currentRound += 1;
+    document.getElementById("divBetsRound").innerHTML = game.currentRound;
+    
+    this.timer.start();
 }
 
 // Any update logic would go here. You can also switch
 // states from within here by using stateMachine. So meta.
 BetState.prototype.update = function(stateMachine) {
-    
-    
+    if (this.timer != null) {
+        var timeRemaining = this.timer.getTimeRemaining();
+        document.getElementById("divBetsTimer").innerHTML = timeRemaining;
+        if (timeRemaining == 0)
+            stateMachine.changeState(new AnimateState());
+    }
 }
 
 // Typically gets called by the state machine when it switches states

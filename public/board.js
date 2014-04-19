@@ -27,6 +27,7 @@ var Board = function() {
 	this.horseMeshes = new Array();
 	this.horsePositions = new Array(); // Indicates which tile column the horses are on.
 	this.horseTween = 0;
+	this.horseTweens = new Array();
 	
 	scene.add(this.parentObject);
 	
@@ -119,24 +120,39 @@ Board.prototype.moveHorse = function(which, amount) {
 Board.prototype.changeBoardState = function(horsePositions) {
 	if (this.isHorseMoving == false) {
 		this.horsePositions = horsePositions;
+		// Animate the horses.
 		for (var i = 0; i < this.horseMeshes.length; i++) {
-			// Animate the horses.
-			new TWEEN.Tween(this.horseMeshes[i].position)
+			
+			this.horseTweens[i] = new TWEEN.Tween(this.horseMeshes[i].position)
 			.to(
 				{ x: -SETTINGS_BOARD_MIN_MAX_X + horsePositions[i] * SETTINGS_BOARD_TILE_SPACING },
 				SETTINGS_BOARD_HORSE_MOVE_TIME
 				
 			)
 			.easing(TWEEN.Easing.Quadratic.Out)
-			.start();
+			.delay(SETTINGS_BOARD_HORSE_MOVE_TIME_DELAY);
 			
 		}
-
+		
+		for (var i = 0; i < this.horseMeshes.length - 1; i++) {
+			// Animate the horses.
+			this.horseTweens[i].chain(this.horseTweens[i + 1]);
+			
+		}
+		
+		this.horseTweens[i].onComplete(function() {
+			if (game.currentRound < SETTINGS_GAME_ROUNDS)
+				gameStateMachine.changeState(new BetState());
+			else
+				gameStateMachine.changeState(new GameOverState());
+		});
+		
+		this.horseTweens[0].start();
 	}
 
 }
 
-Board.prototype.resetBoard = function() {
+Board.prototype.reset = function() {
 	if (this.isHorseMoving == false) {
 		for (var i = 0; i < this.horseMeshes.length; i++) {
 			// Update horse positions

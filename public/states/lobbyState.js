@@ -9,7 +9,10 @@ LobbyState.prototype.enter = function(stateMachine) {
     
     // Clear all text boxes.
     document.getElementById("txtCreateGame").value = "";
-
+    
+    // Reset horse positions.
+    board.reset();
+    
     // update game list
     ioSocket.emit('requestGameList');
 }
@@ -17,6 +20,7 @@ LobbyState.prototype.enter = function(stateMachine) {
 // Any update logic would go here. You can also switch
 // states from within here by using stateMachine. So meta.
 LobbyState.prototype.update = function(stateMachine) {
+    
 }
 
 // Typically gets called by the state machine when it switches states

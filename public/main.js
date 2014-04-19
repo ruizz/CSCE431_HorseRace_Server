@@ -84,6 +84,7 @@ function init() {
 }
 
 function render() {
+	TWEEN.update();
 	gameStateMachine.update();
 	requestAnimationFrame(render);
 	renderer.render(scene, camera);
@@ -123,18 +124,6 @@ function onKeyDown(e) {
 	// For debug only.
 	if (unicode == 32 && gameStateMachine.getCurrentState() instanceof GameJoinedState)
 		gameStateMachine.changeState(new BetState());
-	
-	// For debug only.
-	else if (unicode == 32 && gameStateMachine.getCurrentState() instanceof BetState)
-		gameStateMachine.changeState(new AnimateState());
-	
-	// For debug only.
-	else if (unicode == 32 && gameStateMachine.getCurrentState() instanceof AnimateState)
-		gameStateMachine.changeState(new BetState());
-	
-	// For debug only.
-	else if (unicode == 71 && gameStateMachine.getCurrentState() instanceof AnimateState)
-		gameStateMachine.changeState(new GameOverState());
 }
 
 // Window resize.
