@@ -19,8 +19,8 @@
         		<h1>Horsu Raysu [Replace with logo]</h1>
         		<p class="lead">Enter your (bank) username to get started.</p>
         		<div class="row">
-					<div class="col-lg-4"></div>
-					<div class="col-lg-4">
+					<div class="col-lg-5"></div>
+					<div class="col-lg-2">
 						<!-- Username input with login button -->
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Username" id="txtUserID">
@@ -35,10 +35,17 @@
 
 	    	</div><!-- /#divTitle -->
 	    	
+	    	
+	    	<!-- Lobby Div -->
 	    	<div class="container textAlignCenter" id="divLobby">
 	    		<div class="row">
-					<div class="col-lg-4"></div>
-					<div class="col-lg-4">
+	    			<h1>Lobby</h1>
+	    		</div>
+	    		<!-- Create game row -->
+	    		<div class="row">
+					<h2>Create Game</h2>
+					<div class="col-lg-5"></div>
+					<div class="col-lg-2">
 						<!-- Username input with login button -->
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Game name" id="txtCreateGame">
@@ -46,21 +53,26 @@
 								<button class="btn btn-default" type="button" id="btnCreateGame">Create</button>
 							</span>
 						</div><!-- /input-group -->
-						
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Game name" id="txtJoinGame">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" id="btnJoinGame">Join</button>
-							</span>
-						</div><!-- /input-group -->
-						
 					</div><!-- /.col-lg-4 -->
-					
+				</div><!-- /.row -->
+				<!-- Join game row -->
+				<div class="row">
+					<h2>Join Game</h2>
+					<div class="col-lg-5"></div>
+					<div class="col-lg-2">
+						<div class="list-group textAlignLeft" id="listLobby">
+					    	
+					    </div>
+					</div><!-- /.col-lg-4 -->
 				</div><!-- /.row -->
 	    	</div><!-- /#divLobby -->
 	    	
+	    	
+	    	
+	    	
+	    	
+	    	
 		</div> <!-- .hudOverlay -->
-
 	</body>
 	
 	<!-- jquery -->

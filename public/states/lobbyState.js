@@ -4,13 +4,10 @@ var LobbyState = function() {
 
 // You would set up the environment here.
 LobbyState.prototype.enter = function(stateMachine) {
-    // Set up background color
-    renderer.setClearColor(SETTINGS_LIGHT_THEME[3], 1);
-    
-    // Camera position hasn't changed. No need to do anything to that.
- 
     // Show HUD
     hudDivs.show({lobby: ""});
+    var listContent = "<a href=\"#\" class=\"list-group-item \"><span class=\"badge\">14</span>Cras justo odio</a>"
+    document.getElementById("listLobby").innerHTML = listContent;
 }
 
 // Any update logic would go here. You can also switch
