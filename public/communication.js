@@ -10,6 +10,7 @@ htmlDocument.on('click', '#btnCreateGame', onCreateClick);
 htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
 
+
 // Binding events
 var ioSocket = io.connect();
 ioSocket.on('connected', onConnected);
@@ -31,7 +32,6 @@ function onCreateClick() {
         console.log('Game name: ' + gameName);
         console.log('User ID: ' + userID);
         console.log('Clicked "Create a game"');
-        game.gameName = gameName;
         ioSocket.emit('createNewGame', { gameName: gameName, userID: userID });
         
     } else
@@ -39,8 +39,8 @@ function onCreateClick() {
             
 }
 
-function onJoinClick() {
-    var gameName = $(txtJoinGame).val()
+function onJoinClick(nameOfGame) {
+    var gameName = nameOfGame;
     
     if(gameName != "") {
         ioSocket.emit('joinGame', { gameName: gameName, userID: userID });
@@ -52,7 +52,8 @@ function onJoinClick() {
 
 function onExitClick() {
     ioSocket.emit('exitGame', {gameName: game.gameName, userID: userID});
-
+    gameStateMachine.changeState(new LobbyState());
+    
 }
 
 function onConnected(data) {
@@ -62,6 +63,7 @@ function onConnected(data) {
 
 function onGameJoined(data){
     game.initializeGame(data);
+    gameStateMachine.changeState(new GameJoinedState());
 
 }
 

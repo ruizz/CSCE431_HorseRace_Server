@@ -8,8 +8,11 @@ LobbyState.prototype.enter = function(stateMachine) {
     hudDivs.show({lobby: ""});
     
     var listContent = "";
-    for (var i = 0; i < gameList.length; i++) 
-        listContent += "<a href=\"#\" class=\"list-group-item \"><span class=\"badge\">" + gameList[i].users + "</span>" + gameList[i].gameName + "</a>";
+    for (var i = 0; i < gameList.length; i++) {
+        listContent += "<a href=\"#\" class=\"list-group-item\" ";
+        listContent += "onclick=\"onJoinClick('" + gameList[i].gameName + "');\">";
+        listContent += "<span class=\"badge\">" + gameList[i].users + "</span>" + gameList[i].gameName + "</a>";
+    }
     
     if (gameList.length >= 1)    
         document.getElementById("listLobby").innerHTML = listContent;
@@ -24,6 +27,6 @@ LobbyState.prototype.update = function(stateMachine) {
 // Typically gets called by the state machine when it switches states
 LobbyState.prototype.exit = function() {
     // Probably free resources or something before you leave.
-    hideAllDivs();
+    hudDivs.hideAll();
     
 }

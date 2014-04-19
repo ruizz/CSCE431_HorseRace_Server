@@ -61,14 +61,22 @@
 					<div class="col-lg-5"></div>
 					<div class="col-lg-2">
 						<div class="list-group textAlignLeft" id="listLobby">
-					    	<a href="#" class="list-group-item "><span class="badge">0</span>No games available...</a>
+					    	<a href="#" class="list-group-item"><span class="badge">0</span>No games available...</a>
 					    </div>
 					</div><!-- /.col-lg-4 -->
 				</div><!-- /.row -->
 	    	</div><!-- /#divLobby -->
 	    	
 	    	
-	    	
+	    	<!-- Lobby Div -->
+	    	<div class="container textAlignCenter" id="divWaiting">
+	    		<div class="row">
+	    			<h1>Waiting...</h1>
+	    		</div>
+	    		<div class="row">
+	    			<button type="button" class="btn btn-danger" id="btnExitGame">Cancel</button>
+	    		</div>
+	    	</div>
 	    	
 	    	
 	    	
@@ -96,6 +104,7 @@
 	<script src="/states/stateMachine.js"></script>
 	<script src="/states/titleState.js"></script>
 	<script src="/states/lobbyState.js"></script>
+	<script src="/states/gameJoinedState.js"></script>
 	
 	<!-- Horsu, visuals -->
 	<script src="hudDivs.js"></script>

@@ -3,7 +3,8 @@ var HudDivs = function() {
     // Define all of the elements upon creation
     this.divs = {
         title: document.getElementById("divTitle"),
-        lobby: document.getElementById("divLobby")
+        lobby: document.getElementById("divLobby"),
+        waiting: document.getElementById("divWaiting")
     }
     
 }
