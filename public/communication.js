@@ -19,6 +19,7 @@ ioSocket.on('updateGameList', updateGameList);
 ioSocket.on('updatePlayerList', updatePlayerList);
 ioSocket.on('animateBoard', onAnimateBoard);
 ioSocket.on('updateHorsePositions', updateHorsePositions);
+ioSocket.on('startGameNotify', startGameNotify);
 ioSocket.on('showError', showError);
 
 function onSignInClick() {
@@ -63,14 +64,18 @@ function onConnected(data) {
     
 }
 
-function onGameJoined(data){
+function onGameJoined(data) {
     game.initializeGame(data);
     gameStateMachine.changeState(new GameJoinedState());
 
 }
 
-function onAnimateBoard(){
+function onAnimateBoard() {
     gameStateMachine.changeState(new AnimateState());
+}
+
+function startGameNotify() {
+    gameStateMachine.changeState(new BetState());
 }
 
 // This function is called after creating a new game

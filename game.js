@@ -10,6 +10,7 @@ var Game = function(gName, sio) {
     this.started = false;
     this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = this.generateMoves();
+    this.io.sockets.in(this.gameName).emit('startGameNotify');
     this.enactRound();
 }
 
@@ -132,7 +133,7 @@ Game.prototype.generateMoves = function() {
 Game.prototype.createPlaceMoves = function(place) {
     var placeOffset = 7+place;
     var moves = Array.apply(null, new Array(placeOffset)).map(Number.prototype.valueOf,0);
-    while (this.arraySum(moves) != 20) {
+    while (this.arraySum(moves) != 19) {
         for (i in moves) {
             moves[i] = Math.floor((Math.random()*4));
         }
@@ -148,7 +149,7 @@ Game.prototype.createPlaceMoves = function(place) {
 // Create round move array for the rest, should not be at end on 10th round
 Game.prototype.createNonPlaceMoves = function(place) {
     var moves = Array.apply(null, new Array(10)).map(Number.prototype.valueOf,0);
-    while (this.arraySum(moves) != 19) {
+    while (this.arraySum(moves) != 18) {
         for (i in moves) {
             moves[i] = Math.floor((Math.random()*4));
         }
