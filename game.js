@@ -17,7 +17,7 @@ module.exports = Game;
 
 Game.prototype.enactRound = function() {
     //start timer
-    this.setTimer(this.getNewTime(),5000);
+    this.setTimer(this.getNewTime(),15000);
     this.intervalID = setInterval(this.checkTimer.bind(this),1000);
 
     
@@ -66,7 +66,6 @@ Game.prototype.setTimer = function(currentTime, duration) {
 Game.prototype.checkTimer = function() {
     if ((new Date).getTime() >= this.targetTime) {
         //Tell the client to start animating after the betting is over
-        this.io.sockets.in(this.gameName).emit('animateBoard');
         //Clear the repeating timer check
         clearInterval(this.intervalID);
         this.moveHorses();
@@ -87,6 +86,7 @@ Game.prototype.moveHorses = function() {
 Game.prototype.sendPositions = function() {
     //Pass array to client of update horse positions
     this.io.sockets.in(this.gameName).emit('updateHorsePositions', this.horses);
+    this.io.sockets.in(this.gameName).emit('animateBoard');
     // Increment Round count
     if (this.round == 9) {
         this.gameOver();

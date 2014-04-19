@@ -113,6 +113,8 @@ function updatePlayerList(players) {
 
 function updateHorsePositions(horses) {
     console.log('Horse Positions: ' + horses);
+    game.horsePositions = horses;
+    
 }
 
 

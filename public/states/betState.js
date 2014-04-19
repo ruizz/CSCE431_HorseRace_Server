@@ -22,7 +22,7 @@ BetState.prototype.update = function(stateMachine) {
         var timeRemaining = this.timer.getTimeRemaining();
         document.getElementById("divBetsTimer").innerHTML = timeRemaining;
         if (timeRemaining == 0)
-            stateMachine.changeState(new AnimateState());
+            document.getElementById("divBetsTimer").innerHTML = "Waiting for server...";
     }
 }
 
