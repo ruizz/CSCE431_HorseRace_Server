@@ -8,6 +8,7 @@ var Game = function(gName) {
     this.started = false;
     this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = this.generateMoves();
+    this.enactRound();
 }
 
 module.exports = Game;
@@ -24,7 +25,8 @@ module.exports = Game;
 
 Game.prototype.enactRound = function() {
     //start timer
-    timer(getNewTime(),10000);
+    // console.log(this.gameTime);
+    this.timer(this.getNewTime(),10000);
 
     //get Bet
     //getBet()
@@ -43,14 +45,13 @@ Game.prototype.enactRound = function() {
 Game.prototype.getBet = function() {
 
 }
-exports.getBet = Game.prototype.getBet;
 
 Game.prototype.getNewTime = function() {
     var time = (new Date).getTime()
     return time;
 }
 
-Game.prototype.timer = function() {
+Game.prototype.timer = function(currentTime, duration) {
     var start;
     if(typeof duration == "undefined") {
         //Check if timer is up
@@ -58,8 +59,8 @@ Game.prototype.timer = function() {
     }
     else {
         //Make new timer
-    start = currentTime - gameTime;
-    console.log(start);
+    start = currentTime - this.gameTime;
+    // console.log(start);
     } 
 
 }
