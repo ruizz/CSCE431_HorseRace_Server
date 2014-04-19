@@ -95,30 +95,46 @@ function render() {
 function onKeyDown(e) {
 	// e.g. '0' key is 48 in unicode, '1' is 49, etc.
 	var unicode = e.keyCode? e.keyCode : e.charCode;
-	if (unicode >= 48 && unicode <= 55) {
-		// Random number from 1 to 3.
-		var random = Math.floor(Math.random() * SETTINGS_BOARD_HORSE_MOVE_LIMIT) + 1;
-		board.moveHorse(unicode - 48, random);
 	
-	} 
-	// [SPACE] to reset
-	else if (unicode == 32) {
-		board.resetBoard();
+	// if (unicode >= 48 && unicode <= 55) {
+	// 	// Random number from 1 to 3.
+	// 	var random = Math.floor(Math.random() * SETTINGS_BOARD_HORSE_MOVE_LIMIT) + 1;
+	// 	board.moveHorse(unicode - 48, random);
+	
+	// } 
+	// // [SPACE] to reset
+	// else if (unicode == 32) {
+	// 	board.resetBoard();
 		
-	}
-	// Random board state generation with [R]
-	else if (unicode == 82) {
-		// Generate array
-		var newPositions = new Array();
-		for (var i = 0; i < SETTINGS_BOARD_HORSE_MOVE_TOTAL_LIMIT; i++) {
-			newPositions[i] = Math.floor(Math.random() * SETTINGS_BOARD_HORSE_MOVE_TOTAL_LIMIT) + 1;
+	// }
+	// // Random board state generation with [R]
+	// else if (unicode == 82) {
+	// 	// Generate array
+	// 	var newPositions = new Array();
+	// 	for (var i = 0; i < SETTINGS_BOARD_HORSE_MOVE_TOTAL_LIMIT; i++) {
+	// 		newPositions[i] = Math.floor(Math.random() * SETTINGS_BOARD_HORSE_MOVE_TOTAL_LIMIT) + 1;
 		
-		}
+	// 	}
 	
-		board.changeBoardState(newPositions);
+	// 	board.changeBoardState(newPositions);
 	
-	}
+	// }
 	
+	// For debug only.
+	if (unicode == 32 && gameStateMachine.getCurrentState() instanceof GameJoinedState)
+		gameStateMachine.changeState(new BetState());
+	
+	// For debug only.
+	else if (unicode == 32 && gameStateMachine.getCurrentState() instanceof BetState)
+		gameStateMachine.changeState(new AnimateState());
+	
+	// For debug only.
+	else if (unicode == 32 && gameStateMachine.getCurrentState() instanceof AnimateState)
+		gameStateMachine.changeState(new BetState());
+	
+	// For debug only.
+	else if (unicode == 71 && gameStateMachine.getCurrentState() instanceof AnimateState)
+		gameStateMachine.changeState(new GameOverState());
 }
 
 // Window resize.

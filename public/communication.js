@@ -9,7 +9,7 @@ htmlDocument.on('click', '#btnSignIn', onSignInClick);
 htmlDocument.on('click', '#btnCreateGame', onCreateClick);
 htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
-
+htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
 
 // Binding events
 var ioSocket = io.connect();
@@ -98,6 +98,12 @@ function updateGameList(data) {
     } 
     
     document.getElementById("divLobbyList").innerHTML = listContent;
+}
+
+// Return to lobby from game over state
+function onReturnToLobbyClick() {
+    gameStateMachine.changeState(new LobbyState());
+    
 }
 
 function updatePlayerList(players) {

@@ -73,7 +73,7 @@
 	    	
 	    	
 	    	<!-- Waiting for other players -->
-	    	<div class="container textAlignCenter" id="divWaiting">
+	    	<div class="container textAlignCenter " id="divWaiting">
 	    		<div class="row">
 	    			<h1 id="divWaitingTitle"></h1>
 	    		</div>
@@ -85,7 +85,81 @@
 	    		</div>
 	    	</div>
 	    	
+	    	<!-- Place your bets!! -->
+	    	<div class="container alignBottom textAlignCenter" id="divBets">
+	    		<div class="row">
+	    			<div class="col-lg-2"></div>
+	    			<!-- Horse 1 bet area -->
+	    			<div class="col-lg-1">
+	    				<p>Horse 1</p>
+	    				<p>Money</p>
+	    				<button class="btn btn-primary">Bet</button>
+	    			</div>
+	    			<!-- Horse 2 bet area -->
+	    			<div class="col-lg-1">
+	    				<p>Horse 2</p>
+	    				<p>Money</p>
+	    				<button class="btn btn-primary">Bet</button>
+	    			</div>
+	    			<!-- Horse 3 bet area -->
+	    			<div class="col-lg-1">
+	    				<p>Horse 3</p>
+	    				<p>Money</p>
+	    				<button class="btn btn-primary">Bet</button>
+	    			</div>
+	    			<!-- Horse 4 bet area -->
+	    			<div class="col-lg-1">
+	    				<p>Horse 4</p>
+	    				<p>Money</p>
+	    				<button class="btn btn-primary">Bet</button>
+	    			</div>
+	    			<!-- Horse 5 bet area -->
+	    			<div class="col-lg-1">
+	    				<p>Horse 5</p>
+	    				<p>Money</p>
+	    				<button class="btn btn-primary">Bet</button>
+	    			</div>
+	    			<!-- Horse 6 bet area -->
+	    			<div class="col-lg-1">
+	    				<p>Horse 6</p>
+	    				<p>Money</p>
+	    				<button class="btn btn-primary">Bet</button>
+	    			</div>
+	    			<!-- Horse 7 bet area -->
+	    			<div class="col-lg-1">
+	    				<p>Horse 7</p>
+	    				<p>Money</p>
+	    				<button class="btn btn-primary">Bet</button>
+	    			</div>
+	    			<!-- Horse 8 bet area -->
+	    			<div class="col-lg-1">
+	    				<p>Horse 8</p>
+	    				<p>Money</p>
+	    				<button class="btn btn-primary">Bet</button>
+	    			</div>
+	    			<div class="col-lg-2"></div>
+	    		</div>
+	    	</div>
 	    	
+	    	<!-- Animate horses!! -->
+	    	<div class="container textAlignCenter " id="divAnimate">
+	    		<div class="row">
+	    			<h1 id="divAnimateTitle">Bets are in!</h1>
+	    		</div>
+	    	</div>
+	    	
+	    	<!-- Animate horses!! -->
+	    	<div class="container textAlignCenter " id="divGameOver">
+	    		<div class="row">
+	    			<h1 id="divAnimateTitle">Game Over</h1>
+	    		</div>
+	    		<div class="row">
+	    			<p class="lead">Your earnings, blah.</p>
+	    		</div>
+	    		<div class="row">
+	    			<button type="button" class="btn btn-success" id="btnReturnToLobby">Return to Lobby</button>
+	    		</div>
+	    	</div>
 	    	
 		</div> <!-- .hudOverlay -->
 	</body>
@@ -112,6 +186,9 @@
 	<script src="/states/titleState.js"></script>
 	<script src="/states/lobbyState.js"></script>
 	<script src="/states/gameJoinedState.js"></script>
+	<script src="/states/betState.js"></script>
+	<script src="/states/animateState.js"></script>
+	<script src="/states/gameOverState.js"></script>
 	
 	<!-- Horsu, visuals -->
 	<script src="hudDivs.js"></script>

@@ -4,7 +4,11 @@ var HudDivs = function() {
     this.divs = {
         title: document.getElementById("divTitle"),
         lobby: document.getElementById("divLobby"),
-        waiting: document.getElementById("divWaiting")
+        waiting: document.getElementById("divWaiting"),
+        bet: document.getElementById("divBets"),
+        animate: document.getElementById("divAnimate"),
+        gameOver: document.getElementById("divGameOver")
+        
     }
     
 }

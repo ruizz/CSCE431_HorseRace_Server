@@ -34,6 +34,12 @@ canvas {
     
 }
 
+.alignBottom {
+    position: absolute;
+    width: 100%;
+    bottom: 5%
+}
+
 #boardContainer{
     position:absolute;
     width: 100%;
