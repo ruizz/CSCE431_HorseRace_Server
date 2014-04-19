@@ -31,6 +31,7 @@ function onCreateClick() {
         console.log('Game name: ' + gameName);
         console.log('User ID: ' + userID);
         console.log('Clicked "Create a game"');
+        game.gameName = gameName;
         ioSocket.emit('createNewGame', { gameName: gameName, userID: userID });
         
     } else
@@ -42,8 +43,6 @@ function onJoinClick() {
     var gameName = $(txtJoinGame).val()
     
     if(gameName != "") {
-        console.log('Game name: ' + gameName);
-        console.log('Clicked "Join a game"');
         ioSocket.emit('joinGame', { gameName: gameName, userID: userID });
     } else {
         IO.showError("err: No gamename");
@@ -52,7 +51,7 @@ function onJoinClick() {
 }
 
 function onExitClick() {
-    ioSocket.emit('exitGame', {gameName: game.name, userID: userID});
+    ioSocket.emit('exitGame', {gameName: game.gameName, userID: userID});
 
 }
 
