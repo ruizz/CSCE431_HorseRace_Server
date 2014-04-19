@@ -2,14 +2,16 @@
 var HudDivs = function() {
     // Define all of the elements upon creation
     this.divs = {
-        title: document.getElementById("divTitle")
+        title: document.getElementById("divTitle"),
+        lobby: document.getElementById("divLobby")
     }
     
 }
 
 // Hide all divs. Best to do so when switching states.
 HudDivs.prototype.hideAll = function() {
-    this.divs.title.style.display = "none";
+    for (var div in this.divs)
+        this.divs[div].style.display = "none";
         
 }
 

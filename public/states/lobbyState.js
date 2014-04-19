@@ -10,7 +10,7 @@ LobbyState.prototype.enter = function(stateMachine) {
     // Camera position hasn't changed. No need to do anything to that.
  
     // Show HUD
-    
+    hudDivs.show({lobby: ""});
 }
 
 // Any update logic would go here. You can also switch
