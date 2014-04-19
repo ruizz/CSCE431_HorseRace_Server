@@ -61,6 +61,7 @@ function onConnected(data) {
 }
 
 function onGameJoined(data){
+    console.log('onGameJoined Called');
     game.initializeGame(data);
 
 }
