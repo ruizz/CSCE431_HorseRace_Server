@@ -26,6 +26,9 @@ TitleState.prototype.enter = function(stateMachine) {
     // Show title HUD
     hudDivs.show({title: ""});
     
+    // Request game list
+    ioSocket.emit('requestGameList');
+    
 }
 
 // Any update logic would go here. You can also switch
@@ -41,5 +44,5 @@ TitleState.prototype.exit = function() {
     tweenBoard.stop();
     board.parentObject.rotation.y = 0;
     hudDivs.hideAll();
-    
+
 }

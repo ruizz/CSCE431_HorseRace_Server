@@ -6,8 +6,13 @@ var LobbyState = function() {
 LobbyState.prototype.enter = function(stateMachine) {
     // Show HUD
     hudDivs.show({lobby: ""});
-    var listContent = "<a href=\"#\" class=\"list-group-item \"><span class=\"badge\">14</span>Cras justo odio</a>"
-    document.getElementById("listLobby").innerHTML = listContent;
+    
+    var listContent = "";
+    for (var i = 0; i < gameList.length; i++) 
+        listContent += "<a href=\"#\" class=\"list-group-item \"><span class=\"badge\">" + gameList[i].users + "</span>" + gameList[i].gameName + "</a>";
+    
+    if (gameList.length >= 1)    
+        document.getElementById("listLobby").innerHTML = listContent;
 }
 
 // Any update logic would go here. You can also switch
