@@ -4,7 +4,8 @@ var Game = function(gName) {
     this.players = {};
     this.round = 0;
     this.gameTime = this.getNewTime();
-    this.elapsed = 0;
+    this.targetTime = 0;
+    this.intervalID;
     this.started = false;
     this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = this.generateMoves();
@@ -12,27 +13,20 @@ var Game = function(gName) {
 }
 
 module.exports = Game;
-// Game.prototype.initializeGame = function(data) {
-//  this.gameName = data.gameName;
-//  this.players = data.players;
 
-// }
-
-// Game.prototype.updatePlayerList = function(_players) {
-//     this.players = _players;
-    
-// }
 
 Game.prototype.enactRound = function() {
     //start timer
     // console.log(this.gameTime);
-    this.timer(this.getNewTime(),10000);
+    this.setTimer(this.getNewTime(),10000);
+    this.intervalID = setInterval(this.checkTimer.bind(this),2000);
 
     //get Bet
     //getBet()
 
     //end timer
     //
+    
 
     //move horses
     //
@@ -42,35 +36,44 @@ Game.prototype.enactRound = function() {
 
 }
 
+//Get bets from client and send to bank
 Game.prototype.getBet = function() {
 
 }
 
+//For some reason I decided to wrap the current time function
 Game.prototype.getNewTime = function() {
-    var time = (new Date).getTime()
+    var time = (new Date).getTime();
     return time;
 }
 
-Game.prototype.timer = function(currentTime, duration) {
-    var start;
-    if(typeof duration == "undefined") {
-        //Check if timer is up
-
-    }
-    else {
-        //Make new timer
-    start = currentTime - this.gameTime;
-    // console.log(start);
-    } 
+//Timer function, if it has two args it sets timer, 
+//If it has one arg, it checks the timer.
+Game.prototype.setTimer = function(currentTime, duration) {
+    //Make new timer
+    // var tarDate = new Date();
+    this.targetTime = currentTime + duration;
+    console.log(this.targetTime);
 
 }
 
+
+Game.prototype.checkTimer = function() {
+    //console.log("Check");
+    if ((new Date).getTime() >= this.targetTime) {
+        // console.log("Timer went off!");
+        clearInterval(this.intervalID);
+        this.moveHorses();
+    }
+}
+
+//Move horses to their new positions
 Game.prototype.moveHorses = function() {
     
 }
 
+//Emit to tell clients to move to new positions
 Game.prototype.sendPositions = function() {
-
 
 }
 
