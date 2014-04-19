@@ -91,9 +91,10 @@ exports.init = function(sio, socket){
 function Game(gName) {
     this.gameName = gName;
     this.round = 0;
-    this.timer = 0;
+    this.gameTime = 0;
     this.started = false;
     this.players = {};
+    this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = generateMoves();
 
 }
@@ -119,7 +120,7 @@ function generateMoves() {
     var _ = require('underscore');
 
     // Generate the first second and third place horses
-    var shuffle = shuffleArray(_.range(8));
+    var shuffle = _.shuffle(_.range(8));
     var first = shuffle[0];
     var second = shuffle[1];
     var third = shuffle[2];
@@ -180,12 +181,10 @@ function arraySum(arr) {
     return total;
 }
 
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
+function timer() {
+
+}
+
+function update() {
+    
 }
