@@ -7,6 +7,7 @@ GameJoinedState.prototype.enter = function(stateMachine) {
     // Show HUD
     hudDivs.show({waiting: ""});
     
+    document.getElementById("divWaitingTitle").innerHTML = "Entered game: " + game.gameName;
 }
 
 // Any update logic would go here. You can also switch

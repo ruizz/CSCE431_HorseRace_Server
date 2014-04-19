@@ -7,15 +7,10 @@ LobbyState.prototype.enter = function(stateMachine) {
     // Show HUD
     hudDivs.show({lobby: ""});
     
-    var listContent = "";
-    for (var i = 0; i < gameList.length; i++) {
-        listContent += "<a href=\"#\" class=\"list-group-item\" ";
-        listContent += "onclick=\"onJoinClick('" + gameList[i].gameName + "');\">";
-        listContent += "<span class=\"badge\">" + gameList[i].users + "</span>" + gameList[i].gameName + "</a>";
-    }
+    ioSocket.emit('requestGameList');
     
-    if (gameList.length >= 1)    
-        document.getElementById("listLobby").innerHTML = listContent;
+    // Clear all text boxes.
+    document.getElementById("txtCreateGame").value = "";
 }
 
 // Any update logic would go here. You can also switch

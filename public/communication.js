@@ -62,7 +62,6 @@ function onConnected(data) {
 }
 
 function onGameJoined(data){
-    console.log('onGameJoined Called');
     game.initializeGame(data);
     gameStateMachine.changeState(new GameJoinedState());
 
@@ -75,6 +74,18 @@ function updateGameList(data) {
     for (i in gameList){
         console.log(data[i].gameName + ", " + data[i].users); 
     }
+    
+    // Parse some new HTML Code if there are games available.
+    var listContent = "";
+    for (var i = 0; i < gameList.length; i++) {
+        listContent += "<a href=\"#\" class=\"list-group-item\" ";
+        listContent += "onclick=\"onJoinClick('" + gameList[i].gameName + "');return false;\">";
+        listContent += "<span class=\"badge\">" + gameList[i].users + "</span>" + gameList[i].gameName + "</a>";
+    }
+    
+    // Set the new parsed HTML if there are games available.
+    if (gameList.length >= 1)    
+        document.getElementById("divLobbyList").innerHTML = listContent;
     
 }
 

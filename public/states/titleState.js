@@ -20,15 +20,15 @@ TitleState.prototype.enter = function(stateMachine) {
 
     tweenBoard.chain(tweenBoard);
     
-    // Start both tweens
+    // Start tween
     tweenBoard.start();
     
     // Show title HUD
     hudDivs.show({title: ""});
     
-    // Request game list
-    ioSocket.emit('requestGameList');
-    
+    // Clear all text boxes.
+    document.getElementById("txtUserID").value = "";
+     
 }
 
 // Any update logic would go here. You can also switch

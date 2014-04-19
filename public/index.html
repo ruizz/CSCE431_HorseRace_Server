@@ -60,18 +60,25 @@
 					<h2>Join Game</h2>
 					<div class="col-lg-5"></div>
 					<div class="col-lg-2">
-						<div class="list-group textAlignLeft" id="listLobby">
+						<div class="list-group textAlignLeft" id="divLobbyList">
 					    	<a href="#" class="list-group-item"><span class="badge">0</span>No games available...</a>
 					    </div>
 					</div><!-- /.col-lg-4 -->
 				</div><!-- /.row -->
+				<div class="row">
+	    			<button type="button" class="btn btn-danger"
+	    				onclick="gameStateMachine.changeState(new TitleState()); return false;">Back</button>
+	    		</div><!-- /.row -->
 	    	</div><!-- /#divLobby -->
 	    	
 	    	
-	    	<!-- Lobby Div -->
+	    	<!-- Waiting for other players -->
 	    	<div class="container textAlignCenter" id="divWaiting">
 	    		<div class="row">
-	    			<h1>Waiting...</h1>
+	    			<h1 id="divWaitingTitle"></h1>
+	    		</div>
+	    		<div class="row">
+	    			<p class="lead">Waiting for other players...</p>
 	    		</div>
 	    		<div class="row">
 	    			<button type="button" class="btn btn-danger" id="btnExitGame">Cancel</button>
