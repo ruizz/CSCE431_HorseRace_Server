@@ -78,7 +78,7 @@ exports.init = function(sio, socket){
             delete games[data.gameName];
         } else {
         delete games[data.gameName].players[data.userID];
-        
+        }  
     });
 };
 
