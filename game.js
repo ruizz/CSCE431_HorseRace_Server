@@ -18,9 +18,8 @@ module.exports = Game;
 
 Game.prototype.enactRound = function() {
     //start timer
-    // console.log(this.gameTime);
-    this.setTimer(this.getNewTime(),10000);
-    this.intervalID = setInterval(this.checkTimer.bind(this),2000);
+    this.setTimer(this.getNewTime(),5000);
+    this.intervalID = setInterval(this.checkTimer.bind(this),1000);
 
     
     //get Bet
@@ -29,7 +28,7 @@ Game.prototype.enactRound = function() {
     //end timer
     //
     
-
+    //console.log(this.moves);
     //move horses
     //
 
@@ -61,18 +60,15 @@ Game.prototype.getNewTime = function() {
 //If it has one arg, it checks the timer.
 Game.prototype.setTimer = function(currentTime, duration) {
     //Make new timer
-    // var tarDate = new Date();
     this.targetTime = currentTime + duration;
-    console.log(this.targetTime);
-
 }
 
 
 Game.prototype.checkTimer = function() {
-    //console.log("Check");
     if ((new Date).getTime() >= this.targetTime) {
-        //this.io.sockets.in(this.gameName).emit('showError', 'damn it!');
-        // console.log("Timer went off!");
+        //Tell the client to start animating after the betting is over
+        this.io.sockets.in(this.gameName).emit('animateBoard');
+        //Clear the repeating timer check
         clearInterval(this.intervalID);
         this.moveHorses();
     }
@@ -80,11 +76,20 @@ Game.prototype.checkTimer = function() {
 
 //Move horses to their new positions
 Game.prototype.moveHorses = function() {
-    
+    for(var i = 0; i < 8; i++) {
+        this.horses[i] += this.moves[i][this.round];
+    }
+    // console.log(this.horses);
+    this.sendPositions();
+
 }
 
 //Emit to tell clients to move to new positions
 Game.prototype.sendPositions = function() {
+    //Pass array to client of update horse positions
+    this.io.sockets.in(this.gameName).emit('updateHorsePositions', this.horses);
+    // Increment Round count
+    this.round++;
 
 }
 

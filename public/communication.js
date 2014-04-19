@@ -17,6 +17,8 @@ ioSocket.on('connected', onConnected);
 ioSocket.on('gameJoined', onGameJoined);
 ioSocket.on('updateGameList', updateGameList);
 ioSocket.on('updatePlayerList', updatePlayerList);
+ioSocket.on('animateBoard', onAnimateBoard);
+ioSocket.on('updateHorsePositions', updateHorsePositions);
 ioSocket.on('showError', showError);
 
 function onSignInClick() {
@@ -67,6 +69,10 @@ function onGameJoined(data){
 
 }
 
+function onAnimateBoard(){
+    gameStateMachine.changeState(new AnimateState());
+}
+
 // This function is called after creating a new game
 // data has two variables gameName & users(number of users in the game)
 function updateGameList(data) {
@@ -97,6 +103,10 @@ function updateGameList(data) {
 function updatePlayerList(players) {
     game.updatePlayerList(players);
     
+}
+
+function updateHorsePositions(horses) {
+    console.log('Horse Positions: ' + horses);
 }
 
 
