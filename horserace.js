@@ -24,11 +24,9 @@ exports.init = function(sio, socket){
                 // Join a socket group
                 socket.join(gameName);
                 
-                // Send a client to update its game object
-                socket.emit('newGameJoined', {
+                socket.emit('gameJoined', {
                     gameName: gameName,
-                    players: Object.keys(games[gameName].players)
-                    // players: Object.keys(games[gameName].players)
+                    players: games[gameName].players
                 });
 
                 sendGameList();
