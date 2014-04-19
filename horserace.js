@@ -31,18 +31,24 @@ exports.init = function(sio, socket){
                     // players: Object.keys(games[gameName].players)
                 });
 
-                // Update a list on the game server
-                var gameList = new Array();
-                for (gameName in games){
-                    gameList.push({gameName: gameName, users: Object.keys(games[gameName].players).length})
-                }
-                socket.emit('updateGameList', gameList);
-
+                sendGameList();
+                
             } else {
                 socket.emit('showError', 'User already joined the game');
             }
         }
     });
+    
+    socket.on('requestGameList', sendGameList);
+
+    function sendGameList() {
+        // Update a list on the game server
+        var gameList = new Array();
+        for (gameName in games){
+            gameList.push({gameName: gameName, users: Object.keys(games[gameName].players).length})
+        }
+        socket.emit('updateGameList', gameList);
+    };
 
     // Join a game
     socket.on('joinGame', function (data) {
