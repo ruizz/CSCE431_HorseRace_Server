@@ -47,7 +47,7 @@ exports.init = function(sio, socket){
         for (gameName in games){
             gameList.push({gameName: gameName, users: Object.keys(games[gameName].players).length})
         }
-        socket.emit('updateGameList', gameList);
+        io.sockets.emit('updateGameList', gameList);
     };
 
     // Join a game
@@ -83,7 +83,7 @@ exports.init = function(sio, socket){
         if (Object.keys(games[gameName].players).length <= 0) {
             delete games[data.gameName];
         } else {
-        delete games[data.gameName].players[data.userID];
+            delete games[data.gameName].players[data.userID];
         }  
     });
 };
