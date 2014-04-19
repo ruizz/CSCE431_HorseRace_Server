@@ -4,7 +4,7 @@ var userID = "";
 
 // Assigning functions to html buttons
 var htmlDocument = $(document);
-htmlDocument.on('click', '#btnCreateGame', onSignInClick);
+htmlDocument.on('click', '#btnSignIn', onSignInClick);
 htmlDocument.on('click', '#btnCreateGame', onCreateClick);
 htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
@@ -19,7 +19,8 @@ ioSocket.on('showError', showError);
 
 function onSignInClick() {
     userID = $(txtUserID).val();
-
+    gameStateMachine.changeState(new LobbyState());
+    
 }
 
 function onCreateClick() {
