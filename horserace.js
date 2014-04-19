@@ -5,7 +5,6 @@ exports.init = function(sio, socket){
     console.log('horserace.js - initGame Called');
     io = sio;
     socket.emit('connected', { message: 'You are connected!' });
-    sendGameList();
 
     // Creating a game
     socket.on('createNewGame', function (data) {
