@@ -4,6 +4,7 @@ var Game = function() {
     this.players = {};
     this.currentRound = 0;
     this.horsePositions = new Array();
+    this.horseBetValues;
 }
 
 Game.prototype.initializeGame = function(data) {
