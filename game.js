@@ -104,7 +104,7 @@ Game.prototype.calculateWinnings = function() {
                 userWinning += divrate[i]*this.userMoney[user][i];
             }
         }
-        payout[user] = userWinning;
+        payout[user] = userWinning.toFixed(2);
     }
     return payout;
 }
