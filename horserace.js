@@ -2,11 +2,22 @@ var io;
 var games = {};
 
 var Game = require('./game.js');
+var request = require('request'); 
 
 exports.init = function(sio, socket){
     console.log('horserace.js - initGame Called');
     io = sio;
     socket.emit('connected', { message: 'You are connected!' });
+
+    socket.on('signInGame', function(userID) {        
+        request({uri:'http://heroku-team-bankin.herokuapp.com/services/account/get/' + userID, json:'json'} , function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                socket.emit('signedIn', body);
+            } else {
+                socket.emit('showError', 'err: Please check your user ID');
+            }
+        })
+    });
 
     // Creating a game
     socket.on('createNewGame', function (data) {

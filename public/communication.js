@@ -1,6 +1,7 @@
 // See game.js
 var game = new Game();
 var userID = "";
+var userData;
 var gameList;
 
 // Assigning functions to html buttons
@@ -14,6 +15,7 @@ htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
 // Binding events
 var ioSocket = io.connect();
 ioSocket.on('connected', onConnected);
+ioSocket.on('signedIn', onSignedIn);
 ioSocket.on('gameJoined', onGameJoined);
 ioSocket.on('updateGameList', updateGameList);
 ioSocket.on('updatePlayerList', updatePlayerList);
@@ -24,7 +26,18 @@ ioSocket.on('showError', showError);
 
 function onSignInClick() {
     userID = $(txtUserID).val();
+    ioSocket.emit('signInGame', userID);
+}
+
+function onSignedIn (data){
+    userData = data;
     gameStateMachine.changeState(new LobbyState());
+    console.log(data);
+    console.log(userData.email);
+    console.log(userData.firstname);
+    console.log(userData.lastname)
+    console.log(userData.loginmethod);
+    console.log(userData.moneez);
 }
 
 function onCreateClick() {
@@ -90,7 +103,7 @@ function updateGameList(data) {
     
     // Parse some new HTML Code if there are games available.
     var listContent = "";
-    console.log('1' + data);
+
     if (gameList.length >= 1) {
         for (var i = 0; i < gameList.length; i++) {
             console.log(gameList[i].gameName);
