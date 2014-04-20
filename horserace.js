@@ -41,7 +41,10 @@ exports.init = function(sio, socket){
                     gameName: gameName,
                     players: games[gameName].players
                 });
-                // var numPlayers =
+                console.log("start 15 second wait timer");
+                games[gameName].setTimer(games[gameName].getNewTime(), 15000);
+                games[gameName].intervalID = setInterval(checkGamesTimer.bind(games[gameName]),1000);
+                // console.log(games[gameName].intervalID);
                 sendGameList();
 
             } else {
@@ -56,12 +59,28 @@ exports.init = function(sio, socket){
         // Update a list on the game server
         var gameList = new Array();
         for (gameName in games){
-            gameList.push({gameName: gameName, users: Object.keys(games[gameName].players).length})
+            if (games[gameName].gameReady == true ) {
+                gameList.push({gameName: gameName, users: Object.keys(games[gameName].players).length})
+ 
+            }
         }
         io.sockets.emit('updateGameList', gameList);
         // console.log("Users in gameList.users: " + gameList[0].users);
         // return gameList[0].users;
     };
+
+    function checkGamesTimer() {
+        if ((new Date).getTime() >= games[gameName].targetTime) {
+            //Tell the game that it is ready
+            clearInterval(games[gameName].intervalID);
+            console.log("starting the Game");
+            games[gameName].gameReady = false;
+            io.sockets.in(gameName).emit('startGame');
+            games[gameName].enactRound();
+            //Clear the repeating timer check
+            
+        }
+    }
 
     // Join a game
     socket.on('joinGame', function (data) {
@@ -69,7 +88,7 @@ exports.init = function(sio, socket){
         var userID = data.userID;
 
         if (gameName in games)  {
-            if ( !(userID in (games[gameName].players) )) {
+            if ( !(userID in (games[gameName].players) ) && (games[gameName].gameReady == true)) {
                 games[gameName].players[userID] = socket.id;
 
                 // Join a socket group
@@ -82,19 +101,17 @@ exports.init = function(sio, socket){
 
                 socket.broadcast.to(gameName).emit('updatePlayerList', games[gameName].players);
 
-                //var numPlayers =
                 sendGameList();
-                //console.log('Number of players: ' + numPlayers);
-                if (Object.keys(games[gameName].players).length > 1)//numPlayers > 1)
-                {
-                    console.log("starting the Game");
-                    io.sockets.in(gameName).emit('startGame');
-                    //game.enactRound();
-                    games[gameName].enactRound();
-                }
+                // if (games[gameName].gameReady == true)
+                // {
+                //     console.log("starting the Game");
+                //     io.sockets.in(gameName).emit('startGame');
+                //     //game.enactRound();
+                //     games[gameName].enactRound();
+                // }
 
             } else {
-                socket.emit('showError', 'User already joined the game');
+                socket.emit('showError', 'Unable to join game');
             }
 
         } else {

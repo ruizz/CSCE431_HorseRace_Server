@@ -4,6 +4,7 @@ var request = require('request');
 var Game = function(gName, sio) {
     this.io = sio;
     this.gameName = gName;
+    this.gameReady = true;
     this.players = {};
     this.round = 0;
     this.gameTime = this.getNewTime();
@@ -54,7 +55,7 @@ Game.prototype.gameOver = function() {
     //Disperse Winnings to players
 
     // Deposit money into the server
-    var res = calculateWinnings();
+    var res = this.calculateWinnings();
 
     for (uid in res){
         request.put({
@@ -125,9 +126,9 @@ Game.prototype.setTimer = function(currentTime, duration) {
 
 Game.prototype.checkTimer = function() {
     if ((new Date).getTime() >= this.targetTime) {
-        //Tell the client to start animating after the betting is over
         //Clear the repeating timer check
         clearInterval(this.intervalID);
+        
         this.moveHorses();
     }
 }
@@ -146,6 +147,7 @@ Game.prototype.moveHorses = function() {
 Game.prototype.sendPositions = function() {
     //Pass array to client of update horse positions
     this.io.sockets.in(this.gameName).emit('updateHorsePositions', this.horsePositions);
+    //Tell the client to start animating now that the betting is over
     this.io.sockets.in(this.gameName).emit('animateBoard');
     // Increment Round count
     if (this.round == 9) {
