@@ -7,10 +7,12 @@ TitleState.prototype.enter = function(stateMachine) {
     // Set up background color
     renderer.setClearColor(THEME_HORSU[2], 1);
     
-    // Ambient light
-    //scene.remove(ambientLight);
-    //ambientLight = new THREE.AmbientLight(THEME_HORSU[2]);
-    //scene.add(ambientLight);
+    // Set up basic lighting
+    hemisphereLight = new THREE.HemisphereLight(THEME_HORSU[2], THEME_HORSU[3]);
+    scene.add(hemisphereLight);
+    
+    // Fog
+    scene.fog = new THREE.Fog(THEME_HORSU[2], 1, 50);
     
     // Set up camera position and where it should look at.
     camera.position.y = SETTINGS_CAMERA_START_Y;

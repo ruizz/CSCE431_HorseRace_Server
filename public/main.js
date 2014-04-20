@@ -1,7 +1,7 @@
 // Variables
 // Three.js essential items.
 var renderer, scene, loader, camera;
-var ambientLight, hemisphereLight;
+var fog, hemisphereLight;
 var tileGeometry, horseGeometry;
 
 // Three is drawn in this div
@@ -59,13 +59,6 @@ function init() {
 		}
 			
 	);
-	
-	// Set up ambient light
-	ambientLight = new THREE.AmbientLight();
-	
-	// Set up point light
-	hemisphereLight = new THREE.HemisphereLight(THEME_HORSU[2], THEME_HORSU[3]);
-	scene.add(hemisphereLight);
 	
 	// Listener for window resize
 	window.addEventListener('resize', onWindowResize, false);

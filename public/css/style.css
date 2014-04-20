@@ -4,9 +4,7 @@
 	/*http://stackoverflow.com/questions/10425310/three-js-full-screen-issue*/
     overflow:hidden;
     margin: 0px; padding: 0px; border: 0px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 300;
-    color: #555;
+    color: #774F38;
     
 }
 
@@ -38,6 +36,10 @@ canvas {
     position: absolute;
     width: 100%;
     bottom: 5%
+}
+
+.marginBottom20px {
+    margin-bottom: 20px;
 }
 
 #boardContainer{
