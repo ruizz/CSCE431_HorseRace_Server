@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'king_of_the_hillregular';
+    src: url('../fonts/king_of_the_hill.eot');
+    src: url('../fonts/king_of_the_hill.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/king_of_the_hill.woff') format('woff'),
+         url('../fonts/king_of_the_hill.ttf') format('truetype'),
+         url('../fonts/king_of_the_hill.svg#king_of_the_hillregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 /* All Elements */
 * {
 	/*Helps rid of some fullscreen issue.*/
@@ -40,6 +52,13 @@ canvas {
 
 .marginBottom20px {
     margin-bottom: 20px;
+}
+
+.headerText {
+    font-family: 'king_of_the_hillregular';
+    font-size: 110px;
+    -webkit-text-stroke: 1px;
+    
 }
 
 #boardContainer{

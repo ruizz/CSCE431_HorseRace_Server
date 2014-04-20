@@ -27,7 +27,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Username" id="txtUserID">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" id="btnSignIn">Login</button>
+								<button class="btn btn-default btn-danger" type="button" id="btnSignIn">Login</button>
 							</span>
 						</div><!-- /input-group -->
 						
@@ -41,7 +41,7 @@
 	    	<!-- Lobby Div -->
 	    	<div class="container textAlignCenter" id="divLobby">
 	    		<div class="row">
-	    			<h1>Lobby</h1>
+	    			<h1 class="headerText">Lobby</h1>
 	    		</div>
 	    		<!-- Create game row -->
 	    		<div class="row">
@@ -52,7 +52,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Game name" id="txtCreateGame">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" id="btnCreateGame">Create</button>
+								<button class="btn btn-default btn-danger" type="button" id="btnCreateGame">Create</button>
 							</span>
 						</div><!-- /input-group -->
 					</div><!-- /.col-lg-4 -->
@@ -77,7 +77,7 @@
 	    	<!-- Waiting for other players -->
 	    	<div class="container textAlignCenter " id="divWaiting">
 	    		<div class="row">
-	    			<h1 id="divWaitingTitle"></h1>
+	    			<h1 id="divWaitingTitle" class="headerText"></h1>
 	    		</div>
 	    		<div class="row">
 	    			<p class="lead">Waiting for other players...</p>
@@ -88,79 +88,84 @@
 	    	</div>
 	    	
 	    	<!-- Place your bets!! -->
-	    	<div class="container alignBottom textAlignCenter" id="divBets">
+	    	<div class="container textAlignCenter" id="divBets">
 	    		<div class="row">
-	    			<!-- Time Remaining -->
-	    			<div class="col-lg-1">
-	    				<p>Round</p>
-	    				<h1 id="divBetsRound"></h1>
-	    				<p>Time Remaining</p>
-	    				<h1 id="divBetsTimer"></h1>
-	    			</div>
-	    			<div class="col-lg-1"></div>
-	    			<!-- Horse 1 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 1</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 2 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 2</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 3 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 3</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 4 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 4</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 5 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 5</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 6 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 6</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 7 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 7</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 8 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 8</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<div class="col-lg-2"></div>
+	    			<h1 class="headerText">Place your bets!</h1>
+	    		</div>
+	    		<div class="alignBottom">
+	    			<div class="row">
+		    			<!-- Time Remaining -->
+		    			<div class="col-lg-1">
+		    				<p>Round</p>
+		    				<h1 id="divBetsRound"></h1>
+		    				<p>Time Remaining</p>
+		    				<h1 id="divBetsTimer"></h1>
+		    			</div>
+		    			<div class="col-lg-1"></div>
+		    			<!-- Horse 1 bet area -->
+		    			<div class="col-lg-1">
+		    				<p>Horse 1</p>
+		    				<p>Money</p>
+		    				<button class="btn btn-primary">Bet</button>
+		    			</div>
+		    			<!-- Horse 2 bet area -->
+		    			<div class="col-lg-1">
+		    				<p>Horse 2</p>
+		    				<p>Money</p>
+		    				<button class="btn btn-primary">Bet</button>
+		    			</div>
+		    			<!-- Horse 3 bet area -->
+		    			<div class="col-lg-1">
+		    				<p>Horse 3</p>
+		    				<p>Money</p>
+		    				<button class="btn btn-primary">Bet</button>
+		    			</div>
+		    			<!-- Horse 4 bet area -->
+		    			<div class="col-lg-1">
+		    				<p>Horse 4</p>
+		    				<p>Money</p>
+		    				<button class="btn btn-primary">Bet</button>
+		    			</div>
+		    			<!-- Horse 5 bet area -->
+		    			<div class="col-lg-1">
+		    				<p>Horse 5</p>
+		    				<p>Money</p>
+		    				<button class="btn btn-primary">Bet</button>
+		    			</div>
+		    			<!-- Horse 6 bet area -->
+		    			<div class="col-lg-1">
+		    				<p>Horse 6</p>
+		    				<p>Money</p>
+		    				<button class="btn btn-primary">Bet</button>
+		    			</div>
+		    			<!-- Horse 7 bet area -->
+		    			<div class="col-lg-1">
+		    				<p>Horse 7</p>
+		    				<p>Money</p>
+		    				<button class="btn btn-primary">Bet</button>
+		    			</div>
+		    			<!-- Horse 8 bet area -->
+		    			<div class="col-lg-1">
+		    				<p>Horse 8</p>
+		    				<p>Money</p>
+		    				<button class="btn btn-primary">Bet</button>
+		    			</div>
+		    			<div class="col-lg-2"></div>
+		    		</div>
 	    		</div>
 	    	</div>
 	    	
 	    	<!-- Animate horses!! -->
 	    	<div class="container textAlignCenter " id="divAnimate">
 	    		<div class="row">
-	    			<h1 id="divAnimateTitle">Bets are in!</h1>
+	    			<h1 class="headerText" id="divAnimateTitle">Bets are in!</h1>
 	    		</div>
 	    	</div>
 	    	
 	    	<!-- Animate horses!! -->
 	    	<div class="container textAlignCenter " id="divGameOver">
 	    		<div class="row">
-	    			<h1 id="divAnimateTitle">Game Over</h1>
+	    			<h1 class="headerText" id="divAnimateTitle">Game Over</h1>
 	    		</div>
 	    		<div class="row">
 	    			<p class="lead">Your earnings, blah.</p>
