@@ -2,7 +2,6 @@ var io;
 var games = {};
 
 var Game = require('./game.js');
-var request = require('request'); 
 var request = require('request');
 
 exports.init = function(sio, socket){
@@ -10,7 +9,6 @@ exports.init = function(sio, socket){
     io = sio;
     socket.emit('connected', { message: 'You are connected!' });
 
-    socket.on('signInGame', function(userID) {        
     socket.on('signInGame', function(userID) {
         request({uri:'http://heroku-team-bankin.herokuapp.com/services/account/get/' + userID, json:{}} , function (error, response, body) {
             if (!error && response.statusCode == 200) {
@@ -38,20 +36,20 @@ exports.init = function(sio, socket){
 
                 // Join a socket group
                 socket.join(gameName);
-                
+
                 socket.emit('gameJoined', {
                     gameName: gameName,
                     players: games[gameName].players
                 });
-                // var numPlayers = 
+                // var numPlayers =
                 sendGameList();
-                
+
             } else {
                 socket.emit('showError', 'User already joined the game');
             }
         }
     });
-    
+
     // Sending a client a list of games
     socket.on('requestGameList', sendGameList);
     function sendGameList() {
@@ -83,8 +81,8 @@ exports.init = function(sio, socket){
                 });
 
                 socket.broadcast.to(gameName).emit('updatePlayerList', games[gameName].players);
-                
-                //var numPlayers = 
+
+                //var numPlayers =
                 sendGameList();
                 //console.log('Number of players: ' + numPlayers);
                 if (Object.keys(games[gameName].players).length > 1)//numPlayers > 1)
@@ -94,7 +92,7 @@ exports.init = function(sio, socket){
                     //game.enactRound();
                     games[gameName].enactRound();
                 }
-                
+
             } else {
                 socket.emit('showError', 'User already joined the game');
             }

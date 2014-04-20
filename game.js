@@ -80,8 +80,6 @@ Game.prototype.updateTotal = function() {
     }
 }
 
-<<<<<<< HEAD
-
 Game.prototype.calculateWinnings = function() {
     var _ = require('underscore');
 
@@ -104,36 +102,6 @@ Game.prototype.calculateWinnings = function() {
         for (var i=0; i < 8; i++) {
             if (_.contains(winningHorses,i)) {
                 userWinning += divrate[i]*userMoney[user][i];
-            }
-        }
-        payout[user] = userWinning;
-    }
-    return payout;
-}
-=======
-Game.prototype.calculateWinnings = function() {
-    var _ = require('underscore');
-
-    divrate = new Array(0,0,0,0,0,0,0,0);
-
-    for (var i=0; i < divrate.length; i++) {
-        divrate[i] = this.totalBets/this.horseBetValues[i]/3;
-    }
-    // console.log(divrate);
->>>>>>> FETCH_HEAD
-
-    // Create blank dictionary where players are keys, set winnings to 0
-    payout = {}
-    for (user in this.players) {
-        payout[user] = 0;
-    }
-    // console.log(payout);
-
-    for (user in this.userMoney) {
-        userWinning = 0;
-        for (var i=0; i < 8; i++) {
-            if (_.contains(winningHorses,i)) {
-                userWinning += divrate[i]*this.userMoney[user][i];
             }
         }
         payout[user] = userWinning;
