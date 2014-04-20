@@ -7,7 +7,23 @@
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     color: #555;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     
+}
+@font-face {
+  font-family: Horse;
+  src: url(DJ_horses_1.ttf) format('truetype');
+
+    /*
+    Font source:
+    http://www.dafont.com/dj-horses-1.font#null
+    */
 }
 
 /* Board Elements */
@@ -101,22 +117,131 @@ h2 {
 }
 
 /* horseList */
-#horseList{
-    position: absolute;
-    top:auto; bottom: 0; left: 1%;
-    height: 27.5%;
-    width: 80%;
-    font-size:1.1em;    
+.horsePanel{
+    border: 3px solid cadetblue;
+    padding-bottom: 0.5em;
+    display:inline-block;
+    background-color: #F2F2F2;  
+    display:none;
+    cursor: pointer !important;    
 }
-    #horseList li{
-        display:inline-block;
-        padding-left: 1%;
+    .horseIconContainer{
+        text-align: center;
+        font-size: 4em;
+        color: #222;
+
+
     }
-    #horseList li li{
-       padding:0;
-        display:block; 
+    .horseIcon{
+        font-family: Horse;
+        display: block;
+        width: 100%;
+        bottom: 0%;
+        z-index: 2;
+        opacity: 0.8;   
     }
 
+    #horsePanel1 .horseIcon{ color: #E1B565; }
+    #horsePanel2 .horseIcon{ color: #A3DEEF; }
+    #horsePanel3 .horseIcon{ color: #4C0B40; }
+    #horsePanel4 .horseIcon{ color: #5AC54C; }
+    #horsePanel5 .horseIcon{ color: #B8B419; }
+    #horsePanel6 .horseIcon{ color: #001AD5; }
+    #horsePanel7 .horseIcon{ color: #34A7F1; }
+    #horsePanel8 .horseIcon{ color: #46797A; }
+
+    /* horseList */
+    #horseList{
+        position: absolute;
+        float:right;
+        top:auto; bottom: 0; left: 1%;
+        height: 27.5%;
+        width: 80%;
+        font-size:2em;
+    }
+        #horseList h2{
+            font-family: Horse;
+            font-size:2.5em;
+            display:inline-block;
+            width:1.2em;
+            text-align: center;
+        }
+        .horse_block{
+            border-radius: 5%;
+            border-right: 3px solid cadetblue;
+            border-bottom: 3px solid cadetblue;
+            padding: 0.5em;
+            display:inline-block;
+            margin-right: 1%;
+            background-color: #F2F2F2;
+        }
+        #horseList li li{
+           border:none;
+           padding:0;
+           display:block;
+        }
+
+        .hMoney:before{
+            content:'$';
+        }
+        .hChance:after{
+            content:'%';
+        }
+
+    /*bettingInterface */
+    #bettingInterfaceContainer{
+
+    }
+        .betInterface{
+            background-color: #F2F2F2;
+            border-radius: 5%;
+            border-right: 3px solid cadetblue;
+            border-bottom: 3px solid cadetblue;
+
+            position: fixed;
+            font-size:1.5em;
+            display:none;
+            z-index: 5;
+
+        }
+        .incrValueLabelContainer{
+            position: relative;
+            height: 50%;
+            /* variables to test */
+        }
+
+        .incrLabel{
+            float:left;
+            text-align: center;
+            display: inline-block;
+            padding-top: 10%;
+            font-size: 1.5em;
+            /* variables to test */
+            width: 100%;
+            height: 100%;
+        }
+        .incrButtonContainer{
+            border-radius: 10%;
+            /*border-right: 3px solid rgba(0,0,0,0.5);
+            border-bottom: 3px solid rgba(0,0,0,0.5);*/
+            float:left;
+            display: block;
+            width: 35%; height: 40%;
+            padding: 1% 0 1% 0;
+            margin: 5% 0 0 10%;
+            background-color: cadetblue;
+        }
+        .incrButton{
+            font-size: 0.8em;
+            display: inline-block;
+            width: 100%;
+            /* variables to test */
+        }
+        .incrButton span{
+            text-align: center;
+            color: #F2F2F2;
+            display: block;
+        }
 /* playerInfoList */
 
 #playerInfoList {
@@ -140,4 +265,9 @@ h2 {
 /* colors */
 .gold{
    color: #f1c40f;
+}
+
+/* Timer */
+#divBetsTimer{
+    overflow: visible;
 }

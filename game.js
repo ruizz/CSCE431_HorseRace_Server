@@ -10,7 +10,7 @@ var Game = function(gName, sio) {
     this.started = false;
     this.horses = new Array(0,0,0,0,0,0,0,0);
     this.moves = this.generateMoves();
-}
+};
 
 module.exports = Game;
 
@@ -19,12 +19,12 @@ Game.prototype.enactRound = function() {
     this.setTimer(this.getNewTime(),15000);
     this.intervalID = setInterval(this.checkTimer.bind(this),1000);
 
-    
+
     //get Bet
     //getBet()
 
     //Timer will run out on it's own.
-    
+
     //console.log(this.moves);
 
     //move horses
@@ -33,7 +33,7 @@ Game.prototype.enactRound = function() {
     //emit positions
     //
 
-}
+};
 
 //exports.enactRound = Game.prototype.enactRound;
 
@@ -43,35 +43,35 @@ Game.prototype.gameOver = function() {
 
     //Disperse Winnings to players
 
-}
+};
 
 //Get bets from client and send to bank
 Game.prototype.getBet = function() {
 
-}
+};
 
 //For some reason I decided to wrap the current time function
 Game.prototype.getNewTime = function() {
-    var time = (new Date).getTime();
+    var time = (new Date()).getTime();
     return time;
-}
+};
 
-//Timer function, if it has two args it sets timer, 
+//Timer function, if it has two args it sets timer,
 //If it has one arg, it checks the timer.
 Game.prototype.setTimer = function(currentTime, duration) {
     //Make new timer
     this.targetTime = currentTime + duration;
-}
+};
 
 
 Game.prototype.checkTimer = function() {
-    if ((new Date).getTime() >= this.targetTime) {
+    if ((new Date()).getTime() >= this.targetTime) {
         //Tell the client to start animating after the betting is over
         //Clear the repeating timer check
         clearInterval(this.intervalID);
         this.moveHorses();
     }
-}
+};
 
 //Move horses to their new positions
 Game.prototype.moveHorses = function() {
@@ -81,7 +81,7 @@ Game.prototype.moveHorses = function() {
     // console.log(this.horses);
     this.sendPositions();
 
-}
+};
 
 //Emit to tell clients to move to new positions
 Game.prototype.sendPositions = function() {
@@ -97,7 +97,7 @@ Game.prototype.sendPositions = function() {
         this.enactRound();
     }
 
-}
+};
 
 // START GAME BOARD GENERATION CODE
 // generate moves function returns an 8x10 2D array with all the moves for the horses
@@ -115,9 +115,9 @@ Game.prototype.generateMoves = function() {
     var thirdPlaceMoves = this.createPlaceMoves(3);
 
     // Create moves array
-    var moves = Array()
+    var moves = Array();
     for (i in _.range(8)) {
-        moves.push(this.createNonPlaceMoves(3))
+        moves.push(this.createNonPlaceMoves(3));
     }
 
     // Swap in winning horse moves
@@ -127,7 +127,7 @@ Game.prototype.generateMoves = function() {
 
     // console.log(moves);
     return moves;
-}
+};
 
 // Create round move arrays for place positions 1st, 2nd, 3rd
 Game.prototype.createPlaceMoves = function(place) {
@@ -144,7 +144,7 @@ Game.prototype.createPlaceMoves = function(place) {
         moves.push(0);
     }
     return moves;
-}
+};
 
 // Create round move array for the rest, should not be at end on 10th round
 Game.prototype.createNonPlaceMoves = function(place) {
@@ -155,13 +155,13 @@ Game.prototype.createNonPlaceMoves = function(place) {
         }
     }
     return moves;
-}
+};
 
 // Returns the sum of values in the array
 Game.prototype.arraySum = function(arr) {
     var total = 0;
     for (i in arr) {
-        total += arr[i]
+        total += arr[i];
     }
     return total;
-}
+};

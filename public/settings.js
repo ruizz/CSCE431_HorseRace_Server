@@ -35,12 +35,7 @@ var SETTINGS_LIGHT_THEME = THEME_WINTER_RASPBERRY;
 
 // Horse Colors
 var SETTINGS_HORSE_COLOR =[0xE1B565, 0xA3DEEF, 0x4C0B40, 0x5AC54C, 0xB8B419, 0x001AD5, 0x34A7F1, 0x46797A];
+var SETTINGS_HORSE_HASHCOLOR =['#E1B565', '#A3DEEF', '#4C0B40', '#5AC54C', '#B8B419', '#001AD5', '#34A7F1', ' #46797A'];
 
-// Horse Names
-var SETTINGS_HORSE_NAME = ['Orb', "I'll Have Another", 'Animal Kingdom', 'Super Saver', 'Mine That Bird',
-                           'Big Brown', 'Street Sense', 'Barbaro', 'Giacomo', 'Smarty Jones',
-                           'Funny Cide', 'War Emblem', 'Monarchos', 'Fusaichi Pegasus', 'Charismatic',
-                           'Real Quiet', 'Silver Charm', 'Grindstone', 'Thunder Gulch', 'Go for Gin',
-                           'Sea Hero', 'Lil E. Tee', 'Strike the Gold', 'Unbridled', 'Sunday Silence',
-                           'Winning Colors', 'Alysheba', 'Ferdinand', 'Spend A Buck', 'Swale',"Sunny's Halo",
-                           'Gato Del Sol', 'Pleasant Colony', 'Genuine Risk'];
+// Horse Sprites
+var SETTINGS_HORSE_SPRITES = ['b', 'c', 'd', 'g', 'h', 'n', 'r', 't', 'u', 'y', 'z', '1', '7'];

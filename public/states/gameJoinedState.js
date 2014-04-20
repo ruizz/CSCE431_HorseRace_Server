@@ -4,6 +4,8 @@ var GameJoinedState = function() {
 
 // You would set up the environment here.
 GameJoinedState.prototype.enter = function(stateMachine) {
+
+
     // Show HUD
     hudDivs.show({waiting: ""});
     

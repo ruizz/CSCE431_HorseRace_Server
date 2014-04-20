@@ -1,19 +1,25 @@
+<!DOCTYPE html>
 <html>
 	<head>
+
+		<!-- Title -->
+		<title>HORSU RAYSUUUU</title>
+
 		<!-- Bootstrap core CSS -->
 		<link href="/css/bootstrap.min.css" rel="stylesheet">
-		
+
 		<!-- Horsu CSS -->
 		<link href="/css/style.css" rel="stylesheet">
-		
+
 	</head>
+
 	<body onkeydown="onKeyDown(event)">
 		<!-- Three.js attaches to this container -->
 		<div id="boardContainer"></div>
-		
+
 		<!-- ALL HUD Elements are in this div -->
 		<div class="hudOverlay">
-			
+
 			<!-- Title div -->
 			<div class="container textAlignCenter" id="divTitle">
         		<h1>Horsu Raysu [Replace with logo]</h1>
@@ -28,14 +34,14 @@
 								<button class="btn btn-default" type="button" id="btnSignIn">Login</button>
 							</span>
 						</div><!-- /input-group -->
-						
+
 					</div><!-- /.col-lg-4 -->
-					
+
 				</div><!-- /.row -->
 
 	    	</div><!-- /#divTitle -->
-	    	
-	    	
+
+
 	    	<!-- Lobby Div -->
 	    	<div class="container textAlignCenter" id="divLobby">
 	    		<div class="row">
@@ -70,8 +76,8 @@
 	    				onclick="gameStateMachine.changeState(new TitleState()); return false;">Back</button>
 	    		</div><!-- /.row -->
 	    	</div><!-- /#divLobby -->
-	    	
-	    	
+
+
 	    	<!-- Waiting for other players -->
 	    	<div class="container textAlignCenter " id="divWaiting">
 	    		<div class="row">
@@ -84,9 +90,10 @@
 	    			<button type="button" class="btn btn-danger" id="btnExitGame">Cancel</button>
 	    		</div>
 	    	</div>
-	    	
+
 	    	<!-- Place your bets!! -->
-	    	<div class="container alignBottom textAlignCenter" id="divBets">
+	    	<div id="divBets">
+
 	    		<div class="row">
 	    			<!-- Time Remaining -->
 	    			<div class="col-lg-1">
@@ -95,66 +102,427 @@
 	    				<p>Time Remaining</p>
 	    				<h1 id="divBetsTimer"></h1>
 	    			</div>
-	    			<div class="col-lg-1"></div>
-	    			<!-- Horse 1 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 1</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 2 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 2</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 3 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 3</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 4 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 4</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 5 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 5</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 6 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 6</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 7 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 7</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<!-- Horse 8 bet area -->
-	    			<div class="col-lg-1">
-	    				<p>Horse 8</p>
-	    				<p>Money</p>
-	    				<button class="btn btn-primary">Bet</button>
-	    			</div>
-	    			<div class="col-lg-2"></div>
 	    		</div>
+
+
+			    <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+			    <!-- 			NON BOOTSTRAP									 -->
+			    <!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+			    			  <!-- Betting Panel -->
+		            <div class="betPanelContainer">
+						<div class="betInterface" id="betInterface0">
+							<div class="incrValueLabelContainer">
+
+								<span class="incrLabel hMoney" id="hMoneyIncr0">50</span>
+							</div>
+							<div class="incrValueButtonPanelContainer">
+
+								<div class="incrButtonContainer">
+									<span class="incrButton large">
+										<span id="plusButtonBig0">
+											+
+										</span>
+										<span class="largeValue">
+											10
+										</span>
+										<span id="minusButtonBig0">
+											-
+										</span>
+									</span>
+								</div>
+
+								<div class="incrButtonContainer">
+									<span class="incrButton small">
+										<span id="plusButtonSmall0">
+										   +
+										</span>
+										<span class="smallValue">
+										   1
+										</span>
+										<span id="minusButtonSmall0">
+										   -
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> <!-- betInterface -->
+						<div class="betInterface" id="betInterface1">
+							<div class="incrValueLabelContainer">
+
+								<span class="incrLabel hMoney" id="hMoneyIncr1">51</span>
+							</div>
+							<div class="incrValueButtonPanelContainer">
+
+								<div class="incrButtonContainer">
+									<span class="incrButton large">
+										<span id="plusButtonBig1">
+											+
+										</span>
+										<span class="largeValue">
+											11
+										</span>
+										<span id="minusButtonBig1">
+											-
+										</span>
+									</span>
+								</div>
+
+								<div class="incrButtonContainer">
+									<span class="incrButton small">
+										<span id="plusButtonSmall1">
+										   +
+										</span>
+										<span class="smallValue">
+										   1
+										</span>
+										<span id="minusButtonSmall1">
+										   -
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> <!-- betInterface -->
+						<div class="betInterface" id="betInterface2">
+							<div class="incrValueLabelContainer">
+
+								<span class="incrLabel hMoney" id="hMoneyIncr2">52</span>
+							</div>
+							<div class="incrValueButtonPanelContainer">
+
+								<div class="incrButtonContainer">
+									<span class="incrButton large">
+										<span id="plusButtonBig2">
+											+
+										</span>
+										<span class="largeValue">
+											12
+										</span>
+										<span id="minusButtonBig2">
+											-
+										</span>
+									</span>
+								</div>
+
+								<div class="incrButtonContainer">
+									<span class="incrButton small">
+										<span id="plusButtonSmall2">
+										   +
+										</span>
+										<span class="smallValue">
+										   1
+										</span>
+										<span id="minusButtonSmall2">
+										   -
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> <!-- betInterface -->
+						<div class="betInterface" id="betInterface3">
+							<div class="incrValueLabelContainer">
+
+
+								<span class="incrLabel hMoney" id="hMoneyIncr3">53</span>
+							</div>
+							<div class="incrValueButtonPanelContainer">
+
+								<div class="incrButtonContainer">
+									<span class="incrButton large">
+										<span id="plusButtonBig3">
+											+
+										</span>
+										<span class="largeValue">
+											13
+										</span>
+										<span id="minusButtonBig3">
+											-
+										</span>
+									</span>
+								</div>
+
+								<div class="incrButtonContainer">
+									<span class="incrButton small">
+										<span id="plusButtonSmall3">
+										   +
+										</span>
+										<span class="smallValue">
+										   1
+										</span>
+										<span id="minusButtonSmall3">
+										   -
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> <!-- betInterface -->
+						<div class="betInterface" id="betInterface4">
+							<div class="incrValueLabelContainer">
+
+								<span class="incrLabel hMoney" id="hMoneyIncr4">54</span>
+							</div>
+							<div class="incrValueButtonPanelContainer">
+
+								<div class="incrButtonContainer">
+									<span class="incrButton large">
+										<span id="plusButtonBig4">
+											+
+										</span>
+										<span class="largeValue">
+											14
+										</span>
+										<span id="minusButtonBig4">
+											-
+										</span>
+									</span>
+								</div>
+
+								<div class="incrButtonContainer">
+									<span class="incrButton small">
+										<span id="plusButtonSmall4">
+										   +
+										</span>
+										<span class="smallValue">
+										   1
+										</span>
+										<span id="minusButtonSmall4">
+										   -
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> <!-- betInterface -->
+						<div class="betInterface" id="betInterface5">
+							<div class="incrValueLabelContainer">
+
+								<span class="incrLabel hMoney" id="hMoneyIncr5">55</span>
+							</div>
+							<div class="incrValueButtonPanelContainer">
+
+								<div class="incrButtonContainer">
+									<span class="incrButton large">
+										<span id="plusButtonBig5">
+											+
+										</span>
+										<span class="largeValue">
+											15
+										</span>
+										<span id="minusButtonBig5">
+											-
+										</span>
+									</span>
+								</div>
+
+								<div class="incrButtonContainer">
+									<span class="incrButton small">
+										<span id="plusButtonSmall5">
+										   +
+										</span>
+										<span class="smallValue">
+										   1
+										</span>
+										<span id="minusButtonSmall5">
+										   -
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> <!-- betInterface -->
+						<div class="betInterface" id="betInterface6">
+							<div class="incrValueLabelContainer">
+
+								<span class="incrLabel hMoney" id="hMoneyIncr6">56</span>
+							</div>
+							<div class="incrValueButtonPanelContainer">
+
+								<div class="incrButtonContainer">
+									<span class="incrButton large">
+										<span id="plusButtonBig6">
+											+
+										</span>
+										<span class="largeValue">
+											16
+										</span>
+										<span id="minusButtonBig6">
+											-
+										</span>
+									</span>
+								</div>
+
+								<div class="incrButtonContainer">
+									<span class="incrButton small">
+										<span id="plusButtonSmall6">
+										   +
+										</span>
+										<span class="smallValue">
+										   1
+										</span>
+										<span id="minusButtonSmall6">
+										   -
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> <!-- betInterface -->
+						<div class="betInterface" id="betInterface7">
+							<div class="incrValueLabelContainer">
+
+								<span class="incrLabel hMoney" id="hMoneyIncr7">57</span>
+							</div>
+							<div class="incrValueButtonPanelContainer">
+
+								<div class="incrButtonContainer">
+									<span class="incrButton large">
+										<span id="plusButtonBig7">
+											+
+										</span>
+										<span class="largeValue">
+											17
+										</span>
+										<span id="minusButtonBig7">
+											-
+										</span>
+									</span>
+								</div>
+
+								<div class="incrButtonContainer">
+									<span class="incrButton small">
+										<span id="plusButtonSmall7">
+										   +
+										</span>
+										<span class="smallValue">
+										   1
+										</span>
+										<span id="minusButtonSmall7">
+										   -
+										</span>
+									</span>
+								</div>
+							</div>
+						</div> <!-- betInterface -->
+		            </div><!-- Betting Panel -->
+
+					<!-- Horse Panel -->
+		            <ul id="horseList">
+
+		                <li class="horse_block" id="horseBlock0">
+		                    <h2 class='horse' id="horseIcon0">d</h2>
+		                    <ul>
+		                        <li class="hMoney" id="hMoney0">
+		                            $00
+		                        </li>
+		                        <li class="hChance" id="hChance0">
+		                            12.5%
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li class="horse_block" id="horseBlock1">
+		                    <h2 class='horse' id="horseIcon1">d</h2>
+		                    <ul>
+		                        <li class="hMoney" id="hMoney1">
+
+		                        </li>
+		                        <li class="hChance" id="hChance1">
+
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li class="horse_block" id="horseBlock2">
+		                    <h2 class='horse' id="horseIcon2">d</h2>
+		                    <ul>
+		                        <li class="hMoney" id="hMoney2">
+		                            $00
+		                        </li>
+		                        <li class="hChance" id="hChance2">
+		                            12.5%
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li class="horse_block" id="horseBlock3">
+		                    <h2 class='horse' id="horseIcon3">d</h2>
+		                    <ul>
+		                        <li class="hMoney" id="hMoney3">
+		                            $00
+		                        </li>
+		                        <li class="hChance" id="hChance3">
+		                            12.5%
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li class="horse_block" id="horseBlock4">
+		                    <h2 class='horse' id="horseIcon4">d</h2>
+		                    <ul>
+		                        <li class="hMoney" id="hMoney4">
+		                            $00
+		                        </li>
+		                        <li class="hChance" id="hChance4">
+		                            12.5%
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li class="horse_block" id="horseBlock5">
+		                    <h2 class='horse' id="horseIcon5">d</h2>
+		                    <ul>
+		                        <li class="hMoney" id="hMoney5">
+		                            $00
+		                        </li>
+		                        <li class="hChance" id="hChance5">
+		                            12.5%
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li class="horse_block" id="horseBlock6">
+		                    <h2 class='horse' id="horseIcon6">d</h2>
+		                    <ul>
+		                        <li class="hMoney" id="hMoney6">
+		                            $00
+		                        </li>
+		                        <li class="hChance" id="hChance6">
+		                            12.5%
+		                        </li>
+		                    </ul>
+		                </li>
+		                <li class="horse_block" id="horseBlock7">
+		                    <h2 class='horse' id="horseIcon7">d</h2>
+		                    <ul>
+		                        <li class="hMoney" id="hMoney7">
+		                            $00
+		                        </li>
+		                        <li class="hChance" id="hChance7">
+		                            12.5%
+		                        </li>
+		                    </ul>
+		                </li>
+		            </ul>
+					<!-- Horse Panel -->
+
+					<!-- Plaeyer Info -->
+		            <ul id="playerInfoList">
+		                <li >
+		                    <h1>User Name</h1>
+		                </li>
+		                <li >
+		                    <h3><span class="gold">$</span>User Monies</h3>
+		                </li>
+		                <li>
+		                    <h3>Other</h3>
+		                </li>
+		            </ul><!-- Plaeyer Info -->
+
+					<!--
+					^^^^^   NON BOOTSTRAP END            ^^^^^^^^^^^^^^^^
+					-->
+
+	    			<!-- Horse 1 bet area -->
+
 	    	</div>
-	    	
+
 	    	<!-- Animate horses!! -->
 	    	<div class="container textAlignCenter " id="divAnimate">
 	    		<div class="row">
 	    			<h1 id="divAnimateTitle">Bets are in!</h1>
 	    		</div>
 	    	</div>
-	    	
+
 	    	<!-- Animate horses!! -->
 	    	<div class="container textAlignCenter " id="divGameOver">
 	    		<div class="row">
@@ -167,28 +535,28 @@
 	    			<button type="button" class="btn btn-success" id="btnReturnToLobby">Return to Lobby</button>
 	    		</div>
 	    	</div>
-	    	
+
 		</div> <!-- .hudOverlay -->
-	</body>
-	
+
 	<!-- jquery -->
 	<script src="/build/jquery.min.js"></script>
-	
+
 	<!-- Bootstrap -->
 	<script src="/build/bootstrap.min.js"></script>
-	
+
 	<!-- Socket.io, for communicating with node -->
 	<script src="/socket.io/socket.io.js"></script>
-	
+
 	<!-- Three, 3D -->
 	<script src="/build/three.min.js"></script>
 	<script src="/build/tween.min.js"></script>
-	
+
 	<!-- Horsu, communication -->
 	<script src="/game.js"></script>
 	<script src="/communication.js"></script>
 	<script src="/timer.js"></script>
-	
+
+
 	<!-- Horsu, game state -->
 	<script src="/states/stateMachine.js"></script>
 	<script src="/states/titleState.js"></script>
@@ -197,11 +565,17 @@
 	<script src="/states/betState.js"></script>
 	<script src="/states/animateState.js"></script>
 	<script src="/states/gameOverState.js"></script>
-	
+
 	<!-- Horsu, visuals -->
 	<script src="hudDivs.js"></script>
 	<script src="theme.js"></script>
 	<script src="settings.js"></script>
 	<script src="board.js"></script>
 	<script src="main.js"></script>
-</html>	
+
+
+	<!-- Horsu, UI elements -->
+	<script src="ui.js"></script>
+
+	</body>
+</html>
