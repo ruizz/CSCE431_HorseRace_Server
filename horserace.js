@@ -128,6 +128,9 @@ exports.init = function(sio, socket){
         // Havent tested yet
         games[data.gameName].horseBetValues[data.horseNumber] += data.money;
         games[data.gameName].userMoney[data.email][data.horseNumber] += data.money;
-        io.sockets.in(data.gameName).emit(games[data.gameName].horseBetValues);
+        io.sockets.in(data.gameName).emit('updateMoneyOnHorses', {
+            gameName: data.gameName,
+            money: games[data.gameName].horseBetValues
+        });
     });
 };
