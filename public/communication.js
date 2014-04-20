@@ -12,7 +12,7 @@ htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
 htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
 
-// TODO
+// TODO - Temporary for testing
 htmlDocument.on('click', '#btnBet', onBetClick);
 
 // Binding events
@@ -26,7 +26,8 @@ ioSocket.on('animateBoard', onAnimateBoard);
 ioSocket.on('updateHorsePositions', updateHorsePositions);
 ioSocket.on('startGame', startGameNotify);
 ioSocket.on('showError', showError);
-ioSocket.on('withdrawConfirmed', onWithdrawConfirmed)
+ioSocket.on('withdrawConfirmed', onWithdrawConfirmed);
+ioSocket.on('updateMoneyOnHorses', onUpdateMoneyOnHorses);
 
 function onSignInClick() {
     userID = $(txtUserID).val();
@@ -61,6 +62,10 @@ function onWithdrawConfirmed(data) {
         money: data.money,
         gameName: game.gameName
     });
+}
+
+function onUpdateMoneyOnHorses (_horseBetValues) {
+    horseBetValues = _horseBetValues;
 }
 
 // Receiving data for money on horses
