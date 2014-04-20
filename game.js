@@ -1,3 +1,5 @@
+var request = require('request'); 
+
 // Game class object
 var Game = function(gName, sio) {
     this.io = sio;
@@ -51,6 +53,24 @@ Game.prototype.gameOver = function() {
 
     //Disperse Winnings to players
 
+    // Deposit money into the server
+    var res = calculateWinnings();
+    
+    for (uid in res){
+        request.put({
+            uri: 'http://heroku-team-bankin.herokuapp.com/services/account/deposit',
+            json: {email: uid, deposit:res[uid]}
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body);
+            } else {
+                console.log('failed' + body);
+            }
+        })
+    }
+
+    // Notify client
+    this.io.sockets.in(this.gameName).emit('gameOver', res);
 }
 
 Game.prototype.updateTotal = function() {

@@ -28,6 +28,7 @@ ioSocket.on('startGame', startGameNotify);
 ioSocket.on('showError', showError);
 ioSocket.on('withdrawConfirmed', onWithdrawConfirmed);
 ioSocket.on('updateMoneyOnHorses', onUpdateMoneyOnHorses);
+ioSocket.on('gameOver', onGameOver);
 
 function onSignInClick() {
     userID = $(txtUserID).val();
@@ -72,6 +73,14 @@ function onUpdateMoneyOnHorses (_horseBetValues) {
 function onUpdateBets(data) {
     moneyOnHorses = data;
     // TODO: update "ratio"
+}
+
+function onGameOver(data) {
+    if (userID in data){
+        showError('You won $' + data[userID])
+    } else {
+        showError('You lost');
+    }
 }
 
 function onCreateClick() {
