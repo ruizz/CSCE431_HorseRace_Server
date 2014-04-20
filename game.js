@@ -8,15 +8,14 @@ var Game = function(gName, sio) {
     this.targetTime = 0;
     this.intervalID;
     this.started = false;
+    this.winningHorses = new Array(0,0,0);
     this.horsePositions = new Array(0,0,0,0,0,0,0,0);
-    
+    this.moves = this.generateMoves();
+
     // money stuff
     this.horseBetValues = new Array(0,0,0,0,0,0,0,0);
     this.userMoney = {}; // key(userName), value(array of money on horses)
-
     this.totalBets = 0;
-    this.moves = this.generateMoves();
-    
 }
 
 module.exports = Game;
@@ -51,6 +50,15 @@ Game.prototype.gameOver = function() {
     //Disperse Winnings to players
 
 }
+
+Game.prototype.calculateWinnings = function() {
+    divrate = new Array(0,0,0,0,0,0,0,0);
+
+
+    return { "userid" : amountofwinnings, }
+}
+
+
 
 //For some reason I decided to wrap the current time function
 Game.prototype.getNewTime = function() {
@@ -111,6 +119,8 @@ Game.prototype.generateMoves = function() {
     var first = shuffle[0];
     var second = shuffle[1];
     var third = shuffle[2];
+
+    this.winningHorses = [first,second,third];
 
     var firstPlaceMoves = this.createPlaceMoves(1);
     var secondPlaceMoves = this.createPlaceMoves(2);
