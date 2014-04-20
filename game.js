@@ -9,9 +9,14 @@ var Game = function(gName, sio) {
     this.intervalID;
     this.started = false;
     this.horsePositions = new Array(0,0,0,0,0,0,0,0);
+    
+    // money stuff
     this.horseBetValues = new Array(0,0,0,0,0,0,0,0);
+    this.userMoney = {}; // key(userName), value(array of money on horses)
+
     this.totalBets = 0;
     this.moves = this.generateMoves();
+    
 }
 
 module.exports = Game;
@@ -44,11 +49,6 @@ Game.prototype.gameOver = function() {
     //Clean up anything that needs it
 
     //Disperse Winnings to players
-
-}
-
-//Get bets from client and send to bank
-Game.prototype.getBet = function() {
 
 }
 

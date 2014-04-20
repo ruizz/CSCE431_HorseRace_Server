@@ -115,11 +115,19 @@ exports.init = function(sio, socket){
             uri: 'http://heroku-team-bankin.herokuapp.com/services/account/withdraw',
             json: {email: data.email, withdraw:data.withdraw}
         }, function (error, response, body) {
+            console.log(body);
             if (!error && response.statusCode == 200) {
                 socket.emit('withdrawConfirmed', body);
             } else {
                 socket.emit('showError', 'err: Failed to withdraw money');
             }
         })
+    });
+
+    socket.on('betRequest', function (data) {
+        // Havent tested yet
+        games[data.gameName].horseBetValues[data.horseNumber] += data.money;
+        games[data.gameName].userMoney[data.email][data.horseNumber] += data.money;
+        io.sockets.in(data.gameName).emit(games[data.gameName].horseBetValues);
     });
 };

@@ -46,20 +46,21 @@ function onSignedIn (data){
 
 function onBetClick () {
     // TODO: Where we get this value?!
-    var money = 1000; // Total amount money a user bets on the horses.
-
+    var money = 10; // Total amount money a user bets on the horses.
+    userID = 'person3@test.com';
     // Withdraw money
     ioSocket.emit('withdrawMoney', {email: userID, withdraw:money});
 }
 
 function onWithdrawConfirmed(data) {
     var horseNumber = 0;
-
-    ioSockets.emit('betRequest', {
-                                email: userID,
-                                horseNumber: hourseNumber,
-                                 money: data.money
-                             });
+    console.log(data);
+    ioSocket.emit('betRequest', {
+        email: data.userID,
+        horseNumber: horseNumber,
+        money: data.money,
+        gameName: game.gameName
+    });
 }
 
 // Receiving data for money on horses
