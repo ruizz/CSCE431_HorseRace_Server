@@ -10,7 +10,7 @@ exports.init = function(sio, socket){
     socket.emit('connected', { message: 'You are connected!' });
 
     socket.on('signInGame', function(userID) {        
-        request({uri:'http://heroku-team-bankin.herokuapp.com/services/account/get/' + userID, json:'json'} , function (error, response, body) {
+        request({uri:'http://heroku-team-bankin.herokuapp.com/services/account/get/' + userID, json:{}} , function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 socket.emit('signedIn', body);
             } else {
@@ -108,5 +108,18 @@ exports.init = function(sio, socket){
         if (Object.keys(games[data.gameName].players).length <= 0) {
             delete games[data.gameName];
         }
+    });
+
+    socket.on('withdrawMoney', function (data) {
+        request.put({
+            uri: 'http://heroku-team-bankin.herokuapp.com/services/account/withdraw',
+            json: {email: data.email, withdraw:data.withdraw}
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                socket.emit('withdrawConfirmed', body);
+            } else {
+                socket.emit('showError', 'err: Failed to withdraw money');
+            }
+        })
     });
 };
