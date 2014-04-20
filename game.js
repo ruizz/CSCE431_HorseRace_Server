@@ -33,6 +33,8 @@ Game.prototype.enactRound = function() {
 
     //console.log(this.moves);
 
+
+
     //move horses
     //
 
@@ -51,11 +53,41 @@ Game.prototype.gameOver = function() {
 
 }
 
+Game.prototype.updateTotal = function() {
+    this.totalBets = 0;
+    for (i in this.horseBetValues){
+        this.totalBets += i;
+    }
+}
+
+
 Game.prototype.calculateWinnings = function() {
+    var _ = require('underscore');
+
     divrate = new Array(0,0,0,0,0,0,0,0);
 
+    for (var i=0; i < divrate.length; i++) {
+        divrate[i] = this.totalBets/this.horseBetValues[i]/3;
+    }
+    console.log(divrate);
 
-    return { "userid" : amountofwinnings, }
+    // Create blank dictionary where players are keys, set winnings to 0
+    payout = {}
+    for (user in this.players) {
+        payout[user] = 0;
+    }
+    console.log(payout);
+
+    for (user in this.userMoney) {
+        userWinning = 0;
+        for (var i=0; i < 8; i++) {
+            if (_.contains(winningHorses,i)) {
+                userWinning += divrate[i]*userMoney[user][i];
+            }
+        }
+        payout[user] = userWinning;
+    }
+    return payout;
 }
 
 
