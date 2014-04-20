@@ -5,7 +5,12 @@ var TitleState = function() {
 // You would set up the environment here.
 TitleState.prototype.enter = function(stateMachine) {
     // Set up background color
-    renderer.setClearColor(SETTINGS_LIGHT_THEME[4], 1);
+    renderer.setClearColor(THEME_HORSU[2], 1);
+    
+    // Ambient light
+    //scene.remove(ambientLight);
+    //ambientLight = new THREE.AmbientLight(THEME_HORSU[2]);
+    //scene.add(ambientLight);
     
     // Set up camera position and where it should look at.
     camera.position.y = SETTINGS_CAMERA_START_Y;
@@ -27,7 +32,7 @@ TitleState.prototype.enter = function(stateMachine) {
     hudDivs.show({title: ""});
     
     // Clear all text boxes.
-    document.getElementById("txtUserID").value = "";
+    document.getElementById("txtUserID").value = "person1@test.com";
      
 }
 
