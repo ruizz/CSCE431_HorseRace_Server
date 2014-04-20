@@ -1,18 +1,14 @@
 var Board = function() {
-	this.materialRegular = new THREE.MeshPhongMaterial({
-		ambient: THEME_CLAIREDELUNE[2],
-		color: THEME_CLAIREDELUNE[2],
-		specular: THEME_NEUTRAL[2],
-		shininess: 10,
+	this.materialRegular = new THREE.MeshLambertMaterial({
+		ambient: THEME_HORSU[0],
+		color: THEME_HORSU[0],
 		shading: THREE.SmoothShading,
 		
 	});
 	
-	this.materialGoal = new THREE.MeshPhongMaterial({
-		ambient: THEME_WINTER_RASPBERRY[1],
-		color: THEME_WINTER_RASPBERRY[1],
-		specular: THEME_NEUTRAL[2],
-		shininess: 10,
+	this.materialGoal = new THREE.MeshLambertMaterial({
+		ambient: THEME_HORSU[1],
+		color: THEME_HORSU[1],
 		shading: THREE.SmoothShading,
 		
 	});
@@ -59,13 +55,11 @@ Board.prototype.createHorseMeshes = function() {
 		var horse = new THREE.Mesh(
 			horseGeometry, 
 			new THREE.MeshPhongMaterial({
-                ambient: SETTINGS_HORSE_COLOR[this.horseMeshes.length],
+                ambient: THEME_HORSU[0],
                 color: SETTINGS_HORSE_COLOR[this.horseMeshes.length],
-                specular: THEME_NEUTRAL[2],
-                shininess: 10,
                 shading: THREE.SmoothShading,
-                transparent: true,
-                opacity: 1 // Should be 1. Lower for debugging purposes.
+                shininess: 10,
+                specular: THEME_NEUTRAL[1]
 
         	})
 		);

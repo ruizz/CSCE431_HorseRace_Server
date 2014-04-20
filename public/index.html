@@ -22,7 +22,9 @@
 
 			<!-- Title div -->
 			<div class="container textAlignCenter" id="divTitle">
-        		<h1>Horsu Raysu [Replace with logo]</h1>
+        		<div class="row">
+        			<img src="/img/logo.png" class="marginBottom20px"></img>
+        		</div>
         		<p class="lead">Enter your (bank) username to get started.</p>
         		<div class="row">
 					<div class="col-lg-5"></div>
@@ -31,7 +33,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Username" id="txtUserID">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" id="btnSignIn">Login</button>
+								<button class="btn btn-default btn-danger" type="button" id="btnSignIn">Login</button>
 							</span>
 						</div><!-- /input-group -->
 
@@ -45,7 +47,7 @@
 	    	<!-- Lobby Div -->
 	    	<div class="container textAlignCenter" id="divLobby">
 	    		<div class="row">
-	    			<h1>Lobby</h1>
+	    			<h1 class="headerText">Lobby</h1>
 	    		</div>
 	    		<!-- Create game row -->
 	    		<div class="row">
@@ -56,7 +58,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Game name" id="txtCreateGame">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button" id="btnCreateGame">Create</button>
+								<button class="btn btn-default btn-danger" type="button" id="btnCreateGame">Create</button>
 							</span>
 						</div><!-- /input-group -->
 					</div><!-- /.col-lg-4 -->
@@ -81,7 +83,7 @@
 	    	<!-- Waiting for other players -->
 	    	<div class="container textAlignCenter " id="divWaiting">
 	    		<div class="row">
-	    			<h1 id="divWaitingTitle"></h1>
+	    			<h1 id="divWaitingTitle" class="headerText"></h1>
 	    		</div>
 	    		<div class="row">
 	    			<p class="lead">Waiting for other players...</p>
@@ -519,14 +521,14 @@
 	    	<!-- Animate horses!! -->
 	    	<div class="container textAlignCenter " id="divAnimate">
 	    		<div class="row">
-	    			<h1 id="divAnimateTitle">Bets are in!</h1>
+	    			<h1 class="headerText" id="divAnimateTitle">Bets are in!</h1>
 	    		</div>
 	    	</div>
 
 	    	<!-- Animate horses!! -->
 	    	<div class="container textAlignCenter " id="divGameOver">
 	    		<div class="row">
-	    			<h1 id="divAnimateTitle">Game Over</h1>
+	    			<h1 class="headerText" id="divAnimateTitle">Game Over</h1>
 	    		</div>
 	    		<div class="row">
 	    			<p class="lead">Your earnings, blah.</p>

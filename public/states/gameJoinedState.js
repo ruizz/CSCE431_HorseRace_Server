@@ -9,6 +9,9 @@ GameJoinedState.prototype.enter = function(stateMachine) {
     // Show HUD
     hudDivs.show({waiting: ""});
     
+    // Fog
+    scene.fog = new THREE.Fog(THEME_HORSU[2], 100, 100);
+    
     document.getElementById("divWaitingTitle").innerHTML = "Entered game: " + game.gameName;
 }
 

@@ -12,6 +12,9 @@ htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
 htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
 
+// TODO - Temporary for testing
+htmlDocument.on('click', '#btnBet', onBetClick);
+
 // Binding events
 var ioSocket = io.connect();
 ioSocket.on('connected', onConnected);
@@ -23,6 +26,10 @@ ioSocket.on('animateBoard', onAnimateBoard);
 ioSocket.on('updateHorsePositions', updateHorsePositions);
 ioSocket.on('startGame', startGameNotify);
 ioSocket.on('showError', showError);
+ioSocket.on('withdrawConfirmed', onWithdrawConfirmed);
+ioSocket.on('updateUserMoneyOnHorses', onUpdateUserMoneyOnHorses);
+ioSocket.on('updateMoneyOnHorses', onUpdateMoneyOnHorses);
+ioSocket.on('gameOver', onGameOver);
 
 function onSignInClick() {
     userID = $(txtUserID).val();
@@ -38,6 +45,46 @@ function onSignedIn (data){
     console.log(userData.lastname)
     console.log(userData.loginmethod);
     console.log(userData.moneez);
+}
+
+function onBetClick () {
+    // TODO: Where we get this value?!
+    var money = 10; // Total amount money a user bets on the horses.
+    // Withdraw money
+    ioSocket.emit('withdrawMoney', {email: userID, withdraw:money});
+}
+
+function onWithdrawConfirmed(data) {
+    var horseNumber = 0;
+    console.log(data);
+    ioSocket.emit('betRequest', {
+        email: data.userID,
+        horseNumber: horseNumber,
+        money: data.money,
+        gameName: game.gameName
+    });
+}
+
+function onUpdateMoneyOnHorses (_horseBetValues) {
+    game.horseBetValues = _horseBetValues;
+}
+
+function onUpdateUserMoneyOnHorses(_userMoney) {
+    game.userMoney = _userMoney
+}
+
+// Receiving data for money on horses
+function onUpdateBets(data) {
+    moneyOnHorses = data;
+    // TODO: update "ratio"
+}
+
+function onGameOver(data) {
+    if (userID in data){
+        showError('You won $' + data[userID])
+    } else {
+        showError('You lost');
+    }
 }
 
 function onCreateClick() {

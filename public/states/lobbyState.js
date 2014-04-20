@@ -7,6 +7,9 @@ LobbyState.prototype.enter = function(stateMachine) {
     // Show HUD
     hudDivs.show({lobby: ""});
     
+    // Fog
+    scene.fog = new THREE.Fog(THEME_HORSU[2], 1, 50);
+    
     // Clear all text boxes.
     document.getElementById("txtCreateGame").value = "";
     

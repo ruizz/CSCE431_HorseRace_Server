@@ -3,7 +3,9 @@ var Game = function() {
     this.gameName = "";
     this.players = {};
     this.currentRound = 0;
-    this.horsePositions = new Array();
+    this.horsePositions;
+    this.horseBetValues;
+    this.userMoney;
 }
 
 Game.prototype.initializeGame = function(data) {

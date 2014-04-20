@@ -1,15 +1,24 @@
+var request = require('request');
+
 // Game class object
 var Game = function(gName, sio) {
     this.io = sio;
     this.gameName = gName;
+    this.gameReady = true;
     this.players = {};
     this.round = 0;
     this.gameTime = this.getNewTime();
     this.targetTime = 0;
     this.intervalID;
     this.started = false;
-    this.horses = new Array(0,0,0,0,0,0,0,0);
+    this.winningHorses = new Array(0,0,0);
+    this.horsePositions = new Array(0,0,0,0,0,0,0,0);
     this.moves = this.generateMoves();
+
+    // money stuff
+    this.horseBetValues = new Array(0,0,0,0,0,0,0,0);
+    this.userMoney = {}; // key(userName), value(array of money on horses)
+    this.totalBets = 0;
 };
 
 module.exports = Game;
@@ -27,6 +36,8 @@ Game.prototype.enactRound = function() {
 
     //console.log(this.moves);
 
+
+
     //move horses
     //
 
@@ -43,11 +54,61 @@ Game.prototype.gameOver = function() {
 
     //Disperse Winnings to players
 
+    // Deposit money into the server
+    var res = this.calculateWinnings();
+
+    for (uid in res){
+        request.put({
+            uri: 'http://heroku-team-bankin.herokuapp.com/services/account/deposit',
+            json: {email: uid, deposit:res[uid]}
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body);
+            } else {
+                console.log('failed' + body);
+            }
+        })
+    }
+
+    // Notify client
+    this.io.sockets.in(this.gameName).emit('gameOver', res);
 };
 
-//Get bets from client and send to bank
-Game.prototype.getBet = function() {
+Game.prototype.updateTotal = function() {
+    this.totalBets = 0;
+    for (i in this.horseBetValues){
+        this.totalBets += i;
+    }
+}
 
+
+Game.prototype.calculateWinnings = function() {
+    var _ = require('underscore');
+
+    divrate = new Array(0,0,0,0,0,0,0,0);
+
+    for (var i=0; i < divrate.length; i++) {
+        divrate[i] = this.totalBets/this.horseBetValues[i]/3;
+    }
+    // console.log(divrate);
+
+    // Create blank dictionary where players are keys, set winnings to 0
+    payout = {}
+    for (user in this.players) {
+        payout[user] = 0;
+    }
+    // console.log(payout);
+
+    for (user in this.userMoney) {
+        userWinning = 0;
+        for (var i=0; i < 8; i++) {
+            if (_.contains(winningHorses,i)) {
+                userWinning += divrate[i]*this.userMoney[user][i];
+            }
+        }
+        payout[user] = userWinning.toFixed(2);
+    }
+    return payout;
 };
 
 //For some reason I decided to wrap the current time function
@@ -65,10 +126,10 @@ Game.prototype.setTimer = function(currentTime, duration) {
 
 
 Game.prototype.checkTimer = function() {
-    if ((new Date()).getTime() >= this.targetTime) {
-        //Tell the client to start animating after the betting is over
+    if ((new Date).getTime() >= this.targetTime) {
         //Clear the repeating timer check
         clearInterval(this.intervalID);
+
         this.moveHorses();
     }
 };
@@ -76,9 +137,9 @@ Game.prototype.checkTimer = function() {
 //Move horses to their new positions
 Game.prototype.moveHorses = function() {
     for(var i = 0; i < 8; i++) {
-        this.horses[i] += this.moves[i][this.round];
+        this.horsePositions[i] += this.moves[i][this.round];
     }
-    // console.log(this.horses);
+    // console.log(this.horsePositions);
     this.sendPositions();
 
 };
@@ -86,7 +147,8 @@ Game.prototype.moveHorses = function() {
 //Emit to tell clients to move to new positions
 Game.prototype.sendPositions = function() {
     //Pass array to client of update horse positions
-    this.io.sockets.in(this.gameName).emit('updateHorsePositions', this.horses);
+    this.io.sockets.in(this.gameName).emit('updateHorsePositions', this.horsePositions);
+    //Tell the client to start animating now that the betting is over
     this.io.sockets.in(this.gameName).emit('animateBoard');
     // Increment Round count
     if (this.round == 9) {
@@ -109,6 +171,8 @@ Game.prototype.generateMoves = function() {
     var first = shuffle[0];
     var second = shuffle[1];
     var third = shuffle[2];
+
+    this.winningHorses = [first,second,third];
 
     var firstPlaceMoves = this.createPlaceMoves(1);
     var secondPlaceMoves = this.createPlaceMoves(2);
