@@ -27,6 +27,7 @@ ioSocket.on('updateHorsePositions', updateHorsePositions);
 ioSocket.on('startGame', startGameNotify);
 ioSocket.on('showError', showError);
 ioSocket.on('withdrawConfirmed', onWithdrawConfirmed);
+ioSocket.on('updateUserMoneyOnHorses', onUpdateUserMoneyOnHorses);
 ioSocket.on('updateMoneyOnHorses', onUpdateMoneyOnHorses);
 ioSocket.on('gameOver', onGameOver);
 
@@ -49,7 +50,6 @@ function onSignedIn (data){
 function onBetClick () {
     // TODO: Where we get this value?!
     var money = 10; // Total amount money a user bets on the horses.
-    userID = 'person3@test.com';
     // Withdraw money
     ioSocket.emit('withdrawMoney', {email: userID, withdraw:money});
 }
@@ -66,7 +66,11 @@ function onWithdrawConfirmed(data) {
 }
 
 function onUpdateMoneyOnHorses (_horseBetValues) {
-    horseBetValues = _horseBetValues;
+    game.horseBetValues = _horseBetValues;
+}
+
+function onUpdateUserMoneyOnHorses(_userMoney) {
+    game.userMoney = _userMoney
 }
 
 // Receiving data for money on horses

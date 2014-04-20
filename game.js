@@ -1,4 +1,4 @@
-var request = require('request'); 
+var request = require('request');
 
 // Game class object
 var Game = function(gName, sio) {
@@ -35,6 +35,8 @@ Game.prototype.enactRound = function() {
 
     //console.log(this.moves);
 
+
+
     //move horses
     //
 
@@ -53,7 +55,7 @@ Game.prototype.gameOver = function() {
 
     // Deposit money into the server
     var res = calculateWinnings();
-    
+
     for (uid in res){
         request.put({
             uri: 'http://heroku-team-bankin.herokuapp.com/services/account/deposit',
@@ -71,14 +73,73 @@ Game.prototype.gameOver = function() {
     this.io.sockets.in(this.gameName).emit('gameOver', res);
 }
 
-Game.prototype.calculateWinnings = function() {
-    divrate = new Array(0,0,0,0,0,0,0,0);
-
-
-    return { "userid" : amountofwinnings, }
+Game.prototype.updateTotal = function() {
+    this.totalBets = 0;
+    for (i in this.horseBetValues){
+        this.totalBets += i;
+    }
 }
 
+<<<<<<< HEAD
 
+Game.prototype.calculateWinnings = function() {
+    var _ = require('underscore');
+
+    divrate = new Array(0,0,0,0,0,0,0,0);
+
+    for (var i=0; i < divrate.length; i++) {
+        divrate[i] = this.totalBets/this.horseBetValues[i]/3;
+    }
+    console.log(divrate);
+
+    // Create blank dictionary where players are keys, set winnings to 0
+    payout = {}
+    for (user in this.players) {
+        payout[user] = 0;
+    }
+    console.log(payout);
+
+    for (user in this.userMoney) {
+        userWinning = 0;
+        for (var i=0; i < 8; i++) {
+            if (_.contains(winningHorses,i)) {
+                userWinning += divrate[i]*userMoney[user][i];
+            }
+        }
+        payout[user] = userWinning;
+    }
+    return payout;
+}
+=======
+Game.prototype.calculateWinnings = function() {
+    var _ = require('underscore');
+
+    divrate = new Array(0,0,0,0,0,0,0,0);
+
+    for (var i=0; i < divrate.length; i++) {
+        divrate[i] = this.totalBets/this.horseBetValues[i]/3;
+    }
+    // console.log(divrate);
+>>>>>>> FETCH_HEAD
+
+    // Create blank dictionary where players are keys, set winnings to 0
+    payout = {}
+    for (user in this.players) {
+        payout[user] = 0;
+    }
+    // console.log(payout);
+
+    for (user in this.userMoney) {
+        userWinning = 0;
+        for (var i=0; i < 8; i++) {
+            if (_.contains(winningHorses,i)) {
+                userWinning += divrate[i]*this.userMoney[user][i];
+            }
+        }
+        payout[user] = userWinning;
+    }
+    return payout;
+}
 
 //For some reason I decided to wrap the current time function
 Game.prototype.getNewTime = function() {
