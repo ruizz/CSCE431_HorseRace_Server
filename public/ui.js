@@ -44,7 +44,12 @@ Notes on bettinginterface:
 		for(var hi = 0; hi < hCount; hi++){
 
 			hChance[hi] = Math.floor(hMoney[hi] / totalbets * 100);
+			console.log('#hChance' + (hi) + "=  " + hChance[hi] );
+			/*
+			Updating horse chance label on bet button click was nixed.
+			Instead, update after betting round.
 			$('#hChance' + (hi)).html(hChance[hi]);
+			*/
 		}
 
 	};
@@ -73,6 +78,14 @@ Notes on bettinginterface:
 
 		distributeStats();
 	}
+	function clearBet(index){
+		totalbets -= hMoney[index];
+		hMoney[index] = 0;
+
+		$('#hMoneyIncr' + (index)).html(hMoney[index]);
+
+		distributeStats();
+	}
 
 	/* Event Handler Create Methods
 	************************************************/
@@ -86,7 +99,12 @@ Notes on bettinginterface:
 			minusBet(i, betVal);
 		});
 	}
-	function addClickHandler(block, i){
+	function addClearButtonHandler(button, i){
+		button.click(function(){
+			clearBet(i);
+		});
+	}
+	function addHorseBlockClickHandler(block, i){
 		block.click(function(){
 			console.log('block ' + i + " clicked");
 
@@ -122,9 +140,14 @@ Notes on bettinginterface:
 
 		var hBlock = $('#horseBlock' + hi);
 
-		addClickHandler(hBlock, hi);
+		addHorseBlockClickHandler(hBlock, hi);
 		addPlusButtonHandler($('#plusButtonBig' + (hi)), hi, largeBetValue);
 		addMinusButtonHandler($('#minusButtonBig' + (hi)), hi, largeBetValue);
 		addPlusButtonHandler($('#plusButtonSmall' + (hi)), hi, smallBetValue);
 		addMinusButtonHandler($('#minusButtonSmall' + (hi)), hi, smallBetValue);
+		addClearButtonHandler($('#clearButton' + hi), hi);
 	}
+
+
+	/* Clear UI Elements
+	************************************************/
