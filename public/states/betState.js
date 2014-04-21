@@ -7,7 +7,7 @@ var BetState = function() {
 // You would set up the environment here.
 BetState.prototype.enter = function(stateMachine) {
     // Show HUD
-    hudDivs.show({bet: ""});
+    hudDivs.show({bet: "", countdown: ""});
     
     game.currentRound += 1;
     document.getElementById("divBetsRound").innerHTML = game.currentRound;

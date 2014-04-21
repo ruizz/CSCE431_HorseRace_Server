@@ -12,7 +12,7 @@ var AnimateState = function() {
 // You would set up the environment here.
 AnimateState.prototype.enter = function(stateMachine) {
     // Show HUD
-    hudDivs.show({animate: ""});
+    hudDivs.show({animate: "", bet: ""});
     board.changeBoardState(game.horsePositions);
 }
 

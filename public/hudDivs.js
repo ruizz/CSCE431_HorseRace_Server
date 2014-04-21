@@ -6,6 +6,7 @@ var HudDivs = function() {
         lobby: document.getElementById("divLobby"),
         waiting: document.getElementById("divWaiting"),
         bet: document.getElementById("divBets"),
+        countdown: document.getElementById("divCountdown"),
         animate: document.getElementById("divAnimate"),
         gameOver: document.getElementById("divGameOver")
         
