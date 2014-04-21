@@ -151,3 +151,24 @@ Notes on bettinginterface:
 
 	/* Clear UI Elements
 	************************************************/
+    function clearBettingInterface(){
+    	for(var hi = 0; hi < hCount; hi++){
+    		
+    		$('#betInterface' + hi).fadeOut();
+			$('#hMoneyIncr' + hi).html(0);
+    		sendUserBetsToServer(hi);
+
+    		hMoney[hi] = 0;
+			hChance[hi] = 12.5;
+
+    	}
+    	totalbets = 0;
+    }
+
+	/* Send user data to the server
+	************************************************/
+    function sendUserBetsToServer(index){
+    	console.log(hMoney[index]);
+    	console.log(totalbets);
+    	console.log(hChance[index]);
+    }

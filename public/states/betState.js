@@ -29,5 +29,10 @@ BetState.prototype.update = function(stateMachine) {
 // Typically gets called by the state machine when it switches states
 BetState.prototype.exit = function() {
     // Probably free resources or something before you leave.
+
+    // functions in ui.js
+    clearBettingInterface();
+
+
     hudDivs.hideAll();
 }
