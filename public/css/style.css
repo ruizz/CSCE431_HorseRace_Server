@@ -10,24 +10,6 @@
 
 }
 
-/* All Elements */
-* {
-	/*Helps rid of some fullscreen issue.*/
-	/*http://stackoverflow.com/questions/10425310/three-js-full-screen-issue*/
-    overflow:hidden;
-    margin: 0px; padding: 0px; border: 0px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 300;
-
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    color: #774F38;
-    
-}
 @font-face {
   font-family: Horse;
   src: url(DJ_horses_1.ttf) format('truetype');
@@ -38,6 +20,31 @@
     */
 }
 
+/* All Elements */
+* {
+	/*Helps rid of some fullscreen issue.*/
+	/*http://stackoverflow.com/questions/10425310/three-js-full-screen-issue*/
+    overflow:hidden;
+    margin: 0px; padding: 0px; border: 0px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #774F38;
+    
+}
+.list-group-item{
+    cursor:pointer;
+}
+input[type="text"]
+{
+    cursor: text;
+}
 /* Board Elements */
 canvas { 
 	width: 100%;
@@ -155,6 +162,9 @@ h2 {
 
 
     }
+    .horse{
+        cursor: pointer;
+    }
     .horseIcon{
         font-family: Horse;
         display: block;
@@ -177,27 +187,20 @@ h2 {
     #horseList{
         position: absolute;
         float:right;
-        top:auto; bottom: 0; left: 1%;
+        top:auto; bottom: 0;
         height: 27.5%;
         width: 80%;
         font-size:2em;
     }
+        #horseList li, .button{
+            cursor: pointer;
+        }
         #horseList h2{
             font-family: Horse;
             font-size:2.5em;
             display:inline-block;
             width:1.2em;
             text-align: center;
-        }
-        .horse_block{
-            border-radius: 5%;
-            border-right: 3px solid cadetblue;
-            border-bottom: 3px solid cadetblue;
-            padding: 0.5em;
-            display:inline-block;
-            margin-right: 1%;
-            background-color: #F2F2F2;
-            cursor: pointer;
         }
         #horseList li li{
            border:none;
@@ -207,6 +210,15 @@ h2 {
 
         .hMoney:before{
             content:'$';
+        }
+        .horse_block{
+            border-radius: 5%;
+            border-right: 3px solid cadetblue;
+            border-bottom: 3px solid cadetblue;
+            padding: 0.5em;
+            display:inline-block;
+            margin-right: 1%;
+            background-color: #F2F2F2;
         }
         .hChance:after{
             content:'%';
