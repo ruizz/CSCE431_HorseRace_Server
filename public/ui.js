@@ -112,7 +112,7 @@ Notes on bettinginterface:
 
 			bBlock.css({
 				left: Math.floor(block.offset().left),
-				bottom: Math.floor($(window).height() - block.offset().top) + 50 + 'px',
+				bottom: Math.floor($(window).height() - block.offset().top) + 10 + 'px',
 				width: Math.floor(block.outerWidth()),
 				height: block.outerHeight()
 			});

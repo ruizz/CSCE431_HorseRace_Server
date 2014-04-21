@@ -153,7 +153,7 @@ h2 {
     display:inline-block;
     background-color: #F2F2F2;  
     display:none;
-    cursor: pointer !important;    
+    cursor: pointer !important;   
 }
     .horseIconContainer{
         text-align: center;
@@ -191,6 +191,7 @@ h2 {
         height: 27.5%;
         width: 80%;
         font-size:2em;
+        left: 2%;
     }
         #horseList li, .button{
             cursor: pointer;
