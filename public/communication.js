@@ -11,6 +11,7 @@ htmlDocument.on('click', '#btnCreateGame', onCreateClick);
 htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
 htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
+htmlDocument.on('click', '#btnAudioMute', onAudioMuteClick);
 
 var sound = new Howl({ urls: ["audio/Horse_Walker_sprite.mp3", "audio/Horse_Walker_sprite.ogg"], sprite: { 
         horse0: [0, 1418], horse1: [1419, 2786], horse2: [2787, 4082], horse3: [4083, 5268], horse4: [5269, 6602], 
@@ -204,6 +205,10 @@ function updateHorsePositions(horses) {
     sound.play('horse'+Math.floor((Math.random()*8)));    
 }
 
+function onAudioMuteClick() {
+    sound.mute();
+    
+}
 
 function showError(data) {
     console.log('err: ' + data);
