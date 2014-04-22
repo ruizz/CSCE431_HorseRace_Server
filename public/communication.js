@@ -107,6 +107,11 @@ function onGameOver(data) {
     console.log(data[userID]);
     document.getElementById("divEarning").innerHTML = '<p class="lead">Your earnings, $' + data[userID]
     hChance = new Array(0,0,0,0,0,0,0,0);
+    hMoney = new Array(0,0,0,0,0,0,0,0);
+    for(var hi = 0; hi < hCount; hi++){
+        $('#hChance' + (hi)).html(hChance[hi]);
+        $('#hMoney' + (hi)).html(hMoney[hi]);
+    }
 }
 
 function onCreateClick() {
@@ -126,14 +131,6 @@ function onCreateClick() {
 
 function onJoinClick(nameOfGame) {
     var gameName = nameOfGame;
-    
-    for(var hi = 0; hi < 8; hi++){
-        $('#hMoney' + (hi)).html(0);
-    }
-
-    for(var hi = 0; hi < 8; hi++){
-        $('#hChance' + (hi)).html(0);
-    }
 
     if(gameName != "") {
         ioSocket.emit('joinGame', { gameName: gameName, userID: userID });
