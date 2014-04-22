@@ -9,5 +9,8 @@
 		"mocha": "",
 		"should": "",
         "request": ""
+     },
+     "scripts": {
+        "test": "mocha"
      }
 }
