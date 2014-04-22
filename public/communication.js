@@ -128,11 +128,11 @@ function onJoinClick(nameOfGame) {
     var gameName = nameOfGame;
     
     for(var hi = 0; hi < 8; hi++){
-        $('#hChance' + '0');
+        $('#hMoney' + (hi)).html(0);
     }
 
     for(var hi = 0; hi < 8; hi++){
-        $('#hMoney' + '0');
+        $('#hChance' + (hi)).html(0);
     }
 
     if(gameName != "") {
