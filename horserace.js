@@ -54,7 +54,7 @@ exports.init = function(sio, socket){
                 });
 
                 console.log("start 15 second wait timer");
-                games[gameName].setTimer(games[gameName].getNewTime(), 15000);
+                games[gameName].setTimer(games[gameName].getNewTime(), 12000);
                 games[gameName].intervalID = setInterval(checkGamesTimer.bind(games[gameName]),1000);
                 // console.log(games[gameName].intervalID);
                 sendGameList();
