@@ -70,6 +70,73 @@ describe('game.js Tests', function() {
 	});
 });
 
+describe('client tests', function(){
+	
+	it('Should get signInGame message', function(){
+		var io = require('socket.io-client');
+		var client = io.connect('http://localhost:8080');
+		client.once("connect", function() {
+			client.once("signInGame", function (message) {
+				message.should.equal("signedIn");
+				client.disconnect();
+				done();
+			});
+		});
+		client.emit("signInGame", "person4@test.com");
+	});
+
+	it('Should get updateUserInfo message', function(){
+		var io = require('socket.io-client');
+		var client = io.connect('http://localhost:8080');
+		client.once("connect", function() {
+			client.once("updateUserInfo", function (message) {
+				message.should.equal("updateUserInfo");
+				client.disconnect();
+				done();
+			});
+		});
+	});
+
+	it('Should get createNewGame message', function(){
+		var io = require('socket.io-client');
+		var client = io.connect('http://localhost:8080');
+		client.once("connect", function() {
+			client.once("createNewGame", function (message) {
+				message.should.equal("gameJoined");
+				client.disconnect();
+				done();
+			});
+		});
+	});
+
+	it('Should get requestGameList message', function(){
+		var io = require('socket.io-client');
+		var client = io.connect('http://localhost:8080');
+		client.once("connect", function() {
+			client.once("requestGameList", function (message) {
+				message.should.equal("updateGameList");
+				client.disconnect();
+				done();
+			});
+		});
+	});
+
+	it('Should get joinGame message', function(){
+		var io = require('socket.io-client');
+		var client = io.connect('http://localhost:8080');
+		client.once("connect", function() {
+			client.once("joinGame", function (message) {
+				message.should.equal("gameJoined");
+				client.disconnect();
+				done();
+			});
+		});
+	});
+});
+
+
+
+	
 describe('Horserace.js Tests', function(){
 	var sio = socketio.listen(5000);
 	var hr = null;
@@ -79,23 +146,18 @@ describe('Horserace.js Tests', function(){
 	    	hr = horserace.init(sio, socket);
 		});
 	});
-
-	it('Should tell the client it is connected', function(){
-
-	});
-
 });
 
 
-describe('Server.js Tests', function(){
+// describe('Server.js Tests', function(){
 	
-	it('Should accept an incoming http connection and respond', function(){
-		request.get('http://localhost:8080', function(error, response, body) {
-		error.should.not.be.ok;
-		response.statsCode.should.eql(200);
-		});
-	});
+// 	it('Should accept an incoming http connection and respond', function(){
+// 		request.get('http://localhost:8080', function(error, response, body) {
+// 		error.should.not.be.ok;
+// 		response.statsCode.should.eql(200);
+// 		});
+// 	});
 
-});
+// });
 
 
