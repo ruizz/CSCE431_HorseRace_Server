@@ -208,8 +208,10 @@ h2 {
            padding:0;
            display:block;
         }
-
-        .hMoney:before{
+        .hMoney{
+            display: none;
+        }
+        .hChance:before{
             content:'$';
         }
         
