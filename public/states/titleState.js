@@ -34,8 +34,8 @@ TitleState.prototype.enter = function(stateMachine) {
     hudDivs.show({title: ""});
     
     // Clear all text boxes.
-    document.getElementById("txtUserID").value = "person5@test.com";
-     
+    // document.getElementById("txtUserID").value = "person5@test.com";
+    document.getElementById("txtUserID").value = getUrlVars()["email"]; 
 }
 
 // Any update logic would go here. You can also switch
@@ -56,4 +56,13 @@ TitleState.prototype.exit = function() {
         
     hudDivs.hideAll();
 
+}
+
+// http://papermashup.com/read-url-get-variables-withjavascript/
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
 }

@@ -13,6 +13,14 @@ var express = require('express'),
     app.use(express.static(path.join(__dirname,'public')));
 //});
 
+app.use(express.urlencoded());
+
+app.post('/', function(req, res){
+  var email = req.body.email;
+  console.log(email);
+  res.redirect('/?email='+email);
+});
+
 // Create server    
 var server = http.createServer(app).listen(8080);
 var io = socketio.listen(server);
