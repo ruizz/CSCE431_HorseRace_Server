@@ -10,10 +10,19 @@ exports.init = function(sio, socket){
     socket.emit('connected', { message: 'You are connected!' });
 
     socket.on('signInGame', function(userID) {
-
         request({uri:'http://heroku-team-bankin.herokuapp.com/services/account/get/' + userID, json:{}} , function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 socket.emit('signedIn', body);
+            } else {
+                socket.emit('showError', 'err: Please check your user ID');
+            }
+        });
+    });
+
+    socket.on('updateUserInfo', function(userID) {
+        request({uri:'http://heroku-team-bankin.herokuapp.com/services/account/get/' + userID, json:{}} , function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                socket.emit('updateUserInfo', body);
             } else {
                 socket.emit('showError', 'err: Please check your user ID');
             }
@@ -34,7 +43,8 @@ exports.init = function(sio, socket){
             // console.log(games[gameName].players);
             if ( !(userID in (games[gameName].players) )) {
                 games[gameName].players[userID] = socket.id; // User Identifier
-
+                games[gameName].userMoney[userID] = new Array(0,0,0,0,0,0,0,0);
+    
                 // Join a socket group
                 socket.join(gameName);
 
@@ -92,7 +102,7 @@ exports.init = function(sio, socket){
         if (gameName in games)  {
             if ( !(userID in (games[gameName].players) ) && (games[gameName].gameReady == true)) {
                 games[gameName].players[userID] = socket.id;
-
+                games[gameName].userMoney[userID] = new Array(0,0,0,0,0,0,0,0);
                 // Join a socket group
                 socket.join(gameName);
 
@@ -137,18 +147,20 @@ exports.init = function(sio, socket){
         }, function (error, response, body) {
             console.log(body);
             if (!error && response.statusCode == 200) {
-                socket.emit('withdrawConfirmed', body);
+                socket.emit('withdrawConfirmed', body, data.hMoney);
             } else {
                 socket.emit('showError', 'err: Failed to withdraw money');
             }
-        })
+        });
     });
 
     socket.on('betRequest', function (data) {
-        // Havent tested yet
-        games[data.gameName].horseBetValues[data.horseNumber] += data.money;
-        games[data.gameName].userMoney[data.email][data.horseNumber] += data.money;
-        socket.emit('updateUserMoneyOnHorses', game[data.gameName].userMoney[data.email]);
+        for (var i = 0; i < 8; i++){
+            games[data.gameName].horseBetValues[i] += data.hMoney[i];
+            games[data.gameName].userMoney[data.email][i] += data.hMoney[i];
+            console.log(i + ': ' + games[data.gameName].userMoney[data.email][i]);
+        }     
+        socket.emit('updateUserMoneyOnHorses', games[data.gameName].userMoney[data.email]);
         games[data.gameName].updateTotal();
         io.sockets.in(data.gameName).emit('updateMoneyOnHorses', games[data.gameName].horseBetValues);
     });

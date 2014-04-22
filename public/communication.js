@@ -3,6 +3,7 @@ var game = new Game();
 var userID = "";
 var userData;
 var gameList;
+var ghMoney;
 
 // Assigning functions to html buttons
 var htmlDocument = $(document);
@@ -11,9 +12,6 @@ htmlDocument.on('click', '#btnCreateGame', onCreateClick);
 htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
 htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
-
-// TODO - Temporary for testing
-htmlDocument.on('click', '#btnBet', onBetClick);
 
 // Binding events
 var ioSocket = io.connect();
@@ -30,6 +28,7 @@ ioSocket.on('withdrawConfirmed', onWithdrawConfirmed);
 ioSocket.on('updateUserMoneyOnHorses', onUpdateUserMoneyOnHorses);
 ioSocket.on('updateMoneyOnHorses', onUpdateMoneyOnHorses);
 ioSocket.on('gameOver', onGameOver);
+ioSocket.on('updateUserInfo', onUpdateUserInfo);
 
 function onSignInClick() {
     userID = $(txtUserID).val();
@@ -38,37 +37,47 @@ function onSignInClick() {
 
 function onSignedIn (data){
     userData = data;
-    gameStateMachine.changeState(new LobbyState());
     document.getElementById("divUserName").innerHTML = userData.email;
     document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + userData.moneez;
-    console.log(data);
-    console.log(userData.email);
-    console.log(userData.firstname);
-    console.log(userData.lastname)
-    console.log(userData.loginmethod);
-    console.log(userData.moneez);
+    gameStateMachine.changeState(new LobbyState());
+    // console.log(data);
+    // console.log(userData.email);
+    // console.log(userData.firstname);
+    // console.log(userData.lastname)
+    // console.log(userData.loginmethod);
+    // console.log(userData.moneez);
 }
 
-function onBetClick () {
-    // TODO: Where we get this value?!
-    var money = 10; // Total amount money a user bets on the horses.
-    // Withdraw money
-    ioSocket.emit('withdrawMoney', {email: userID, withdraw:money});
+function onUpdateUserInfo (data) {
+    userData = data;
+    document.getElementById("divUserName").innerHTML = userData.email;
+    document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + userData.moneez;
 }
 
-function onWithdrawConfirmed(data) {
-    var horseNumber = 0;
+function onBetClick (_hMoney, totalbets) {
+    if(totalbets > 0) {
+        ioSocket.emit('withdrawMoney', {email: userID, withdraw:totalbets, hMoney:_hMoney});
+    }
+}
+
+function onWithdrawConfirmed(data, _hMoney) {
+    ioSocket.emit('updateUserInfo', userID);
     console.log(data);
+    console.log(_hMoney);
     ioSocket.emit('betRequest', {
-        email: data.userID,
-        horseNumber: horseNumber,
-        money: data.money,
+        email: userID,
+        // horseNumber: horseNumber,
+        hMoney: _hMoney,
         gameName: game.gameName
     });
 }
 
 function onUpdateMoneyOnHorses (_horseBetValues) {
     game.horseBetValues = _horseBetValues;
+    hChance = _horseBetValues;
+    for(var hi = 0; hi < hCount; hi++){
+        $('#hChance' + (hi)).html(hChance[hi]);
+    }
 }
 
 function onUpdateUserMoneyOnHorses(_userMoney) {

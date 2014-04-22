@@ -208,9 +208,9 @@ h2 {
         .hMoney:before{
             content:'$';
         }
-        .hChance:after{
+        /*.hChance:after{
             content:'%';
-        }
+        */}
 
     /*bettingInterface */
     #bettingInterfaceContainer{
