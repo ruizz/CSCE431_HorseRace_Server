@@ -56,7 +56,11 @@ function onUpdateUserInfo (data) {
 
 function onBetClick (_hMoney, totalbets) {
     if(totalbets > 0) {
-        ioSocket.emit('withdrawMoney', {email: userID, withdraw:totalbets, hMoney:_hMoney});
+        if (game.currentRound < 6) {
+            ioSocket.emit('withdrawMoney', {email: userID, withdraw:totalbets, hMoney:_hMoney});
+        } else {
+            showError("Not allowed to bet on horses after 6th round");
+        }
     }
 }
 
