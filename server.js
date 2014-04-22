@@ -4,7 +4,8 @@ var express = require('express'),
     http = require('http'),
     socketio = require('socket.io'),
     path = require('path'),
-    horserace = require('./horserace.js');
+    horserace = require('./horserace.js'),
+    bodyParser = require('body-parser');
 
 // Default path configuration
 // app.configure was removed from express as of version 4.0.0. Just use app.use directly now.
@@ -13,7 +14,7 @@ var express = require('express'),
     app.use(express.static(path.join(__dirname,'public')));
 //});
 
-app.use(express.urlencoded());
+app.use(bodyParser.urlencoded());
 
 app.post('/', function(req, res){
   var email = req.body.email;
