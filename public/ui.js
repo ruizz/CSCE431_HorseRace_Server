@@ -134,7 +134,7 @@ Notes on bettinginterface:
 		// hChance[hi] = 12.5;
 		hChance[hi] = 0;
 
-		// $('#hMoney' + (hi)).html('' + hMoney[hi]);
+		$('#hMoney' + (hi)).html('' + hMoney[hi]);
 		$('#hChance' + (hi)).html(hChance[hi]);
 		$('#horseIcon' + hi).html(SETTINGS_HORSE_SPRITES[hi]);
 		$('#horseIcon' + hi).css('color', SETTINGS_HORSE_HASHCOLOR[hi]);

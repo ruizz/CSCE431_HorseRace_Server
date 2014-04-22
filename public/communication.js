@@ -92,6 +92,9 @@ function onUpdateMoneyOnHorses (_horseBetValues) {
 
 function onUpdateUserMoneyOnHorses(_userMoney) {
     game.userMoney = _userMoney
+    for(var hi = 0; hi < hCount; hi++){
+        $('#hMoney' + (hi)).html(game.userMoney[hi]);
+    }
 }
 
 // Receiving data for money on horses
@@ -124,6 +127,14 @@ function onCreateClick() {
 function onJoinClick(nameOfGame) {
     var gameName = nameOfGame;
     
+    for(var hi = 0; hi < 8; hi++){
+        $('#hChance' + '0');
+    }
+
+    for(var hi = 0; hi < 8; hi++){
+        $('#hMoney' + '0');
+    }
+
     if(gameName != "") {
         ioSocket.emit('joinGame', { gameName: gameName, userID: userID });
     } else {
