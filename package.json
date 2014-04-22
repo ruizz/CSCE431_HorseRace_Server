@@ -10,7 +10,7 @@
 		"should": "",
         "request": "",
         "body-parser": "",
-        "socket.io-client"
+        "socket.io-client" : ""
      },
      "scripts": {
         "test": "mocha"
