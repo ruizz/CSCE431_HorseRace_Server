@@ -24,18 +24,3 @@ io.sockets.on('connection', function (socket) {
     console.log('server.js - io.sockets.on(), client connected');
     horserace.init(io, socket);
 });
-
-app.post('/',function (req,res)
-{
-    if(req.method === "POST") {
-        var data = "";
-
-        req.on("data", function(chunk) {
-            data += chunk;
-        });
-
-        req.on("end", function() {
-            console.log("raw: " + data);                
-        });
-    }
-});

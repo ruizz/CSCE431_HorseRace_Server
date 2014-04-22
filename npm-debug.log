@@ -1,0 +1,68 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'body-pareser' ]
+2 info using npm@1.4.3
+3 info using node@v0.10.26
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 warn package.json horserace_backend@0.0.1 No repository field.
+6 verbose readDependencies using package.json deps
+7 verbose cache add [ 'body-pareser', null ]
+8 verbose cache add name=undefined spec="body-pareser" args=["body-pareser",null]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: 'body-pareser',
+9 verbose parsed url   path: 'body-pareser',
+9 verbose parsed url   href: 'body-pareser' }
+10 silly lockFile 8a15a80e-body-pareser body-pareser
+11 verbose lock body-pareser C:\Users\huapa_000\AppData\Roaming\npm-cache\8a15a80e-body-pareser.lock
+12 silly lockFile 8a15a80e-body-pareser body-pareser
+13 silly lockFile 8a15a80e-body-pareser body-pareser
+14 verbose addNamed [ 'body-pareser', '' ]
+15 verbose addNamed [ null, '*' ]
+16 silly lockFile 0414c269-body-pareser body-pareser@
+17 verbose lock body-pareser@ C:\Users\huapa_000\AppData\Roaming\npm-cache\0414c269-body-pareser.lock
+18 silly addNameRange { name: 'body-pareser', range: '*', hasData: false }
+19 verbose url raw body-pareser
+20 verbose url resolving [ 'https://registry.npmjs.org/', './body-pareser' ]
+21 verbose url resolved https://registry.npmjs.org/body-pareser
+22 info trying registry request attempt 1 at 10:43:33
+23 http GET https://registry.npmjs.org/body-pareser
+24 http 404 https://registry.npmjs.org/body-pareser
+25 silly registry.get cb [ 404,
+25 silly registry.get   { date: 'Tue, 22 Apr 2014 15:43:35 GMT',
+25 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R14B04)',
+25 silly registry.get     'content-type': 'application/json',
+25 silly registry.get     via: '1.1 varnish',
+25 silly registry.get     'cache-control': 'max-age=0',
+25 silly registry.get     'content-length': '52',
+25 silly registry.get     'accept-ranges': 'bytes',
+25 silly registry.get     'x-served-by': 'cache-v41-ASH, cache-c32-CHI',
+25 silly registry.get     'x-cache': 'MISS, MISS',
+25 silly registry.get     'x-cache-hits': '0, 0',
+25 silly registry.get     'x-timer': 'S1398181415.416408300,VS0,VS11,VE20,VE27',
+25 silly registry.get     'keep-alive': 'timeout=10, max=50',
+25 silly registry.get     connection: 'Keep-Alive' } ]
+26 silly lockFile 0414c269-body-pareser body-pareser@
+27 silly lockFile 0414c269-body-pareser body-pareser@
+28 error 404 'body-pareser' is not in the npm registry.
+28 error 404 You should bug the author to publish it
+28 error 404 It was specified as a dependency of 'horserace_backend'
+28 error 404
+28 error 404 Note that you can also install from a
+28 error 404 tarball, folder, or http url, or git url.
+29 error System Windows_NT 6.2.9200
+30 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "body-pareser"
+31 error cwd C:\Users\huapa_000\Documents\GitHub\CSCE431_HorseRace_Server
+32 error node -v v0.10.26
+33 error npm -v 1.4.3
+34 error code E404
+35 verbose exit [ 1, true ]

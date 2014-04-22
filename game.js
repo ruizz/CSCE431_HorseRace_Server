@@ -25,7 +25,7 @@ module.exports = Game;
 
 Game.prototype.enactRound = function() {
     //start timer
-    this.setTimer(this.getNewTime(),15000);
+    this.setTimer(this.getNewTime(),20000);
     this.intervalID = setInterval(this.checkTimer.bind(this),1000);
 
 
@@ -56,11 +56,11 @@ Game.prototype.gameOver = function() {
 
     // Deposit money into the server
     var res = this.calculateWinnings();
-
     for (uid in res){
+        //(if res[uid] > 0)
         request.put({
             uri: 'http://heroku-team-bankin.herokuapp.com/services/account/deposit',
-            json: {email: uid, deposit:res[uid]}
+            json: {email: uid, deposit: res[uid]}
         }, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body);
@@ -102,7 +102,7 @@ Game.prototype.calculateWinnings = function() {
     for (user in this.userMoney) {
         userWinning = 0;
         for (var i=0; i < 8; i++) {
-            if (_.contains(winningHorses,i)) {
+            if (_.contains(this.winningHorses,i)) {
                 userWinning += divrate[i]*this.userMoney[user][i];
             }
         }
@@ -173,6 +173,7 @@ Game.prototype.generateMoves = function() {
     var third = shuffle[2];
 
     this.winningHorses = [first,second,third];
+    console.log('Winners' + this.winningHorses);
 
     var firstPlaceMoves = this.createPlaceMoves(1);
     var secondPlaceMoves = this.createPlaceMoves(2);

@@ -43,8 +43,8 @@ Notes on bettinginterface:
 
 		for(var hi = 0; hi < hCount; hi++){
 
-			hChance[hi] = Math.floor(hMoney[hi] / totalbets * 100);
-			console.log('#hChance' + (hi) + "=  " + hChance[hi] );
+			// hChance[hi] = Math.floor(hMoney[hi] / totalbets * 100);
+			// console.log('#hChance' + (hi) + "=  " + hChance[hi] );
 			/*
 			Updating horse chance label on bet button click was nixed.
 			Instead, update after betting round.
@@ -131,7 +131,8 @@ Notes on bettinginterface:
 	for(var hi = 0; hi < hCount; hi++){
 
 		hMoney[hi] = 0;
-		hChance[hi] = 12.5;
+		// hChance[hi] = 12.5;
+		hChance[hi] = 0;
 
 		$('#hMoney' + (hi)).html('' + hMoney[hi]);
 		$('#hChance' + (hi)).html(hChance[hi]);
@@ -152,14 +153,16 @@ Notes on bettinginterface:
 	/* Clear UI Elements
 	************************************************/
     function clearBettingInterface(){
+    	sendUserBetsToServer();
     	for(var hi = 0; hi < hCount; hi++){
     		
     		$('#betInterface' + hi).fadeOut();
 			$('#hMoneyIncr' + hi).html(0);
-    		sendUserBetsToServer(hi);
+    		// sendUserBetsToServer(hi);
+    		$('#hChance' + (hi)).html(hChance[hi]);
 
     		hMoney[hi] = 0;
-			hChance[hi] = 12.5;
+			// hChance[hi] = 12.5;
 
     	}
     	totalbets = 0;
@@ -167,8 +170,9 @@ Notes on bettinginterface:
 
 	/* Send user data to the server
 	************************************************/
-    function sendUserBetsToServer(index){
-    	console.log(hMoney[index]);
-    	console.log(totalbets);
-    	console.log(hChance[index]);
+    function sendUserBetsToServer(){
+    	// console.log(hMoney[index]);
+    	// console.log(totalbets);
+    	// console.log(hChance[index]);
+    	onBetClick(hMoney, totalbets);
     }

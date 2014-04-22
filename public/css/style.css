@@ -212,6 +212,7 @@ h2 {
         .hMoney:before{
             content:'$';
         }
+        
         .horse_block{
             border-radius: 5%;
             border-right: 3px solid cadetblue;
@@ -222,8 +223,10 @@ h2 {
             background-color: #F2F2F2;
         }
         .hChance:after{
+        /*.hChance:after{
+>>>>>>> 0435beef81d50a29295520e66184317d710debc6
             content:'%';
-        }
+        */}
 
     /*bettingInterface */
     #bettingInterfaceContainer{
