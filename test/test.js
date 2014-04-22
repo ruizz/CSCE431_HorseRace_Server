@@ -72,11 +72,43 @@ describe('game.js Tests', function() {
 
 describe('client tests', function(){
 	
+	it('Should get connectd message', function(){
+		var io = require('socket.io-client');
+		var client = io.connect('http://localhost:8080');
+		
+		client.on('connect', function(data) {
+			client.emit('connected', data);
+		});		
+	});
+
+	it('Should get updateUserInfo message', function(){
+		var io = require('socket.io-client');
+		var client = io.connect('http://localhost:8080');
+		
+		client.on('connect', function(data) {
+			client.emit('updateUserInfo', data);
+		});		
+	});
+
+
+	it('Should get connectd message', function(){
+		var io = require('socket.io-client');
+		var client = io.connect('http://localhost:8080');
+		client.once("connected", function() {
+			client.once("signInGame", function (message) {
+				message.should.equal("signedIn");
+				client.disconnect();
+				done();
+			});
+		});
+		
+	});
+
 	it('Should get signInGame message', function(){
 		var io = require('socket.io-client');
 		var client = io.connect('http://localhost:8080');
 		client.once("connect", function() {
-			client.once("signInGame", function (message) {
+			client.once("signedIn", function (message) {
 				message.should.equal("signedIn");
 				client.disconnect();
 				done();
