@@ -34,7 +34,7 @@ TitleState.prototype.enter = function(stateMachine) {
     hudDivs.show({title: ""});
     
     // Clear all text boxes.
-    document.getElementById("txtUserID").value = "person1@test.com";
+    document.getElementById("txtUserID").value = "person5@test.com";
      
 }
 

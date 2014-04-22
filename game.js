@@ -25,7 +25,7 @@ module.exports = Game;
 
 Game.prototype.enactRound = function() {
     //start timer
-    this.setTimer(this.getNewTime(),20000);
+    this.setTimer(this.getNewTime(), 20000);
     this.intervalID = setInterval(this.checkTimer.bind(this),1000);
 
 
@@ -56,18 +56,25 @@ Game.prototype.gameOver = function() {
 
     // Deposit money into the server
     var res = this.calculateWinnings();
+
+    for (user in res) {
+        console.log('user:' + user);
+        console.log('pou:' + res[user]);
+    }
+
     for (uid in res){
-        //(if res[uid] > 0)
-        request.put({
-            uri: 'http://heroku-team-bankin.herokuapp.com/services/account/deposit',
-            json: {email: uid, deposit: res[uid]}
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body);
-            } else {
-                console.log('failed' + body);
-            }
-        })
+        if (res[uid] > 0){
+            request.put({
+                uri: 'http://heroku-team-bankin.herokuapp.com/services/account/deposit',
+                json: {email: uid, deposit: res[uid]}
+            }, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    console.log('failed' + body);
+                }
+            })
+        }
     }
 
     // Notify client
@@ -76,8 +83,8 @@ Game.prototype.gameOver = function() {
 
 Game.prototype.updateTotal = function() {
     this.totalBets = 0;
-    for (i in this.horseBetValues){
-        this.totalBets += i;
+    for (var idx = 0; idx < 8; idx++){
+        this.totalBets += this.horseBetValues[idx];
     }
 }
 
@@ -87,17 +94,20 @@ Game.prototype.calculateWinnings = function() {
 
     divrate = new Array(0,0,0,0,0,0,0,0);
 
+    // console.log('hvv:' + this.horseBetValues);
+    // console.log('tbb:' + this.totalBets);
+
     for (var i=0; i < divrate.length; i++) {
-        divrate[i] = this.totalBets/this.horseBetValues[i]/3;
+        if(this.horseBetValues[i] != 0)
+            divrate[i] = this.totalBets/this.horseBetValues[i]/3.0;
     }
-    // console.log(divrate);
+    console.log('divrate:' + divrate);
 
     // Create blank dictionary where players are keys, set winnings to 0
     payout = {}
     for (user in this.players) {
         payout[user] = 0;
     }
-    // console.log(payout);
 
     for (user in this.userMoney) {
         userWinning = 0;
@@ -108,6 +118,7 @@ Game.prototype.calculateWinnings = function() {
         }
         payout[user] = userWinning.toFixed(2);
     }
+
     return payout;
 };
 

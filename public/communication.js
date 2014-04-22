@@ -3,7 +3,6 @@ var game = new Game();
 var userID = "";
 var userData;
 var gameList;
-var ghMoney;
 
 // Assigning functions to html buttons
 var htmlDocument = $(document);
@@ -37,6 +36,7 @@ function onSignInClick() {
 
 function onSignedIn (data){
     userData = data;
+    console.log(data);
     document.getElementById("divUserName").innerHTML = userData.email;
     document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + userData.moneez;
     gameStateMachine.changeState(new LobbyState());
@@ -91,11 +91,9 @@ function onUpdateBets(data) {
 }
 
 function onGameOver(data) {
-    if (userID in data){
-        showError('You won $' + data[userID])
-    } else {
-        showError('You lost');
-    }
+    console.log(data[userID]);
+    document.getElementById("divEarning").innerHTML = '<p class="lead">Your earnings, $' + data[userID]
+    hChance = new Array(0,0,0,0,0,0,0,0);
 }
 
 function onCreateClick() {
@@ -126,6 +124,7 @@ function onJoinClick(nameOfGame) {
 
 function onExitClick() {
     ioSocket.emit('exitGame', {gameName: game.gameName, userID: userID});
+    game = new Game();
     gameStateMachine.changeState(new LobbyState());
     
 }
@@ -179,6 +178,8 @@ function updateGameList(data) {
 
 // Return to lobby from game over state
 function onReturnToLobbyClick() {
+    ioSocket.emit('exitGame', {gameName: game.gameName, userID: userID});
+    game = new Game();
     gameStateMachine.changeState(new LobbyState());
     
 }

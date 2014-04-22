@@ -9,9 +9,23 @@ exports.init = function(sio, socket){
     io = sio;
     socket.emit('connected', { message: 'You are connected!' });
 
+    /*
+    request.put({
+            uri: 'http://heroku-team-bankin.herokuapp.com/services/account/deposit',
+            json: {email: 'person5@test.com', deposit: 3000}
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body);
+            } else {
+                console.log('failed' + body);
+            }
+        });
+    */
+
     socket.on('signInGame', function(userID) {
         request({uri:'http://heroku-team-bankin.herokuapp.com/services/account/get/' + userID, json:{}} , function (error, response, body) {
             if (!error && response.statusCode == 200) {
+                console.log(body);
                 socket.emit('signedIn', body);
             } else {
                 socket.emit('showError', 'err: Please check your user ID');
