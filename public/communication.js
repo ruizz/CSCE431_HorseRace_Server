@@ -12,6 +12,11 @@ htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
 htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
 
+var sound = new Howl({ urls: ["audio/Horse_Walker_sprite.mp3", "audio/Horse_Walker_sprite.ogg"], sprite: { 
+        horse0: [0, 1418], horse1: [1419, 2786], horse2: [2787, 4082], horse3: [4083, 5268], horse4: [5269, 6602], 
+        horse5: [6603, 7934], horse6: [7935, 9122], horse7: [7936, 10706]}});
+
+
 // Binding events
 var ioSocket = io.connect();
 ioSocket.on('connected', onConnected);
@@ -196,7 +201,7 @@ function updatePlayerList(players) {
 function updateHorsePositions(horses) {
     console.log('Horse Positions: ' + horses);
     game.horsePositions = horses;
-    
+    sound.play('horse'+Math.floor((Math.random()*8)));    
 }
 
 
