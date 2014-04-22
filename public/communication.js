@@ -39,6 +39,8 @@ function onSignInClick() {
 function onSignedIn (data){
     userData = data;
     gameStateMachine.changeState(new LobbyState());
+    document.getElementById("divUserName").innerHTML = userData.email;
+    document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + userData.moneez;
     console.log(data);
     console.log(userData.email);
     console.log(userData.firstname);
