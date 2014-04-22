@@ -38,7 +38,7 @@ function onSignedIn (data){
     userData = data;
     console.log(data);
     document.getElementById("divUserName").innerHTML = userData.email;
-    document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + userData.moneez;
+    document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + (userData.moneez).toFixed(2);
     gameStateMachine.changeState(new LobbyState());
     // console.log(data);
     // console.log(userData.email);
@@ -51,7 +51,7 @@ function onSignedIn (data){
 function onUpdateUserInfo (data) {
     userData = data;
     document.getElementById("divUserName").innerHTML = userData.email;
-    document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + userData.moneez;
+    document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + (userData.moneez).toFixed(2);
 }
 
 function onBetClick (_hMoney, totalbets) {
