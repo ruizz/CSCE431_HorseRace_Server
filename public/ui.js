@@ -59,7 +59,15 @@ Notes on bettinginterface:
 		hMoney[index] += betVal;
 		totalbets += betVal;
 
+
 		$('#hMoneyIncr' + (index)).html(hMoney[index]);
+		
+		// Animate adding money
+		/*
+		var h = $('#hMoneyIncr' + (index)).offset().top;
+		$('#hMoneyIncr' + (index)).css({top: (h - 10)}, function(){
+			$('#hMoneyIncr' + (index)).animate({ top: h}, 25);
+		});*/
 
 		distributeStats();
 	}
@@ -176,3 +184,15 @@ Notes on bettinginterface:
     	// console.log(hChance[index]);
     	onBetClick(hMoney, totalbets);
     }
+
+
+
+	/* How To Play 
+	************************************************/
+	$('#howToPlayContainer').click(function(){
+		$(this).fadeOut();
+	});
+
+	$('#howToPlayButton').click(function(){
+		$('#howToPlayContainer').fadeIn();
+	});

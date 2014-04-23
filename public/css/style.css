@@ -56,9 +56,7 @@ canvas {
     position: absolute;
     width: 100%;
     height: 100%;
-    
 }
-
 .textAlignLeft {
     text-align: left;
     
@@ -241,7 +239,7 @@ h2 {
             position: absolute;
             font-size:1.5em;
             display:none;
-            z-index: 5;
+            z-index: 2;
 
         }
         .incrValueLabelContainer{
@@ -302,20 +300,50 @@ h2 {
     list-style: none;
     font-size: 1.5em; 
 }   
-#playerName{
-    font-size: 1.5em;
-}
+    #playerName{
+        font-size: 1.5em;
+    }
 
-#playerMoney{
-    
-}
 
-/* colors */
-.gold{
-   color: #f1c40f;
-}
+    /* colors */
+    .gold{
+       color: #f1c40f;
+    }
 
-/* Timer */
-#divBetsTimer{
-    overflow: visible;
+    /* Timer */
+    #divBetsTimer{
+        overflow: visible;
+    }
+
+
+/* How to play */
+#howToPlayContainer{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5)!important;
+    position: fixed; 
+    display:none;
+    z-index: 3;
 }
+    #howToPlayButton{
+        position: fixed;
+        float:right;
+        text-align: center;
+        color: #16a085;
+        top: 5%;
+        right: 2%;
+        z-index: 2;
+        font-size: 3em;
+
+    }
+    .howToPlay{
+        background-color: #f2f2f2;
+        position: absolute;
+        text-align: center;
+        border-radius: 2%;
+        display:block;
+        padding: 2%;
+        width: 50%;
+        top: 20%;
+        left:25%;
+    }

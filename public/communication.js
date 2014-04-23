@@ -114,8 +114,6 @@ function onCreateClick() {
 function onJoinClick(nameOfGame) {
     var gameName = nameOfGame;
     
-<<<<<<< HEAD
-=======
     for(var hi = 0; hi < 8; hi++){
         $('#hMoney' + (hi)).html(0);
     }
@@ -124,7 +122,6 @@ function onJoinClick(nameOfGame) {
         $('#hChance' + (hi)).html(0);
     }
 
->>>>>>> parent of 36be9d1... -
     if(gameName != "") {
         ioSocket.emit('joinGame', { gameName: gameName, userID: userID });
     } else {
