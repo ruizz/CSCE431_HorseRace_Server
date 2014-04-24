@@ -14,7 +14,6 @@ var express = require('express'),
     app.use(express.static(path.join(__dirname,'public')));
 //});
 
-app.use(express.urlencoded());
 app.use(bodyParser.urlencoded());
 
 app.post('/', function(req, res){
