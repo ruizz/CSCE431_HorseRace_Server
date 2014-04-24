@@ -8,7 +8,8 @@
 		"underscore": "",
 		"mocha": "",
 		"should": "",
-        "request": ""
+        "request": "",
+        "body-parser": ""
      },
      "scripts": {
         "test": "mocha"
