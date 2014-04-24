@@ -15,6 +15,7 @@ var express = require('express'),
 //});
 
 app.use(express.urlencoded());
+app.use(bodyParser.urlencoded());
 
 app.post('/', function(req, res){
   var email = req.body.email;
