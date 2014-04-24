@@ -100,14 +100,14 @@ function onCreateClick() {
     var gameName = $(txtCreateGame).val();    
 
     // Checks if gameName is undefined
-    if(gameName != "" && gameList.length < 5 ) {
+    if(gameName != "" && gameList.length < 5) {
         console.log('Game name: ' + gameName);
         console.log('User ID: ' + userID);
         console.log('Clicked "Create a game"');
         ioSocket.emit('createNewGame', { gameName: gameName, userID: userID });
         
     } else
-        showError("err: No gamename");
+        showError("err: No gamename nor too many games on the server" );
             
 }
 
