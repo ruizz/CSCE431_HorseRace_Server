@@ -12,7 +12,7 @@ Game.prototype.initializeGame = function(data) {
 	this.gameName = data.gameName;
 	this.players = data.players;
     this.currentRound = 0;
-    this.horsePositions = new Array();
+    this.horsePositions = new Array(0, 0, 0, 0, 0, 0, 0, 0);
     
 }
 

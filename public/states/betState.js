@@ -21,8 +21,15 @@ BetState.prototype.update = function(stateMachine) {
     if (this.timer != null) {
         var timeRemaining = this.timer.getTimeRemaining();
         document.getElementById("divBetsTimer").innerHTML = timeRemaining;
-        if (timeRemaining == 0)
-            document.getElementById("divBetsTimer").innerHTML = "Waiting for server...";
+        if (timeRemaining == 0) {
+            // DEMO MODE: Update horse positions manually
+            for(var i = 0; i < 8; i++) {
+                game.horsePositions[i] += Math.floor((Math.random() * 3) + 1);
+
+            }
+            onAnimateBoard();
+
+        }
     }
 }
 

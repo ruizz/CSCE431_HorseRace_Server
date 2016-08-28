@@ -119,7 +119,7 @@ Board.prototype.changeBoardState = function(horsePositions) {
 			
 			this.horseTweens[i] = new TWEEN.Tween(this.horseMeshes[i].position)
 			.to(
-				{ x: -SETTINGS_BOARD_MIN_MAX_X + horsePositions[i] * SETTINGS_BOARD_TILE_SPACING },
+				{ x: -SETTINGS_BOARD_MIN_MAX_X + (Math.min(SETTINGS_BOARD_HORSE_MOVE_TOTAL_LIMIT, horsePositions[i])) * SETTINGS_BOARD_TILE_SPACING },
 				SETTINGS_BOARD_HORSE_MOVE_TIME
 				
 			)
@@ -135,10 +135,20 @@ Board.prototype.changeBoardState = function(horsePositions) {
 		}
 		
 		this.horseTweens[i].onComplete(function() {
-			if (game.currentRound < SETTINGS_GAME_ROUNDS)
-				gameStateMachine.changeState(new BetState());
-			else
+			var finishCount = 0;
+			for (var i = 0; i < horsePositions.length; i++) {
+				if (horsePositions[i] >= SETTINGS_BOARD_HORSE_MOVE_TOTAL_LIMIT) {
+					finishCount += 1;
+
+				}
+
+			}
+			var roundLimitExceeded = game.currentRound >= SETTINGS_GAME_ROUNDS;
+
+			if (finishCount >= 3 || roundLimitExceeded)
 				gameStateMachine.changeState(new GameOverState());
+			else
+				gameStateMachine.changeState(new BetState());
 		});
 		
 		this.horseTweens[0].start();
