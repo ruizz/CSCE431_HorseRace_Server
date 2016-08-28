@@ -33,9 +33,6 @@ TitleState.prototype.enter = function(stateMachine) {
     // Show title HUD
     hudDivs.show({title: ""});
     
-    // Clear all text boxes.
-    // document.getElementById("txtUserID").value = "person5@test.com";
-    document.getElementById("txtUserID").value = getUrlVars()["email"]; 
 }
 
 // Any update logic would go here. You can also switch

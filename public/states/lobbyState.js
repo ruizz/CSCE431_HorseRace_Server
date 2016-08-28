@@ -10,14 +10,11 @@ LobbyState.prototype.enter = function(stateMachine) {
     // Fog
     scene.fog = new THREE.Fog(THEME_HORSU[2], 1, 50);
     
-    // Clear all text boxes.
-    document.getElementById("txtCreateGame").value = "";
-    
     // Reset horse positions.
     board.reset();
     
-    // update game list
-    ioSocket.emit('requestGameList');
+    // DEMO MODE: Do not clear all text boxes or update game list.
+    
 }
 
 // Any update logic would go here. You can also switch

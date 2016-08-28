@@ -14,6 +14,15 @@ htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
 
 function onSignInClick() {
     userID = $(txtUserID).val();
+    
+    // DEMO MODE
+    var userData = new Array();
+    userData.email = "demomode@horsuraysu.com";
+    userData.firstname = "Demo";
+    userData.lastname = "Mode";
+    userData.loginmethod = "??";
+    userData.moneez = "1000";
+    onSignedIn(userData);
 }
 
 function onSignedIn (data){
@@ -22,12 +31,7 @@ function onSignedIn (data){
     document.getElementById("divUserName").innerHTML = userData.email;
     document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + userData.moneez;
     gameStateMachine.changeState(new LobbyState());
-    // console.log(data);
-    // console.log(userData.email);
-    // console.log(userData.firstname);
-    // console.log(userData.lastname)
-    // console.log(userData.loginmethod);
-    // console.log(userData.moneez);
+    
 }
 
 function onUpdateUserInfo (data) {
@@ -76,14 +80,20 @@ function onCreateClick() {
     var gameName = $(txtCreateGame).val();    
 
     // Checks if gameName is undefined
-    if(gameName != "" && gameList.length < 5) {
+    if(gameName != "") {
         console.log('Game name: ' + gameName);
         console.log('User ID: ' + userID);
         console.log('Clicked "Create a game"');
         
     } else
         showError("err: No gamename nor too many games on the server" );
-            
+         
+    // DEMO MODE: Join game
+    var gameData = new Array();
+    gameData.gameName = "Demo Game";
+    gameData.players = 1;
+    onGameJoined(gameData);
+       
 }
 
 function onJoinClick(nameOfGame) {
