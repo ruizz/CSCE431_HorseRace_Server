@@ -12,26 +12,8 @@ htmlDocument.on('click', '#btnJoinGame', onJoinClick);
 htmlDocument.on('click', '#btnExitGame', onExitClick);
 htmlDocument.on('click', '#btnReturnToLobby', onReturnToLobbyClick);
 
-// Binding events
-var ioSocket = io.connect();
-ioSocket.on('connected', onConnected);
-ioSocket.on('signedIn', onSignedIn);
-ioSocket.on('gameJoined', onGameJoined);
-ioSocket.on('updateGameList', updateGameList);
-ioSocket.on('updatePlayerList', updatePlayerList);
-ioSocket.on('animateBoard', onAnimateBoard);
-ioSocket.on('updateHorsePositions', updateHorsePositions);
-ioSocket.on('startGame', startGameNotify);
-ioSocket.on('showError', showError);
-ioSocket.on('withdrawConfirmed', onWithdrawConfirmed);
-ioSocket.on('updateUserMoneyOnHorses', onUpdateUserMoneyOnHorses);
-ioSocket.on('updateMoneyOnHorses', onUpdateMoneyOnHorses);
-ioSocket.on('gameOver', onGameOver);
-ioSocket.on('updateUserInfo', onUpdateUserInfo);
-
 function onSignInClick() {
     userID = $(txtUserID).val();
-    ioSocket.emit('signInGame', userID);
 }
 
 function onSignedIn (data){
@@ -56,20 +38,14 @@ function onUpdateUserInfo (data) {
 
 function onBetClick (_hMoney, totalbets) {
     if(totalbets > 0) {
-        ioSocket.emit('withdrawMoney', {email: userID, withdraw:totalbets, hMoney:_hMoney});
+        
     }
 }
 
 function onWithdrawConfirmed(data, _hMoney) {
-    ioSocket.emit('updateUserInfo', userID);
     console.log(data);
     console.log(_hMoney);
-    ioSocket.emit('betRequest', {
-        email: userID,
-        // horseNumber: horseNumber,
-        hMoney: _hMoney,
-        gameName: game.gameName
-    });
+
 }
 
 function onUpdateMoneyOnHorses (_horseBetValues) {
@@ -104,7 +80,6 @@ function onCreateClick() {
         console.log('Game name: ' + gameName);
         console.log('User ID: ' + userID);
         console.log('Clicked "Create a game"');
-        ioSocket.emit('createNewGame', { gameName: gameName, userID: userID });
         
     } else
         showError("err: No gamename nor too many games on the server" );
@@ -123,7 +98,7 @@ function onJoinClick(nameOfGame) {
     }
 
     if(gameName != "") {
-        ioSocket.emit('joinGame', { gameName: gameName, userID: userID });
+        
     } else {
         showError("err: No gamename");
     }
@@ -131,7 +106,6 @@ function onJoinClick(nameOfGame) {
 }
 
 function onExitClick() {
-    ioSocket.emit('exitGame', {gameName: game.gameName, userID: userID});
     game = new Game();
     gameStateMachine.changeState(new LobbyState());
     
@@ -186,7 +160,6 @@ function updateGameList(data) {
 
 // Return to lobby from game over state
 function onReturnToLobbyClick() {
-    ioSocket.emit('exitGame', {gameName: game.gameName, userID: userID});
     game = new Game();
     gameStateMachine.changeState(new LobbyState());
     
