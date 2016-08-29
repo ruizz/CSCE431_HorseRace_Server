@@ -34,40 +34,10 @@ function onSignedIn (data){
     
 }
 
-function onUpdateUserInfo (data) {
-    userData = data;
-    document.getElementById("divUserName").innerHTML = userData.email;
-    document.getElementById("divGMonies").innerHTML = '<span class="gold">$</span>' + userData.moneez;
-}
-
 function onBetClick (_hMoney, totalbets) {
     if(totalbets > 0) {
         
     }
-}
-
-function onWithdrawConfirmed(data, _hMoney) {
-    console.log(data);
-    console.log(_hMoney);
-
-}
-
-function onUpdateMoneyOnHorses (_horseBetValues) {
-    game.horseBetValues = _horseBetValues;
-    hChance = _horseBetValues;
-    for(var hi = 0; hi < hCount; hi++){
-        $('#hChance' + (hi)).html(hChance[hi]);
-    }
-}
-
-function onUpdateUserMoneyOnHorses(_userMoney) {
-    game.userMoney = _userMoney
-}
-
-// Receiving data for money on horses
-function onUpdateBets(data) {
-    moneyOnHorses = data;
-    // TODO: update "ratio"
 }
 
 function onGameOver(data) {
@@ -121,11 +91,6 @@ function onExitClick() {
     
 }
 
-function onConnected(data) {
-    console.log("   msg: " + data.message);
-    
-}
-
 function onGameJoined(data) {
     game.initializeGame(data);
     gameStateMachine.changeState(new GameJoinedState());
@@ -141,33 +106,6 @@ function startGameNotify() {
     gameStateMachine.changeState(new BetState());
 }
 
-// This function is called after creating a new game
-// data has two variables gameName & users(number of users in the game)
-function updateGameList(data) {
-    gameList = data;
-    
-    for (i in gameList){
-        console.log(data[i].gameName + ", " + data[i].users); 
-    }
-    
-    // Parse some new HTML Code if there are games available.
-    var listContent = "";
-
-    if (gameList.length >= 1) {
-        for (var i = 0; i < gameList.length; i++) {
-            console.log(gameList[i].gameName);
-            listContent += "<a href=\"#\" class=\"list-group-item\" ";
-            listContent += "onclick=\"onJoinClick('" + gameList[i].gameName + "');return false;\">";
-            listContent += "<span class=\"badge\">" + gameList[i].users + "</span>" + gameList[i].gameName + "</a>";
-        }
-    } else {
-        listContent += "<a href=\"#\" class=\"list-group-item\">";
-        listContent += "<span class=\"badge\">0</span>No games available...</a>";
-    } 
-    
-    document.getElementById("divLobbyList").innerHTML = listContent;
-}
-
 // Return to lobby from game over state
 function onReturnToLobbyClick() {
     game = new Game();
@@ -177,12 +115,6 @@ function onReturnToLobbyClick() {
 
 function updatePlayerList(players) {
     game.updatePlayerList(players);
-    
-}
-
-function updateHorsePositions(horses) {
-    console.log('Horse Positions: ' + horses);
-    game.horsePositions = horses;
     
 }
 
